@@ -1,0 +1,1 @@
+export { getPatientsByAffiliation } from './patient';

@@ -1,0 +1,71 @@
+export const en = {
+	notifications: {
+		title: 'Notifications',
+		userLabel: 'User:',
+		loadingText: 'Loading notifications...',
+		errorMessage: 'Failed to load notifications. Please try again.',
+		notificationLabels: {
+			id: 'ID:',
+			affiliation: 'Affiliation:',
+			user: 'User:',
+		},
+		empty: {
+			title: 'No notifications',
+			description: 'No notifications found to display.',
+		},
+	},
+	components: {
+		notificationList: {
+			noNotifications: 'No notifications',
+			noFilteredNotifications: 'No notifications found with the selected filters',
+			showAllNotifications: 'Show all notifications',
+			viewProfile: 'View profile',
+			schedule: 'Schedule',
+		},
+		notificationListItem: {
+			complete: 'Complete',
+			completedBy: 'Completed by {name} on {date}',
+			completed: 'Completed',
+		},
+		rightSidebar: {
+			advancedFilters: 'ADVANCED FILTERS',
+			date: 'Date',
+			filterByRut: 'Filter by RUT',
+			clearFilters: 'Clear filters',
+			quickFilters: 'QUICK FILTERS',
+			pending: 'Pending',
+			lastWeek: 'Last week',
+			byType: 'BY TYPE',
+			urgent: 'Urgent',
+			important: 'Important',
+			reminder: 'Reminder',
+			normal: 'Normal',
+			requests: 'Requests',
+		},
+		notificationFilters: {
+			filters: 'Filters',
+			filterByDate: 'Filter by date',
+			filterByType: 'Filter by type',
+			selectType: 'Select type',
+			allTypes: 'All types',
+			urgent: 'Urgent',
+			important: 'Important',
+			informative: 'Informative',
+			reminder: 'Reminder',
+			request: 'Request',
+			control: 'Control',
+			suggestion: 'Suggestion',
+			showPendingOnly: 'Show pending only',
+			filterByRut: 'Filter by RUT',
+			clearFilters: 'Clear filters',
+		},
+		leftSidebar: {
+			quickActions: 'QUICK ACTIONS',
+			scheduleAppointment: 'Schedule appointment',
+			addPatient: 'Add patient',
+			searchPatient: 'Search patient',
+		},
+	},
+};
+
+export type AppLanguages = typeof en;

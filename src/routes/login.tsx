@@ -1,0 +1,119 @@
+import { createFileRoute } from '@tanstack/react-router';
+import { useSelector } from 'react-redux';
+import { selectLang } from '@/redux/settings/settings.slice';
+import { langs } from '@/modules/login/lang/index';
+import { PatientForm } from '@/modules/login/components/PatientForm';
+import { User, UserCog } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { AlertTriangle } from 'lucide-react';
+import { UserForm } from '@/modules/login/components/UserForm';
+import { useState } from 'react';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+export const Route = createFileRoute('/login')({
+	component: RouteComponent,
+});
+
+function RouteComponent() {
+	const lang = useSelector(selectLang);
+	const [userType, setUserType] = useState('patient');
+
+	return (
+		<main
+			className='container mx-auto max-w-xl 
+            flex flex-col justify-center py-[12vh]'
+		>
+			<div
+				className='rounded-2xl shadow-xl 
+                    bg-white dark:bg-gray-900 
+                    border border-gray-200 dark:border-gray-700'
+			>
+				<div className='p-6'>
+					<h2
+						className='text-3xl font-bold text-center mb-6 
+                            text-gray-800 dark:text-white'
+					>
+						{langs[lang].userForm.title}
+					</h2>
+
+					<div className='space-y-6'>
+						{/* <RadioGroup
+							value={userType}
+							onValueChange={(value) => {
+								setUserType(value);
+							}}
+							className='grid grid-cols-2 gap-4'
+						>
+							<div>
+								<RadioGroupItem value='patient' id='patient' className='peer sr-only' />
+								<Label
+									htmlFor='patient'
+									className='flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary'
+								>
+									<User className='mb-3 h-6 w-6' />
+									{langs[lang].login.patientLabel}
+								</Label>
+							</div>
+							<div>
+								<RadioGroupItem value='user' id='user' className='peer sr-only' />
+								<Label
+									htmlFor='user'
+									className='flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary'
+								>
+									<UserCog className='mb-3 h-6 w-6' />
+									{langs[lang].login.userLabel}
+								</Label>
+							</div>
+                        </RadioGroup> */}
+
+						<Tabs
+							defaultValue='patient'
+							className='w-full'
+							onValueChange={(value) => setUserType(value as 'patient' | 'personal')}
+						>
+							<TabsList
+								className='grid w-full grid-cols-2 rounded-lg mb-5 
+                                    pb-11
+                                    bg-gray-100 dark:bg-gray-800 '
+							>
+								<TabsTrigger
+									value='patient'
+									className='rounded-md py-2 text-md
+                                    data-[state=active]:bg-blue-500 
+                                    dark:data-[state=active]:bg-blue-500 
+                                    data-[state=active]:text-white 
+                                    data-[state=active]:shadow-sm'
+								>
+									<User className='mr-2' />
+									{langs[lang].userForm.patientLabel}
+								</TabsTrigger>
+								<TabsTrigger
+									value='personal'
+									className='rounded-md text-md
+                                data-[state=active]:bg-cyan-500 
+                                dark:data-[state=active]:bg-cyan-500
+                                data-[state=active]:text-white 
+                                data-[state=active]:shadow-sm'
+								>
+									<UserCog className='mr-2' />
+									{langs[lang].userForm.userLabel}
+								</TabsTrigger>
+							</TabsList>
+						</Tabs>
+
+						{userType === 'patient' ? <PatientForm /> : <UserForm />}
+					</div>
+				</div>
+			</div>
+			{userType === 'patient' && (
+				<Alert className='mt-4 border-amber-200 bg-amber-50 dark:border-amber-900 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300'>
+					<AlertTriangle className='h-4 w-4' />
+					<AlertDescription>
+						Se recomienda llenar el formulario con asistencia de una persona de
+						confianza que esté comprometida con su salud.
+					</AlertDescription>
+				</Alert>
+			)}
+		</main>
+	);
+}
