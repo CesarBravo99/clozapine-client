@@ -9,11 +9,20 @@ interface PrescriptionsContextType {
 	filteredPrescriptions: PrescriptionTableData[];
 	loading: boolean;
 	error: string | null;
+	selectedPrescription: PrescriptionTableData | null;
+	isDetailDialogOpen: boolean;
+	isDialogActionLoading: boolean;
+	activeDialogAction: 'cancel' | 'renew' | null;
+	dialogActionError: string | null;
 
 	// Actions
 	setStatusFilter: (status: string) => void;
 	handleAddPrescription: () => void;
 	handleRefresh: () => void;
+	openPrescriptionDetail: (prescription: PrescriptionTableData) => void;
+	closePrescriptionDetail: () => void;
+	cancelPrescription: () => Promise<void>;
+	renewPrescription: () => Promise<void>;
 }
 
 const PrescriptionsContext = createContext<PrescriptionsContextType | undefined>(undefined);
@@ -36,6 +45,18 @@ export function PrescriptionsProvider({
 	const [statusFilter, setStatusFilter] = useState<string>('all');
 	const [prescriptions, setPrescriptions] =
 		useState<PrescriptionTableData[]>(initialPrescriptions);
+	const [selectedPrescription, setSelectedPrescription] =
+		useState<PrescriptionTableData | null>(null);
+	const [isDetailDialogOpen, setDetailDialogOpen] = useState(false);
+	const [dialogActionState, setDialogActionState] = useState<{
+		loading: boolean;
+		action: 'cancel' | 'renew' | null;
+		error: string | null;
+	}>({
+		loading: false,
+		action: null,
+		error: null,
+	});
 
 	// Update prescriptions when initialPrescriptions changes
 	useEffect(() => {
@@ -57,6 +78,64 @@ export function PrescriptionsProvider({
 		}
 	};
 
+	const openPrescriptionDetail = (prescription: PrescriptionTableData) => {
+		setSelectedPrescription(prescription);
+		setDetailDialogOpen(true);
+		setDialogActionState({
+			loading: false,
+			action: null,
+			error: null,
+		});
+	};
+
+	const closePrescriptionDetail = () => {
+		setDetailDialogOpen(false);
+		setSelectedPrescription(null);
+		setDialogActionState({
+			loading: false,
+			action: null,
+			error: null,
+		});
+	};
+
+	const performDialogAction = async (action: 'cancel' | 'renew') => {
+		if (!selectedPrescription) {
+			return;
+		}
+
+		setDialogActionState({
+			loading: true,
+			action,
+			error: null,
+		});
+
+		try {
+			// TODO: Integrate actual API call
+			await new Promise((resolve) => setTimeout(resolve, 600));
+			console.log(
+				`[Prescriptions] ${action} prescription ${selectedPrescription.prescriptionId}`
+			);
+		} catch (error) {
+			const message =
+				error instanceof Error ? error.message : 'Unexpected error while processing action';
+			setDialogActionState({
+				loading: false,
+				action: null,
+				error: message,
+			});
+			return;
+		}
+
+		setDialogActionState({
+			loading: false,
+			action: null,
+			error: null,
+		});
+	};
+
+	const cancelPrescription = () => performDialogAction('cancel');
+	const renewPrescription = () => performDialogAction('renew');
+
 	const value: PrescriptionsContextType = {
 		// State
 		statusFilter,
@@ -64,11 +143,20 @@ export function PrescriptionsProvider({
 		filteredPrescriptions,
 		loading,
 		error,
+		selectedPrescription,
+		isDetailDialogOpen,
+		isDialogActionLoading: dialogActionState.loading,
+		activeDialogAction: dialogActionState.action,
+		dialogActionError: dialogActionState.error,
 
 		// Actions
 		setStatusFilter,
 		handleAddPrescription,
 		handleRefresh,
+		openPrescriptionDetail,
+		closePrescriptionDetail,
+		cancelPrescription,
+		renewPrescription,
 	};
 
 	return <PrescriptionsContext.Provider value={value}>{children}</PrescriptionsContext.Provider>;

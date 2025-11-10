@@ -53,4 +53,34 @@ export const es: PrescriptionsLanguages = {
 			applyFilters: 'Aplicar filtros',
 		},
 	},
+	dialogs: {
+		detail: {
+			title: 'Detalles de la prescripción',
+			subtitle: 'Revise la prescripción antes de tomar una acción.',
+			sections: {
+				patient: 'Información del paciente',
+			},
+			labels: {
+				patientRut: 'RUT',
+				medication: 'Medicamento',
+				status: 'Estado',
+				dosage: 'Dosis',
+				schedule: 'Frecuencia',
+				duration: 'Duración',
+				route: 'Vía de administración',
+				date: 'Fecha de prescripción',
+				clinicalRecord: 'Ficha clínica',
+				notes: 'Notas',
+				noNotes: 'Sin notas registradas',
+				notAvailable: 'No disponible',
+			},
+			errorPrefix: 'No se pudo completar la acción',
+			buttons: {
+				cancel: 'Cancelar prescripción',
+				canceling: 'Cancelando…',
+				renew: 'Renovar prescripción',
+				renewing: 'Renovando…',
+			},
+		},
+	},
 };

@@ -11,6 +11,7 @@ import { usePrescriptions } from '@/modules/prescriptions/hooks/usePrescriptions
 import { useSelector } from 'react-redux';
 import { selectLang } from '@/redux/settings/settings.slice';
 import { langs } from '@/modules/prescriptions/lang';
+import { PrescriptionDetailDialog } from '@/modules/prescriptions/dialog';
 
 export const Route = createFileRoute('/prescriptions')({
 	component: RouteComponent,
@@ -204,6 +205,7 @@ function PrescriptionsContent({ userRut }: { userRut: number | null }) {
 					</main>
 				</div>
 			</div>
+			<PrescriptionDetailDialog />
 		</div>
 	);
 }

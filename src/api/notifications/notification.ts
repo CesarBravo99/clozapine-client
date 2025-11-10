@@ -48,3 +48,26 @@ export const getNotificationsByUser = async (
 		throw error;
 	}
 };
+
+export interface CompleteNotificationPayload {
+	notificationId: string;
+	completedBy: number;
+	notes?: string;
+}
+
+export const completeNotification = async (
+	payload: CompleteNotificationPayload,
+	axiosClient: AxiosInstance
+): Promise<Notification> => {
+	try {
+		const response = await axiosClient.post<Notification>(
+			`api/v1/notifications/complete`,
+			payload
+		);
+
+		return response.data;
+	} catch (error) {
+		console.error('❌ Error completing notification:', error);
+		throw error;
+	}
+};

@@ -1,6 +1,72 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
-import type { Notification } from '@/domain/notification.types';
+import {
+	createContext,
+	useContext,
+	useEffect,
+	useMemo,
+	useState,
+	useCallback,
+	type ReactNode,
+} from 'react';
+import type { Notification, NotificationMetadata } from '@/domain/notification.types';
 import { useMediaQuery } from '@/hooks/use-media-query';
+import type { PatientTableData } from '@/api/patients/types/patient.types';
+import type { Affiliation } from '@/domain/affiliation/affiliation.types';
+import {
+	sortNotificationsByDateAndPriority,
+	completeNotification as completeNotificationApi,
+} from '@/api/notifications';
+import axiosClient from '@/api/axiosClient';
+import { NotificationType } from '@/domain/notification.types';
+
+const TYPE_KEY_TO_VALUE: Record<string, NotificationType> = {
+	urgente: NotificationType.Urgency,
+	importante: NotificationType.Important,
+	recordatorio: NotificationType.Suggestion,
+	normal: NotificationType.Normal,
+	solicitud: NotificationType.Request,
+};
+
+const DEFAULT_METADATA: NotificationMetadata = {
+	taskCompleted: false,
+	completedBy: null,
+	completedAt: null,
+	details: {
+		affiliationRequest: false,
+		newAffiliationId: null,
+		oldAffiliationId: null,
+	},
+};
+
+const ensureMetadata = (metadata?: NotificationMetadata): NotificationMetadata => {
+	if (!metadata) {
+		return DEFAULT_METADATA;
+	}
+
+	return {
+		taskCompleted: metadata.taskCompleted ?? false,
+		completedBy: metadata.completedBy ?? null,
+		completedAt: metadata.completedAt ?? null,
+		details: metadata.details ?? DEFAULT_METADATA.details,
+	};
+};
+
+const formatRut = (rut: number | null | undefined): string | null => {
+	if (!rut) return null;
+
+	const rutString = String(rut);
+	if (rutString.length <= 1) return rutString;
+
+	return `${rutString.slice(0, -1)}-${rutString.slice(-1)}`;
+};
+
+export interface NotificationPatientSummary {
+	patientRut: number;
+	fullName: string | null;
+	lastControl?: string | null;
+	state?: string | null;
+	rutFormatted: string | null;
+	raw?: PatientTableData;
+}
 
 interface NotificationContextType {
 	// Filter state
@@ -17,7 +83,10 @@ interface NotificationContextType {
 
 	// Notifications data
 	notifications: Notification[];
+	setNotifications: (notifications: Notification[]) => void;
 	filteredNotifications: Notification[];
+	pendingCount: number;
+	notificationPatients: Record<number, NotificationPatientSummary>;
 
 	// UI state
 	sidebarCollapsed: boolean;
@@ -28,15 +97,37 @@ interface NotificationContextType {
 	resetFilters: () => void;
 	handleRutChange: (value: string) => void;
 
+	// Dialog state
+	selectedNotification: Notification | null;
+	setSelectedNotification: (notification: Notification | null) => void;
+	isNotificationDetailOpen: boolean;
+	setNotificationDetailOpen: (open: boolean) => void;
+
+	selectedPatient: NotificationPatientSummary | null;
+	setSelectedPatient: (patient: NotificationPatientSummary | null) => void;
+	isPatientDetailOpen: boolean;
+	setPatientDetailOpen: (open: boolean) => void;
+
+	isAddAppointmentOpen: boolean;
+	setAddAppointmentOpen: (open: boolean) => void;
+
+	isAddPatientOpen: boolean;
+	setAddPatientOpen: (open: boolean) => void;
+
 	// Notification actions
 	handleViewNotificationDetails: (notification: Notification) => void;
 	handleViewPatientDetails: (patientRut: number, patientName?: string) => void;
-	completeNotification: (id: number, notes?: string) => void;
+	completeNotification: (id: string, notes?: string) => Promise<void>;
 	openAddEventDialog: (patientRut?: number) => void;
 
 	// Left sidebar actions
 	handleAddPatient: () => void;
 	handleSearchPatient: () => void;
+
+	// External data
+	patients: NotificationPatientSummary[];
+	resolvePatientSummary: (notification: Notification) => NotificationPatientSummary | null;
+	affiliations: Affiliation[];
 }
 
 const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
@@ -44,9 +135,18 @@ const NotificationContext = createContext<NotificationContextType | undefined>(u
 interface NotificationProviderProps {
 	children: ReactNode;
 	notifications: Notification[];
+	patients?: PatientTableData[];
+	affiliations?: Affiliation[];
+	currentUserRut?: number | null;
 }
 
-export function NotificationProvider({ children, notifications }: NotificationProviderProps) {
+export function NotificationProvider({
+	children,
+	notifications,
+	patients = [],
+	affiliations = [],
+	currentUserRut = null,
+}: NotificationProviderProps) {
 	// Filter state
 	const [selectedDate, setSelectedDate] = useState('');
 	const [filterByRut, setFilterByRut] = useState(false);
@@ -54,92 +154,284 @@ export function NotificationProvider({ children, notifications }: NotificationPr
 	const [showPendingOnly, setShowPendingOnly] = useState(false);
 	const [selectedType, setSelectedType] = useState('all');
 
+	// Notifications state
+	const [allNotifications, setAllNotifications] = useState<Notification[]>(() =>
+		sortNotificationsByDateAndPriority(notifications)
+	);
+
+	useEffect(() => {
+		setAllNotifications(sortNotificationsByDateAndPriority(notifications));
+	}, [notifications]);
+
 	// UI state
 	const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 	const isExtraSmallScreen = useMediaQuery('(max-width: 640px)');
+	const isSmallScreen = useMediaQuery('(max-width: 1024px)');
+
+	useEffect(() => {
+		setSidebarCollapsed(isExtraSmallScreen || isSmallScreen);
+	}, [isExtraSmallScreen, isSmallScreen]);
+
+	// Dialog state
+	const [selectedNotification, setSelectedNotification] = useState<Notification | null>(null);
+	const [isNotificationDetailOpen, setNotificationDetailOpen] = useState(false);
+
+	const mapPatient = useCallback((patient: PatientTableData): NotificationPatientSummary => {
+		return {
+			patientRut: patient.patientRut,
+			fullName: patient.name,
+			lastControl: patient.lastControl,
+			state: patient.state,
+			rutFormatted: formatRut(patient.patientRut),
+			raw: patient,
+		};
+	}, []);
+
+	const [patientSummaries, setPatientSummaries] = useState<NotificationPatientSummary[]>(
+		patients.map(mapPatient)
+	);
+
+	useEffect(() => {
+		setPatientSummaries(patients.map(mapPatient));
+	}, [patients, mapPatient]);
+
+	const [selectedPatient, setSelectedPatient] = useState<NotificationPatientSummary | null>(null);
+	const [isPatientDetailOpen, setPatientDetailOpen] = useState(false);
+	const [isAddAppointmentOpen, setAddAppointmentOpen] = useState(false);
+	const [isAddPatientOpen, setAddPatientOpen] = useState(false);
+
+	const findPatient = useCallback(
+		(patientRut: number, fallbackName?: string | null): NotificationPatientSummary | null => {
+			if (!patientRut) {
+				return fallbackName
+					? {
+							patientRut,
+							fullName: fallbackName,
+							lastControl: null,
+							state: null,
+							rutFormatted: formatRut(patientRut),
+						}
+					: null;
+			}
+
+			const existing = patientSummaries.find((patient) => patient.patientRut === patientRut);
+
+			if (existing) {
+				return existing;
+			}
+
+			return {
+				patientRut,
+				fullName: fallbackName ?? null,
+				lastControl: null,
+				state: null,
+				rutFormatted: formatRut(patientRut),
+			};
+		},
+		[patientSummaries]
+	);
 
 	// Filter notifications based on current filters
-	const filteredNotifications = notifications.filter((notification) => {
-		// Date filter
-		if (selectedDate) {
-			const notificationDate = new Date(notification.date).toISOString().split('T')[0];
-			if (notificationDate !== selectedDate) return false;
-		}
+	const filteredNotifications = useMemo(() => {
+		return allNotifications.filter((notification) => {
+			// Date filter (compare date part only)
+			if (selectedDate) {
+				try {
+					const notificationDate = new Date(notification.date)
+						.toISOString()
+						.split('T')[0];
+					if (notificationDate !== selectedDate) {
+						return false;
+					}
+				} catch (error) {
+					// If parsing fails, fallback to string contains
+					if (!String(notification.date).startsWith(selectedDate)) {
+						return false;
+					}
+				}
+			}
 
-		// RUT filter
-		if (filterByRut && rutFilter) {
-			const cleanRut = rutFilter.replace(/[.-]/g, '');
-			const notificationRut = String(notification.userRut).replace(/[.-]/g, '');
-			if (!notificationRut.includes(cleanRut)) return false;
-		}
+			// RUT filter (patient or user RUT)
+			if (filterByRut && rutFilter.trim()) {
+				const cleanRut = rutFilter.replace(/[^\dKk]/g, '').toLowerCase();
+				const patientRut = notification.patientRut ? String(notification.patientRut) : '';
+				const userRut = notification.userRut ? String(notification.userRut) : '';
 
-		// Pending filter
-		if (showPendingOnly && notification.metadata.taskCompleted) {
-			return false;
-		}
+				const rutMatches =
+					(patientRut && patientRut.toLowerCase().includes(cleanRut)) ||
+					(userRut && userRut.toLowerCase().includes(cleanRut));
 
-		// Type filter
-		if (selectedType !== 'all') {
-			const typeMap: Record<string, number> = {
-				urgente: 1,
-				importante: 2,
-				recordatorio: 3,
-				normal: 4,
-				solicitud: 5,
-			};
+				if (!rutMatches) {
+					return false;
+				}
+			}
 
-			if (typeMap[selectedType] && notification.type !== typeMap[selectedType]) {
+			// Pending filter
+			const metadata = ensureMetadata(notification.metadata);
+			if (showPendingOnly && metadata.taskCompleted) {
 				return false;
 			}
-		}
 
-		return true;
-	});
+			// Type filter
+			if (selectedType !== 'all') {
+				const mappedType = TYPE_KEY_TO_VALUE[selectedType];
+				if (mappedType !== undefined && notification.type !== mappedType) {
+					return false;
+				}
+			}
 
-	// Actions
-	const resetFilters = () => {
+			return true;
+		});
+	}, [allNotifications, filterByRut, rutFilter, selectedDate, selectedType, showPendingOnly]);
+
+	const pendingCount = useMemo(() => {
+		return allNotifications.reduce((count, notification) => {
+			return ensureMetadata(notification.metadata).taskCompleted ? count : count + 1;
+		}, 0);
+	}, [allNotifications]);
+
+	const resetFilters = useCallback(() => {
 		setSelectedDate('');
 		setFilterByRut(false);
 		setRutFilter('');
 		setShowPendingOnly(false);
 		setSelectedType('all');
-	};
+	}, []);
 
-	const handleRutChange = (value: string) => {
+	const handleRutChange = useCallback((value: string) => {
 		setRutFilter(value);
-	};
+	}, []);
 
-	// Notification actions (these would typically connect to actual handlers)
-	const handleViewNotificationDetails = (notification: Notification) => {
-		console.log('View notification details:', notification);
-		// TODO: Implement notification details modal/page
-	};
+	const handleViewNotificationDetails = useCallback(
+		(notification: Notification) => {
+			setSelectedNotification(notification);
+			setNotificationDetailOpen(true);
 
-	const handleViewPatientDetails = (patientRut: number, patientName?: string) => {
-		console.log('View patient details:', patientRut, patientName);
-		// TODO: Navigate to patient details page
-	};
+			if (notification.patientRut) {
+				const patient = findPatient(notification.patientRut, notification.patientName);
+				setSelectedPatient(patient);
+			}
+		},
+		[findPatient]
+	);
 
-	const completeNotification = (id: number, notes?: string) => {
-		console.log('Complete notification:', id, notes);
-		// TODO: Implement notification completion API call
-	};
+	const handleViewPatientDetails = useCallback(
+		(patientRut: number, patientName?: string) => {
+			const patient = findPatient(patientRut, patientName ?? null);
+			if (patient) {
+				setSelectedPatient(patient);
+				setPatientDetailOpen(true);
+			}
+		},
+		[findPatient]
+	);
 
-	const openAddEventDialog = (patientRut?: number) => {
-		console.log('Open add event dialog:', patientRut);
-		// TODO: Implement event/appointment creation
-	};
+	const completeNotification = useCallback(
+		async (id: string, notes?: string) => {
+			const payload = {
+				notificationId: id,
+				completedBy: currentUserRut ?? 0,
+				notes: notes ?? '',
+			};
 
-	// Left sidebar actions
-	const handleAddPatient = () => {
-		console.log('Add patient action');
-		// TODO: Navigate to add patient form or open modal
-	};
+			const updatedNotification = await completeNotificationApi(payload, axiosClient);
 
-	const handleSearchPatient = () => {
-		console.log('Search patient action');
-		// TODO: Open patient search modal or navigate to search page
-	};
+			setAllNotifications((prevNotifications) =>
+				prevNotifications.map((notification) =>
+					notification.notificationId === updatedNotification.notificationId
+						? updatedNotification
+						: notification
+				)
+			);
+
+			setSelectedNotification((prev) => {
+				if (prev && prev.notificationId === updatedNotification.notificationId) {
+					return updatedNotification;
+				}
+				return prev;
+			});
+		},
+		[currentUserRut]
+	);
+
+	const openAddEventDialog = useCallback(
+		(patientRut?: number) => {
+			if (patientRut) {
+				const patient = findPatient(patientRut);
+				if (patient) {
+					setSelectedPatient(patient);
+				}
+			}
+			setAddAppointmentOpen(true);
+		},
+		[findPatient]
+	);
+
+	const handleAddPatient = useCallback(() => {
+		setAddPatientOpen(true);
+	}, []);
+
+	const handleSearchPatient = useCallback(() => {
+		console.log('Search patient action triggered');
+	}, []);
+
+	const notificationPatients = useMemo(() => {
+		const map = new Map<number, NotificationPatientSummary>();
+
+		for (const summary of patientSummaries) {
+			map.set(summary.patientRut, summary);
+		}
+
+		allNotifications.forEach((notification) => {
+			if (!notification.patientRut) {
+				return;
+			}
+
+			if (map.has(notification.patientRut)) {
+				return;
+			}
+
+			map.set(notification.patientRut, {
+				patientRut: notification.patientRut,
+				fullName: notification.patientName ?? null,
+				lastControl: null,
+				state: null,
+				rutFormatted: formatRut(notification.patientRut),
+			});
+		});
+
+		return map;
+	}, [allNotifications, patientSummaries]);
+
+	const resolvePatientSummary = useCallback(
+		(notification: Notification): NotificationPatientSummary | null => {
+			if (!notification.patientRut) {
+				return notification.patientName
+					? {
+							patientRut: 0,
+							fullName: notification.patientName,
+							lastControl: null,
+							state: null,
+							rutFormatted: null,
+						}
+					: null;
+			}
+
+			const fromMap = notificationPatients.get(notification.patientRut);
+			if (fromMap) {
+				return fromMap;
+			}
+
+			return {
+				patientRut: notification.patientRut,
+				fullName: notification.patientName ?? null,
+				lastControl: null,
+				state: null,
+				rutFormatted: formatRut(notification.patientRut),
+			};
+		},
+		[notificationPatients]
+	);
 
 	const value: NotificationContextType = {
 		// Filter state
@@ -155,8 +447,10 @@ export function NotificationProvider({ children, notifications }: NotificationPr
 		setSelectedType,
 
 		// Notifications data
-		notifications,
+		notifications: allNotifications,
+		setNotifications: setAllNotifications,
 		filteredNotifications,
+		pendingCount,
 
 		// UI state
 		sidebarCollapsed,
@@ -167,6 +461,20 @@ export function NotificationProvider({ children, notifications }: NotificationPr
 		resetFilters,
 		handleRutChange,
 
+		// Dialog state
+		selectedNotification,
+		setSelectedNotification,
+		isNotificationDetailOpen,
+		setNotificationDetailOpen,
+		selectedPatient,
+		setSelectedPatient,
+		isPatientDetailOpen,
+		setPatientDetailOpen,
+		isAddAppointmentOpen,
+		setAddAppointmentOpen,
+		isAddPatientOpen,
+		setAddPatientOpen,
+
 		// Notification actions
 		handleViewNotificationDetails,
 		handleViewPatientDetails,
@@ -176,6 +484,15 @@ export function NotificationProvider({ children, notifications }: NotificationPr
 		// Left sidebar actions
 		handleAddPatient,
 		handleSearchPatient,
+
+		// External data
+		patients: patientSummaries,
+		notificationPatients: Object.fromEntries(notificationPatients.entries()) as Record<
+			number,
+			NotificationPatientSummary
+		>,
+		resolvePatientSummary,
+		affiliations,
 	};
 
 	return <NotificationContext.Provider value={value}>{children}</NotificationContext.Provider>;

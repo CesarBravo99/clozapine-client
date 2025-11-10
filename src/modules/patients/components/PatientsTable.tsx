@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux';
 import { selectLang } from '@/redux/settings/settings.slice';
 import { langs } from '../lang';
 import type { PatientTableData } from '@/api/patients/types/patient.types';
+import { usePatients } from '../context/PatientsContext';
 
 interface PatientsTableProps {
 	data: PatientTableData[];
@@ -40,6 +41,7 @@ export function PatientsTable({ data, isLoading, error }: PatientsTableProps) {
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 	const [globalFilter, setGlobalFilter] = useState('');
+	const { openPatientDetails } = usePatients();
 
 	const columns = useMemo(
 		() => [
@@ -295,9 +297,7 @@ export function PatientsTable({ data, isLoading, error }: PatientsTableProps) {
 								<tr
 									key={row.id}
 									className='hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer'
-									onClick={() => {
-										console.log('Patient clicked:', row.original);
-									}}
+									onClick={() => openPatientDetails(row.original)}
 								>
 									{row.getVisibleCells().map((cell) => (
 										<td key={cell.id} className='px-6 py-4 whitespace-nowrap'>

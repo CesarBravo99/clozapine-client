@@ -8,6 +8,8 @@ import { usePatients as usePatientData } from '@/modules/patients/hooks/usePatie
 import { useSelector } from 'react-redux';
 import { selectLang } from '@/redux/settings/settings.slice';
 import { langs } from '@/modules/patients/lang';
+import { PatientDetailsDialog } from '@/modules/patients/dialogs/PatientDetailsDialog';
+import { AddPatientListDialog } from '@/modules/patients/dialogs/AddPatientListDialog';
 
 export const Route = createFileRoute('/patients')({
 	component: RouteComponent,
@@ -183,6 +185,9 @@ function PatientsContent({ affiliationId }: { affiliationId: number | null }) {
 						</div>
 					</main>
 				</div>
+
+				<PatientDetailsDialog />
+				<AddPatientListDialog />
 			</div>
 		</div>
 	);

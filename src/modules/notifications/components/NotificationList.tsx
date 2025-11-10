@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Bell, Calendar, FileText, Check } from 'lucide-react';
+import { Bell, Calendar, FileText } from 'lucide-react';
 import type { Notification } from '@/domain/notification.types';
 import { NotificationListItem } from './NotificationListItem';
 import { useSelector } from 'react-redux';
@@ -22,7 +22,7 @@ interface NotificationListProps {
 	groupedNotifications: GroupedNotifications;
 	handleViewNotificationDetails: (notification: Notification) => void;
 	handleViewPatientDetails: (patientRut: number, patientName?: string) => void;
-	completeNotification: (id: number) => void;
+	completeNotification: (id: string, notes?: string) => Promise<void>;
 	resetFilters: () => void;
 	formatDate: (dateString: string) => string;
 	getNotificationColor: (type: number) => string;

@@ -30,3 +30,20 @@ export interface PatientTableData {
 	lastControl: string;
 	rawData: PatientAffiliationAPIResponse;
 }
+
+export interface PatientDetail {
+	patientRut: number;
+	firstName: string;
+	lastName: string;
+	sex: number;
+	birthday: string;
+	email: string;
+	phone: string;
+	address: string;
+	mainAffiliationId?: number;
+	mainAffiliationName?: string;
+	clozapineIsActive?: boolean;
+	diagnosis?: string;
+	lastControl?: string | null;
+	nextControl?: string | null;
+}

@@ -1,0 +1,2 @@
+export { PrescriptionDetailDialog } from './PrescriptionDetailDialog';
+

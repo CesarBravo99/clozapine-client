@@ -50,6 +50,36 @@ export const en = {
 			applyFilters: 'Apply filters',
 		},
 	},
+	dialogs: {
+		detail: {
+			title: 'Prescription details',
+			subtitle: 'Review the prescription before taking an action.',
+			sections: {
+				patient: 'Patient information',
+			},
+			labels: {
+				patientRut: 'RUT',
+				medication: 'Medication',
+				status: 'Status',
+				dosage: 'Dosage',
+				schedule: 'Schedule',
+				duration: 'Duration',
+				route: 'Administration route',
+				date: 'Prescription date',
+				clinicalRecord: 'Clinical record',
+				notes: 'Notes',
+				noNotes: 'No notes provided',
+				notAvailable: 'Not available',
+			},
+			errorPrefix: 'Unable to complete the action',
+			buttons: {
+				cancel: 'Cancel prescription',
+				canceling: 'Cancelling…',
+				renew: 'Renew prescription',
+				renewing: 'Renewing…',
+			},
+		},
+	},
 };
 
 export type PrescriptionsLanguages = typeof en;

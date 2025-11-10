@@ -1,4 +1,5 @@
-export { getNotificationsByUser } from './notification';
+export { getNotificationsByUser, completeNotification } from './notification';
+export type { CompleteNotificationPayload } from './notification';
 
 // Export types
 export type { GroupedNotification, GroupedNotifications } from './types/notification.types';

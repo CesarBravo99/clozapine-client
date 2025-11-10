@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux';
 import { selectLang } from '@/redux/settings/settings.slice';
 import { langs } from '../lang';
 import type { PrescriptionTableData } from '@/api/prescriptions/types/prescription.types';
+import { usePrescriptionsContext } from '../contexts/PrescriptionsContext';
 
 interface PrescriptionsTableProps {
 	data: PrescriptionTableData[];
@@ -40,6 +41,7 @@ export function PrescriptionsTable({ data, isLoading, error }: PrescriptionsTabl
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 	const [globalFilter, setGlobalFilter] = useState('');
+	const { openPrescriptionDetail } = usePrescriptionsContext();
 
 	const columns = useMemo(
 		() => [
@@ -278,10 +280,19 @@ export function PrescriptionsTable({ data, isLoading, error }: PrescriptionsTabl
 							table.getRowModel().rows.map((row) => (
 								<tr
 									key={row.id}
-									className='hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer'
-									onClick={() => {
-										console.log('Prescription clicked:', row.original);
+									className='hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer focus:outline-none focus-visible:ring focus-visible:ring-blue-500'
+									onClick={() => openPrescriptionDetail(row.original)}
+									onKeyDown={(event) => {
+										if (event.key === 'Enter' || event.key === ' ') {
+											event.preventDefault();
+											openPrescriptionDetail(row.original);
+										}
 									}}
+									role='button'
+									tabIndex={0}
+									aria-label={`${langs[lang].components.prescriptionsTable.viewDetails} - ${
+										row.original.patientName
+									}`}
 								>
 									{row.getVisibleCells().map((cell) => (
 										<td key={cell.id} className='px-6 py-4 whitespace-nowrap'>

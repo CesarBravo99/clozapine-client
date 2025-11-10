@@ -1,5 +1,9 @@
 import type { AxiosInstance } from 'axios';
-import type { PatientAffiliationAPIResponse, PatientTableData } from './types/patient.types';
+import type {
+	PatientAffiliationAPIResponse,
+	PatientDetail,
+	PatientTableData,
+} from './types/patient.types';
 import { adaptPatientForTable } from './adapters/patient.adapter';
 
 export const getPatientsByAffiliation = async (
@@ -54,4 +58,16 @@ export const getPatientsByAffiliation = async (
 
 		throw error;
 	}
+};
+
+export const getPatientDetail = async (
+	patientRut: number,
+	axiosClient: AxiosInstance
+): Promise<PatientDetail> => {
+	if (!patientRut) {
+		throw new Error('Invalid patient RUT');
+	}
+
+	const response = await axiosClient.get<PatientDetail>(`api/v1/patients/${patientRut}`);
+	return response.data;
 };

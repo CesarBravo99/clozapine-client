@@ -139,7 +139,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 	component: () => (
 		<>
 			<ReduxProvider store={store}>
-				<TSHeader />
+				{/* <TSHeader /> */}
 				<div className={`min-h-screen flex flex-col`} tabIndex={-1}>
 					<Header />
 					<main

@@ -1,6 +1,6 @@
 export interface Notification {
 	// Server information
-	readonly notificationId: number;
+	readonly notificationId: string;
 	readonly affiliationId: number;
 	readonly userRut: number | null;
 	readonly userName: string | null;
@@ -39,6 +39,7 @@ export interface NotificationMetadata {
 	readonly completedBy: number | null;
 	readonly completedAt: string | null;
 	readonly details: NotificationDetails;
+	readonly completionNotes?: string | null;
 }
 
 export interface NotificationDetails {

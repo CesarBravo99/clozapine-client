@@ -5,7 +5,6 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 // import { RutInput } from '@/components/RutInput';
-import type { Notification } from '@/domain/notification.types';
 import { Clock, Timer } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import { selectLang } from '@/redux/settings/settings.slice';
@@ -20,7 +19,6 @@ export function RightSidebar() {
 		filterByRut,
 		setFilterByRut,
 		rutFilter,
-		setRutFilter,
 		showPendingOnly,
 		setShowPendingOnly,
 		selectedType,
@@ -148,7 +146,7 @@ export function RightSidebar() {
 								<Badge className='ml-auto'>
 									{
 										filteredNotifications.filter(
-											(n) => !n.metadata.taskCompleted
+											(n) => !(n.metadata?.taskCompleted ?? false)
 										).length
 									}
 								</Badge>
