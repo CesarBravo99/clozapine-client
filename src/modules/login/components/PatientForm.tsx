@@ -3,13 +3,13 @@ import { z } from 'zod';
 import { useSelector } from 'react-redux';
 import { selectLang } from '@/redux/settings/settings.slice';
 import { langs } from '@/modules/login/lang';
-import { useRouteContext } from '@tanstack/react-router';
-import { useLoginMutation } from '@/modules/login/hooks/useLoginMutation';
+import { useRouter } from '@tanstack/react-router';
+import { useState } from 'react';
 
 export function PatientForm() {
-	const routeContext = useRouteContext({ from: '__root__' });
-	const loginMutation = useLoginMutation(routeContext.axiosClient);
+	const router = useRouter();
 	const lang = useSelector(selectLang);
+	const [isSubmitting, setSubmitting] = useState(false);
 
 	const schema = z.object({
 		requestRut: z.string().min(1, langs[lang].login.rutErrorMessage),
@@ -18,18 +18,18 @@ export function PatientForm() {
 
 	const form = useAppForm({
 		defaultValues: {
-			requestRut: '',
-			patientEmail: '',
+			requestRut: '912345678',
+			patientEmail: 'juan.perez@gmail.com',
 		},
 		validators: {
 			onBlur: schema,
 		},
-		onSubmit: ({ value }) => {
-			const payload = {
-				requestRut: value.requestRut,
-				requestPassword: value.patientEmail,
-			};
-			loginMutation.mutate(payload);
+		onSubmit: async () => {
+			if (isSubmitting) return;
+			setSubmitting(true);
+			await new Promise((resolve) => setTimeout(resolve, 600));
+			setSubmitting(false);
+			router.navigate({ to: '/exam_record' });
 		},
 	});
 
@@ -65,11 +65,11 @@ export function PatientForm() {
 				<form.AppForm>
 					<form.SubscribeButton
 						label={
-							loginMutation.isPending
+							isSubmitting
 								? langs[lang].userForm.submittingButtonPatient
 								: langs[lang].userForm.submitButtonPatient
 						}
-						disabled={loginMutation.isPending}
+						disabled={isSubmitting}
 						type='patient'
 					/>
 				</form.AppForm>

@@ -10,378 +10,400 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as ProfileImport } from './routes/profile'
-import { Route as PrescriptionsImport } from './routes/prescriptions'
-import { Route as PatientsImport } from './routes/patients'
-import { Route as NotificationsImport } from './routes/notifications'
-import { Route as LoginImport } from './routes/login'
-import { Route as HelpImport } from './routes/help'
-import { Route as ConfigImport } from './routes/config'
-import { Route as CalendarImport } from './routes/calendar'
-import { Route as IndexImport } from './routes/index'
-import { Route as InfoPrivacyPolicyImport } from './routes/info.privacy-policy'
-import { Route as InfoCommonQuestionsImport } from './routes/info.common-questions'
-import { Route as DemoTanstackQueryImport } from './routes/demo.tanstack-query'
-import { Route as DemoTableImport } from './routes/demo.table'
-import { Route as DemoFormSimpleImport } from './routes/demo.form.simple'
-import { Route as DemoFormAddressImport } from './routes/demo.form.address'
+import { Route as rootRoute } from './routes/__root';
+import { Route as ProfileImport } from './routes/profile';
+import { Route as PrescriptionsImport } from './routes/prescriptions';
+import { Route as PatientsImport } from './routes/patients';
+import { Route as NotificationsImport } from './routes/notifications';
+import { Route as LoginImport } from './routes/login';
+import { Route as HelpImport } from './routes/help';
+import { Route as ExamRecordImport } from './routes/exam-record';
+import { Route as ConfigImport } from './routes/config';
+import { Route as CalendarImport } from './routes/calendar';
+import { Route as IndexImport } from './routes/index';
+import { Route as InfoPrivacyPolicyImport } from './routes/info.privacy-policy';
+import { Route as InfoCommonQuestionsImport } from './routes/info.common-questions';
+import { Route as DemoTanstackQueryImport } from './routes/demo.tanstack-query';
+import { Route as DemoTableImport } from './routes/demo.table';
+import { Route as DemoFormSimpleImport } from './routes/demo.form.simple';
+import { Route as DemoFormAddressImport } from './routes/demo.form.address';
 
 // Create/Update Routes
 
 const ProfileRoute = ProfileImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => rootRoute,
-} as any)
+	id: '/profile',
+	path: '/profile',
+	getParentRoute: () => rootRoute,
+} as any);
 
 const PrescriptionsRoute = PrescriptionsImport.update({
-  id: '/prescriptions',
-  path: '/prescriptions',
-  getParentRoute: () => rootRoute,
-} as any)
+	id: '/prescriptions',
+	path: '/prescriptions',
+	getParentRoute: () => rootRoute,
+} as any);
 
 const PatientsRoute = PatientsImport.update({
-  id: '/patients',
-  path: '/patients',
-  getParentRoute: () => rootRoute,
-} as any)
+	id: '/patients',
+	path: '/patients',
+	getParentRoute: () => rootRoute,
+} as any);
 
 const NotificationsRoute = NotificationsImport.update({
-  id: '/notifications',
-  path: '/notifications',
-  getParentRoute: () => rootRoute,
-} as any)
+	id: '/notifications',
+	path: '/notifications',
+	getParentRoute: () => rootRoute,
+} as any);
 
 const LoginRoute = LoginImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRoute,
-} as any)
+	id: '/login',
+	path: '/login',
+	getParentRoute: () => rootRoute,
+} as any);
 
 const HelpRoute = HelpImport.update({
-  id: '/help',
-  path: '/help',
-  getParentRoute: () => rootRoute,
-} as any)
+	id: '/help',
+	path: '/help',
+	getParentRoute: () => rootRoute,
+} as any);
+
+const ExamRecordRoute = ExamRecordImport.update({
+	id: '/exam_record',
+	path: '/exam_record',
+	getParentRoute: () => rootRoute,
+} as any);
 
 const ConfigRoute = ConfigImport.update({
-  id: '/config',
-  path: '/config',
-  getParentRoute: () => rootRoute,
-} as any)
+	id: '/config',
+	path: '/config',
+	getParentRoute: () => rootRoute,
+} as any);
 
 const CalendarRoute = CalendarImport.update({
-  id: '/calendar',
-  path: '/calendar',
-  getParentRoute: () => rootRoute,
-} as any)
+	id: '/calendar',
+	path: '/calendar',
+	getParentRoute: () => rootRoute,
+} as any);
 
 const IndexRoute = IndexImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRoute,
-} as any)
+	id: '/',
+	path: '/',
+	getParentRoute: () => rootRoute,
+} as any);
 
 const InfoPrivacyPolicyRoute = InfoPrivacyPolicyImport.update({
-  id: '/info/privacy-policy',
-  path: '/info/privacy-policy',
-  getParentRoute: () => rootRoute,
-} as any)
+	id: '/info/privacy-policy',
+	path: '/info/privacy-policy',
+	getParentRoute: () => rootRoute,
+} as any);
 
 const InfoCommonQuestionsRoute = InfoCommonQuestionsImport.update({
-  id: '/info/common-questions',
-  path: '/info/common-questions',
-  getParentRoute: () => rootRoute,
-} as any)
+	id: '/info/common-questions',
+	path: '/info/common-questions',
+	getParentRoute: () => rootRoute,
+} as any);
 
 const DemoTanstackQueryRoute = DemoTanstackQueryImport.update({
-  id: '/demo/tanstack-query',
-  path: '/demo/tanstack-query',
-  getParentRoute: () => rootRoute,
-} as any)
+	id: '/demo/tanstack-query',
+	path: '/demo/tanstack-query',
+	getParentRoute: () => rootRoute,
+} as any);
 
 const DemoTableRoute = DemoTableImport.update({
-  id: '/demo/table',
-  path: '/demo/table',
-  getParentRoute: () => rootRoute,
-} as any)
+	id: '/demo/table',
+	path: '/demo/table',
+	getParentRoute: () => rootRoute,
+} as any);
 
 const DemoFormSimpleRoute = DemoFormSimpleImport.update({
-  id: '/demo/form/simple',
-  path: '/demo/form/simple',
-  getParentRoute: () => rootRoute,
-} as any)
+	id: '/demo/form/simple',
+	path: '/demo/form/simple',
+	getParentRoute: () => rootRoute,
+} as any);
 
 const DemoFormAddressRoute = DemoFormAddressImport.update({
-  id: '/demo/form/address',
-  path: '/demo/form/address',
-  getParentRoute: () => rootRoute,
-} as any)
+	id: '/demo/form/address',
+	path: '/demo/form/address',
+	getParentRoute: () => rootRoute,
+} as any);
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/calendar': {
-      id: '/calendar'
-      path: '/calendar'
-      fullPath: '/calendar'
-      preLoaderRoute: typeof CalendarImport
-      parentRoute: typeof rootRoute
-    }
-    '/config': {
-      id: '/config'
-      path: '/config'
-      fullPath: '/config'
-      preLoaderRoute: typeof ConfigImport
-      parentRoute: typeof rootRoute
-    }
-    '/help': {
-      id: '/help'
-      path: '/help'
-      fullPath: '/help'
-      preLoaderRoute: typeof HelpImport
-      parentRoute: typeof rootRoute
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginImport
-      parentRoute: typeof rootRoute
-    }
-    '/notifications': {
-      id: '/notifications'
-      path: '/notifications'
-      fullPath: '/notifications'
-      preLoaderRoute: typeof NotificationsImport
-      parentRoute: typeof rootRoute
-    }
-    '/patients': {
-      id: '/patients'
-      path: '/patients'
-      fullPath: '/patients'
-      preLoaderRoute: typeof PatientsImport
-      parentRoute: typeof rootRoute
-    }
-    '/prescriptions': {
-      id: '/prescriptions'
-      path: '/prescriptions'
-      fullPath: '/prescriptions'
-      preLoaderRoute: typeof PrescriptionsImport
-      parentRoute: typeof rootRoute
-    }
-    '/profile': {
-      id: '/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileImport
-      parentRoute: typeof rootRoute
-    }
-    '/demo/table': {
-      id: '/demo/table'
-      path: '/demo/table'
-      fullPath: '/demo/table'
-      preLoaderRoute: typeof DemoTableImport
-      parentRoute: typeof rootRoute
-    }
-    '/demo/tanstack-query': {
-      id: '/demo/tanstack-query'
-      path: '/demo/tanstack-query'
-      fullPath: '/demo/tanstack-query'
-      preLoaderRoute: typeof DemoTanstackQueryImport
-      parentRoute: typeof rootRoute
-    }
-    '/info/common-questions': {
-      id: '/info/common-questions'
-      path: '/info/common-questions'
-      fullPath: '/info/common-questions'
-      preLoaderRoute: typeof InfoCommonQuestionsImport
-      parentRoute: typeof rootRoute
-    }
-    '/info/privacy-policy': {
-      id: '/info/privacy-policy'
-      path: '/info/privacy-policy'
-      fullPath: '/info/privacy-policy'
-      preLoaderRoute: typeof InfoPrivacyPolicyImport
-      parentRoute: typeof rootRoute
-    }
-    '/demo/form/address': {
-      id: '/demo/form/address'
-      path: '/demo/form/address'
-      fullPath: '/demo/form/address'
-      preLoaderRoute: typeof DemoFormAddressImport
-      parentRoute: typeof rootRoute
-    }
-    '/demo/form/simple': {
-      id: '/demo/form/simple'
-      path: '/demo/form/simple'
-      fullPath: '/demo/form/simple'
-      preLoaderRoute: typeof DemoFormSimpleImport
-      parentRoute: typeof rootRoute
-    }
-  }
+	interface FileRoutesByPath {
+		'/': {
+			id: '/';
+			path: '/';
+			fullPath: '/';
+			preLoaderRoute: typeof IndexImport;
+			parentRoute: typeof rootRoute;
+		};
+		'/calendar': {
+			id: '/calendar';
+			path: '/calendar';
+			fullPath: '/calendar';
+			preLoaderRoute: typeof CalendarImport;
+			parentRoute: typeof rootRoute;
+		};
+		'/config': {
+			id: '/config';
+			path: '/config';
+			fullPath: '/config';
+			preLoaderRoute: typeof ConfigImport;
+			parentRoute: typeof rootRoute;
+		};
+		'/exam_record': {
+			id: '/exam_record';
+			path: '/exam_record';
+			fullPath: '/exam_record';
+			preLoaderRoute: typeof ExamRecordImport;
+			parentRoute: typeof rootRoute;
+		};
+		'/help': {
+			id: '/help';
+			path: '/help';
+			fullPath: '/help';
+			preLoaderRoute: typeof HelpImport;
+			parentRoute: typeof rootRoute;
+		};
+		'/login': {
+			id: '/login';
+			path: '/login';
+			fullPath: '/login';
+			preLoaderRoute: typeof LoginImport;
+			parentRoute: typeof rootRoute;
+		};
+		'/notifications': {
+			id: '/notifications';
+			path: '/notifications';
+			fullPath: '/notifications';
+			preLoaderRoute: typeof NotificationsImport;
+			parentRoute: typeof rootRoute;
+		};
+		'/patients': {
+			id: '/patients';
+			path: '/patients';
+			fullPath: '/patients';
+			preLoaderRoute: typeof PatientsImport;
+			parentRoute: typeof rootRoute;
+		};
+		'/prescriptions': {
+			id: '/prescriptions';
+			path: '/prescriptions';
+			fullPath: '/prescriptions';
+			preLoaderRoute: typeof PrescriptionsImport;
+			parentRoute: typeof rootRoute;
+		};
+		'/profile': {
+			id: '/profile';
+			path: '/profile';
+			fullPath: '/profile';
+			preLoaderRoute: typeof ProfileImport;
+			parentRoute: typeof rootRoute;
+		};
+		'/demo/table': {
+			id: '/demo/table';
+			path: '/demo/table';
+			fullPath: '/demo/table';
+			preLoaderRoute: typeof DemoTableImport;
+			parentRoute: typeof rootRoute;
+		};
+		'/demo/tanstack-query': {
+			id: '/demo/tanstack-query';
+			path: '/demo/tanstack-query';
+			fullPath: '/demo/tanstack-query';
+			preLoaderRoute: typeof DemoTanstackQueryImport;
+			parentRoute: typeof rootRoute;
+		};
+		'/info/common-questions': {
+			id: '/info/common-questions';
+			path: '/info/common-questions';
+			fullPath: '/info/common-questions';
+			preLoaderRoute: typeof InfoCommonQuestionsImport;
+			parentRoute: typeof rootRoute;
+		};
+		'/info/privacy-policy': {
+			id: '/info/privacy-policy';
+			path: '/info/privacy-policy';
+			fullPath: '/info/privacy-policy';
+			preLoaderRoute: typeof InfoPrivacyPolicyImport;
+			parentRoute: typeof rootRoute;
+		};
+		'/demo/form/address': {
+			id: '/demo/form/address';
+			path: '/demo/form/address';
+			fullPath: '/demo/form/address';
+			preLoaderRoute: typeof DemoFormAddressImport;
+			parentRoute: typeof rootRoute;
+		};
+		'/demo/form/simple': {
+			id: '/demo/form/simple';
+			path: '/demo/form/simple';
+			fullPath: '/demo/form/simple';
+			preLoaderRoute: typeof DemoFormSimpleImport;
+			parentRoute: typeof rootRoute;
+		};
+	}
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/calendar': typeof CalendarRoute
-  '/config': typeof ConfigRoute
-  '/help': typeof HelpRoute
-  '/login': typeof LoginRoute
-  '/notifications': typeof NotificationsRoute
-  '/patients': typeof PatientsRoute
-  '/prescriptions': typeof PrescriptionsRoute
-  '/profile': typeof ProfileRoute
-  '/demo/table': typeof DemoTableRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/info/common-questions': typeof InfoCommonQuestionsRoute
-  '/info/privacy-policy': typeof InfoPrivacyPolicyRoute
-  '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
+	'/': typeof IndexRoute;
+	'/calendar': typeof CalendarRoute;
+	'/config': typeof ConfigRoute;
+	'/exam_record': typeof ExamRecordRoute;
+	'/help': typeof HelpRoute;
+	'/login': typeof LoginRoute;
+	'/notifications': typeof NotificationsRoute;
+	'/patients': typeof PatientsRoute;
+	'/prescriptions': typeof PrescriptionsRoute;
+	'/profile': typeof ProfileRoute;
+	'/demo/table': typeof DemoTableRoute;
+	'/demo/tanstack-query': typeof DemoTanstackQueryRoute;
+	'/info/common-questions': typeof InfoCommonQuestionsRoute;
+	'/info/privacy-policy': typeof InfoPrivacyPolicyRoute;
+	'/demo/form/address': typeof DemoFormAddressRoute;
+	'/demo/form/simple': typeof DemoFormSimpleRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/calendar': typeof CalendarRoute
-  '/config': typeof ConfigRoute
-  '/help': typeof HelpRoute
-  '/login': typeof LoginRoute
-  '/notifications': typeof NotificationsRoute
-  '/patients': typeof PatientsRoute
-  '/prescriptions': typeof PrescriptionsRoute
-  '/profile': typeof ProfileRoute
-  '/demo/table': typeof DemoTableRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/info/common-questions': typeof InfoCommonQuestionsRoute
-  '/info/privacy-policy': typeof InfoPrivacyPolicyRoute
-  '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
+	'/': typeof IndexRoute;
+	'/calendar': typeof CalendarRoute;
+	'/config': typeof ConfigRoute;
+	'/exam_record': typeof ExamRecordRoute;
+	'/help': typeof HelpRoute;
+	'/login': typeof LoginRoute;
+	'/notifications': typeof NotificationsRoute;
+	'/patients': typeof PatientsRoute;
+	'/prescriptions': typeof PrescriptionsRoute;
+	'/profile': typeof ProfileRoute;
+	'/demo/table': typeof DemoTableRoute;
+	'/demo/tanstack-query': typeof DemoTanstackQueryRoute;
+	'/info/common-questions': typeof InfoCommonQuestionsRoute;
+	'/info/privacy-policy': typeof InfoPrivacyPolicyRoute;
+	'/demo/form/address': typeof DemoFormAddressRoute;
+	'/demo/form/simple': typeof DemoFormSimpleRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/calendar': typeof CalendarRoute
-  '/config': typeof ConfigRoute
-  '/help': typeof HelpRoute
-  '/login': typeof LoginRoute
-  '/notifications': typeof NotificationsRoute
-  '/patients': typeof PatientsRoute
-  '/prescriptions': typeof PrescriptionsRoute
-  '/profile': typeof ProfileRoute
-  '/demo/table': typeof DemoTableRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/info/common-questions': typeof InfoCommonQuestionsRoute
-  '/info/privacy-policy': typeof InfoPrivacyPolicyRoute
-  '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
+	__root__: typeof rootRoute;
+	'/': typeof IndexRoute;
+	'/calendar': typeof CalendarRoute;
+	'/config': typeof ConfigRoute;
+	'/exam_record': typeof ExamRecordRoute;
+	'/help': typeof HelpRoute;
+	'/login': typeof LoginRoute;
+	'/notifications': typeof NotificationsRoute;
+	'/patients': typeof PatientsRoute;
+	'/prescriptions': typeof PrescriptionsRoute;
+	'/profile': typeof ProfileRoute;
+	'/demo/table': typeof DemoTableRoute;
+	'/demo/tanstack-query': typeof DemoTanstackQueryRoute;
+	'/info/common-questions': typeof InfoCommonQuestionsRoute;
+	'/info/privacy-policy': typeof InfoPrivacyPolicyRoute;
+	'/demo/form/address': typeof DemoFormAddressRoute;
+	'/demo/form/simple': typeof DemoFormSimpleRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/calendar'
-    | '/config'
-    | '/help'
-    | '/login'
-    | '/notifications'
-    | '/patients'
-    | '/prescriptions'
-    | '/profile'
-    | '/demo/table'
-    | '/demo/tanstack-query'
-    | '/info/common-questions'
-    | '/info/privacy-policy'
-    | '/demo/form/address'
-    | '/demo/form/simple'
-  fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/calendar'
-    | '/config'
-    | '/help'
-    | '/login'
-    | '/notifications'
-    | '/patients'
-    | '/prescriptions'
-    | '/profile'
-    | '/demo/table'
-    | '/demo/tanstack-query'
-    | '/info/common-questions'
-    | '/info/privacy-policy'
-    | '/demo/form/address'
-    | '/demo/form/simple'
-  id:
-    | '__root__'
-    | '/'
-    | '/calendar'
-    | '/config'
-    | '/help'
-    | '/login'
-    | '/notifications'
-    | '/patients'
-    | '/prescriptions'
-    | '/profile'
-    | '/demo/table'
-    | '/demo/tanstack-query'
-    | '/info/common-questions'
-    | '/info/privacy-policy'
-    | '/demo/form/address'
-    | '/demo/form/simple'
-  fileRoutesById: FileRoutesById
+	fileRoutesByFullPath: FileRoutesByFullPath;
+	fullPaths:
+		| '/'
+		| '/calendar'
+		| '/config'
+		| '/exam_record'
+		| '/help'
+		| '/login'
+		| '/notifications'
+		| '/patients'
+		| '/prescriptions'
+		| '/profile'
+		| '/demo/table'
+		| '/demo/tanstack-query'
+		| '/info/common-questions'
+		| '/info/privacy-policy'
+		| '/demo/form/address'
+		| '/demo/form/simple';
+	fileRoutesByTo: FileRoutesByTo;
+	to:
+		| '/'
+		| '/calendar'
+		| '/config'
+		| '/exam_record'
+		| '/help'
+		| '/login'
+		| '/notifications'
+		| '/patients'
+		| '/prescriptions'
+		| '/profile'
+		| '/demo/table'
+		| '/demo/tanstack-query'
+		| '/info/common-questions'
+		| '/info/privacy-policy'
+		| '/demo/form/address'
+		| '/demo/form/simple';
+	id:
+		| '__root__'
+		| '/'
+		| '/calendar'
+		| '/config'
+		| '/exam_record'
+		| '/help'
+		| '/login'
+		| '/notifications'
+		| '/patients'
+		| '/prescriptions'
+		| '/profile'
+		| '/demo/table'
+		| '/demo/tanstack-query'
+		| '/info/common-questions'
+		| '/info/privacy-policy'
+		| '/demo/form/address'
+		| '/demo/form/simple';
+	fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  CalendarRoute: typeof CalendarRoute
-  ConfigRoute: typeof ConfigRoute
-  HelpRoute: typeof HelpRoute
-  LoginRoute: typeof LoginRoute
-  NotificationsRoute: typeof NotificationsRoute
-  PatientsRoute: typeof PatientsRoute
-  PrescriptionsRoute: typeof PrescriptionsRoute
-  ProfileRoute: typeof ProfileRoute
-  DemoTableRoute: typeof DemoTableRoute
-  DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
-  InfoCommonQuestionsRoute: typeof InfoCommonQuestionsRoute
-  InfoPrivacyPolicyRoute: typeof InfoPrivacyPolicyRoute
-  DemoFormAddressRoute: typeof DemoFormAddressRoute
-  DemoFormSimpleRoute: typeof DemoFormSimpleRoute
+	IndexRoute: typeof IndexRoute;
+	CalendarRoute: typeof CalendarRoute;
+	ConfigRoute: typeof ConfigRoute;
+	ExamRecordRoute: typeof ExamRecordRoute;
+	HelpRoute: typeof HelpRoute;
+	LoginRoute: typeof LoginRoute;
+	NotificationsRoute: typeof NotificationsRoute;
+	PatientsRoute: typeof PatientsRoute;
+	PrescriptionsRoute: typeof PrescriptionsRoute;
+	ProfileRoute: typeof ProfileRoute;
+	DemoTableRoute: typeof DemoTableRoute;
+	DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute;
+	InfoCommonQuestionsRoute: typeof InfoCommonQuestionsRoute;
+	InfoPrivacyPolicyRoute: typeof InfoPrivacyPolicyRoute;
+	DemoFormAddressRoute: typeof DemoFormAddressRoute;
+	DemoFormSimpleRoute: typeof DemoFormSimpleRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  CalendarRoute: CalendarRoute,
-  ConfigRoute: ConfigRoute,
-  HelpRoute: HelpRoute,
-  LoginRoute: LoginRoute,
-  NotificationsRoute: NotificationsRoute,
-  PatientsRoute: PatientsRoute,
-  PrescriptionsRoute: PrescriptionsRoute,
-  ProfileRoute: ProfileRoute,
-  DemoTableRoute: DemoTableRoute,
-  DemoTanstackQueryRoute: DemoTanstackQueryRoute,
-  InfoCommonQuestionsRoute: InfoCommonQuestionsRoute,
-  InfoPrivacyPolicyRoute: InfoPrivacyPolicyRoute,
-  DemoFormAddressRoute: DemoFormAddressRoute,
-  DemoFormSimpleRoute: DemoFormSimpleRoute,
-}
+	IndexRoute: IndexRoute,
+	CalendarRoute: CalendarRoute,
+	ConfigRoute: ConfigRoute,
+	ExamRecordRoute: ExamRecordRoute,
+	HelpRoute: HelpRoute,
+	LoginRoute: LoginRoute,
+	NotificationsRoute: NotificationsRoute,
+	PatientsRoute: PatientsRoute,
+	PrescriptionsRoute: PrescriptionsRoute,
+	ProfileRoute: ProfileRoute,
+	DemoTableRoute: DemoTableRoute,
+	DemoTanstackQueryRoute: DemoTanstackQueryRoute,
+	InfoCommonQuestionsRoute: InfoCommonQuestionsRoute,
+	InfoPrivacyPolicyRoute: InfoPrivacyPolicyRoute,
+	DemoFormAddressRoute: DemoFormAddressRoute,
+	DemoFormSimpleRoute: DemoFormSimpleRoute,
+};
 
 export const routeTree = rootRoute
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+	._addFileChildren(rootRouteChildren)
+	._addFileTypes<FileRouteTypes>();
 
 /* ROUTE_MANIFEST_START
 {
@@ -392,6 +414,7 @@ export const routeTree = rootRoute
         "/",
         "/calendar",
         "/config",
+         "/exam_record",
         "/help",
         "/login",
         "/notifications",
@@ -414,6 +437,9 @@ export const routeTree = rootRoute
     },
     "/config": {
       "filePath": "config.tsx"
+    },
+    "/exam_record": {
+      "filePath": "exam-record.tsx"
     },
     "/help": {
       "filePath": "help.tsx"
