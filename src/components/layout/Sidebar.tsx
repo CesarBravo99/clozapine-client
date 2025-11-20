@@ -4,7 +4,6 @@ import { Bell, Calendar, Settings, Users2, User, FileText, Menu, X } from 'lucid
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useMediaQuery } from '@/hooks/use-media-query';
-import { useAuthenticatedNavigate } from '@/hooks/useNavigate';
 import { useSelector } from 'react-redux';
 import { selectLang } from '@/redux/settings/settings.slice';
 import { langs } from '@/lang';
@@ -23,13 +22,11 @@ export const Sidebar: FC<SidebarProps> = ({
 	const location = useLocation();
 	const currentPath = location.pathname;
 	const overlayRef = useRef<HTMLDivElement>(null);
-	// const navigate = useAuthenticatedNavigate();
 	const navigate = useNavigate();
 	const lang = useSelector(selectLang);
 
 	// Media queries for responsive behavior
 	const isSmallScreen = useMediaQuery('(max-width: 1024px)');
-	const isExtraSmallScreen = useMediaQuery('(max-width: 640px)');
 
 	// State for mobile sidebar
 	const [mobileOpen, setMobileOpen] = useState(false);
@@ -40,17 +37,6 @@ export const Sidebar: FC<SidebarProps> = ({
 			setMobileOpen(false);
 		}
 	}, [isSmallScreen]);
-
-	const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({
-		pacientes: currentPath.startsWith('/patients'),
-	});
-
-	const toggleMenu = (menu: string) => {
-		setOpenMenus((prev) => ({
-			...prev,
-			[menu]: !prev[menu],
-		}));
-	};
 
 	const isActive = (path: string) => {
 		if (path === '/patients') {
@@ -78,7 +64,7 @@ export const Sidebar: FC<SidebarProps> = ({
 		{ path: '/calendar', icon: Calendar, label: langs[lang].navigation.calendar },
 		{ path: '/prescriptions', icon: FileText, label: langs[lang].navigation.prescriptions },
 		{ path: '/profile', icon: User, label: langs[lang].navigation.profile },
-		{ path: '/settings', icon: Settings, label: langs[lang].navigation.settings },
+		{ path: '/config', icon: Settings, label: langs[lang].navigation.settings },
 	];
 
 	const renderNavigation = () => (

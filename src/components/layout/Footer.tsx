@@ -1,6 +1,12 @@
 import { Link } from '@tanstack/react-router';
+import { useSelector } from 'react-redux';
+import { selectLang } from '@/redux/settings/settings.slice';
+import { langs } from '@/lang';
 
 export default function Footer() {
+	const lang = useSelector(selectLang);
+	const labels = langs[lang].global.footer;
+
 	return (
 		<footer className='py-3 px-6 border-t border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950'>
 			<div className='container mx-auto'>
@@ -10,20 +16,20 @@ export default function Footer() {
 							to='/info/common-questions'
 							className='text-sm text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors'
 						>
-							Preguntas Frecuentes
+							{labels.faq}
 						</Link>
 						<Link
 							to='/info/privacy-policy'
 							className='text-sm text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors'
 						>
-							Política de Privacidad
+							{labels.privacy}
 						</Link>
 
 						<Link
 							to='/help'
 							className='text-sm text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors'
 						>
-							Asistencia
+							{labels.help}
 						</Link>
 					</div>
 					<div className='flex items-center gap-2'>

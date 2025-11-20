@@ -11,13 +11,13 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as SettingsImport } from './routes/settings'
 import { Route as ProfileImport } from './routes/profile'
 import { Route as PrescriptionsImport } from './routes/prescriptions'
 import { Route as PatientsImport } from './routes/patients'
 import { Route as NotificationsImport } from './routes/notifications'
 import { Route as LoginImport } from './routes/login'
 import { Route as HelpImport } from './routes/help'
+import { Route as ConfigImport } from './routes/config'
 import { Route as CalendarImport } from './routes/calendar'
 import { Route as IndexImport } from './routes/index'
 import { Route as InfoPrivacyPolicyImport } from './routes/info.privacy-policy'
@@ -28,12 +28,6 @@ import { Route as DemoFormSimpleImport } from './routes/demo.form.simple'
 import { Route as DemoFormAddressImport } from './routes/demo.form.address'
 
 // Create/Update Routes
-
-const SettingsRoute = SettingsImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const ProfileRoute = ProfileImport.update({
   id: '/profile',
@@ -68,6 +62,12 @@ const LoginRoute = LoginImport.update({
 const HelpRoute = HelpImport.update({
   id: '/help',
   path: '/help',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ConfigRoute = ConfigImport.update({
+  id: '/config',
+  path: '/config',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -137,6 +137,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CalendarImport
       parentRoute: typeof rootRoute
     }
+    '/config': {
+      id: '/config'
+      path: '/config'
+      fullPath: '/config'
+      preLoaderRoute: typeof ConfigImport
+      parentRoute: typeof rootRoute
+    }
     '/help': {
       id: '/help'
       path: '/help'
@@ -177,13 +184,6 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileImport
-      parentRoute: typeof rootRoute
-    }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsImport
       parentRoute: typeof rootRoute
     }
     '/demo/table': {
@@ -236,13 +236,13 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/calendar': typeof CalendarRoute
+  '/config': typeof ConfigRoute
   '/help': typeof HelpRoute
   '/login': typeof LoginRoute
   '/notifications': typeof NotificationsRoute
   '/patients': typeof PatientsRoute
   '/prescriptions': typeof PrescriptionsRoute
   '/profile': typeof ProfileRoute
-  '/settings': typeof SettingsRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/info/common-questions': typeof InfoCommonQuestionsRoute
@@ -254,13 +254,13 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/calendar': typeof CalendarRoute
+  '/config': typeof ConfigRoute
   '/help': typeof HelpRoute
   '/login': typeof LoginRoute
   '/notifications': typeof NotificationsRoute
   '/patients': typeof PatientsRoute
   '/prescriptions': typeof PrescriptionsRoute
   '/profile': typeof ProfileRoute
-  '/settings': typeof SettingsRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/info/common-questions': typeof InfoCommonQuestionsRoute
@@ -273,13 +273,13 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/calendar': typeof CalendarRoute
+  '/config': typeof ConfigRoute
   '/help': typeof HelpRoute
   '/login': typeof LoginRoute
   '/notifications': typeof NotificationsRoute
   '/patients': typeof PatientsRoute
   '/prescriptions': typeof PrescriptionsRoute
   '/profile': typeof ProfileRoute
-  '/settings': typeof SettingsRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/info/common-questions': typeof InfoCommonQuestionsRoute
@@ -293,13 +293,13 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/calendar'
+    | '/config'
     | '/help'
     | '/login'
     | '/notifications'
     | '/patients'
     | '/prescriptions'
     | '/profile'
-    | '/settings'
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/info/common-questions'
@@ -310,13 +310,13 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/calendar'
+    | '/config'
     | '/help'
     | '/login'
     | '/notifications'
     | '/patients'
     | '/prescriptions'
     | '/profile'
-    | '/settings'
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/info/common-questions'
@@ -327,13 +327,13 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/calendar'
+    | '/config'
     | '/help'
     | '/login'
     | '/notifications'
     | '/patients'
     | '/prescriptions'
     | '/profile'
-    | '/settings'
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/info/common-questions'
@@ -346,13 +346,13 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CalendarRoute: typeof CalendarRoute
+  ConfigRoute: typeof ConfigRoute
   HelpRoute: typeof HelpRoute
   LoginRoute: typeof LoginRoute
   NotificationsRoute: typeof NotificationsRoute
   PatientsRoute: typeof PatientsRoute
   PrescriptionsRoute: typeof PrescriptionsRoute
   ProfileRoute: typeof ProfileRoute
-  SettingsRoute: typeof SettingsRoute
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   InfoCommonQuestionsRoute: typeof InfoCommonQuestionsRoute
@@ -364,13 +364,13 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CalendarRoute: CalendarRoute,
+  ConfigRoute: ConfigRoute,
   HelpRoute: HelpRoute,
   LoginRoute: LoginRoute,
   NotificationsRoute: NotificationsRoute,
   PatientsRoute: PatientsRoute,
   PrescriptionsRoute: PrescriptionsRoute,
   ProfileRoute: ProfileRoute,
-  SettingsRoute: SettingsRoute,
   DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   InfoCommonQuestionsRoute: InfoCommonQuestionsRoute,
@@ -391,13 +391,13 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/calendar",
+        "/config",
         "/help",
         "/login",
         "/notifications",
         "/patients",
         "/prescriptions",
         "/profile",
-        "/settings",
         "/demo/table",
         "/demo/tanstack-query",
         "/info/common-questions",
@@ -411,6 +411,9 @@ export const routeTree = rootRoute
     },
     "/calendar": {
       "filePath": "calendar.tsx"
+    },
+    "/config": {
+      "filePath": "config.tsx"
     },
     "/help": {
       "filePath": "help.tsx"
@@ -429,9 +432,6 @@ export const routeTree = rootRoute
     },
     "/profile": {
       "filePath": "profile.tsx"
-    },
-    "/settings": {
-      "filePath": "settings.tsx"
     },
     "/demo/table": {
       "filePath": "demo.table.tsx"

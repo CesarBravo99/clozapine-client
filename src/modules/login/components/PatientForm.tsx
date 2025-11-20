@@ -13,19 +13,23 @@ export function PatientForm() {
 
 	const schema = z.object({
 		requestRut: z.string().min(1, langs[lang].login.rutErrorMessage),
-		requestPassword: z.string().min(1, langs[lang].login.passwordErrorMessage),
+		patientEmail: z.string().min(1, langs[lang].login.emailErrorMessage).email(),
 	});
 
 	const form = useAppForm({
 		defaultValues: {
 			requestRut: '',
-			requestPassword: '',
+			patientEmail: '',
 		},
 		validators: {
 			onBlur: schema,
 		},
 		onSubmit: ({ value }) => {
-			loginMutation.mutate(value);
+			const payload = {
+				requestRut: value.requestRut,
+				requestPassword: value.patientEmail,
+			};
+			loginMutation.mutate(payload);
 		},
 	});
 
@@ -48,11 +52,11 @@ export function PatientForm() {
 				)}
 			</form.AppField>
 
-			<form.AppField name='requestPassword'>
+			<form.AppField name='patientEmail'>
 				{(field) => (
 					<field.TextField
-						label={langs[lang].login.passwordLabel}
-						placeholder={langs[lang].login.passwordPlaceholder}
+						label={langs[lang].login.emailLabel}
+						placeholder={langs[lang].login.emailPlaceholder}
 					/>
 				)}
 			</form.AppField>

@@ -6,11 +6,12 @@ import { Moon, Sun, LogOut } from 'lucide-react';
 import { useNavigate } from '@tanstack/react-router';
 import { SelectAffiliationDialog } from '@/dialogs/SelectAffiliationDialog';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectSettings, toggleTheme, setLang } from '@/redux/settings/settings.slice';
+import { selectSettings, toggleTheme, setLang, selectLang } from '@/redux/settings/settings.slice';
 import { selectUserState } from '@/redux/user/user.slice';
 import { selectSessionState } from '@/redux/session/session.slice';
 import { LanguageState } from '@/redux/settings/settings.types';
 import { clearLocalStorage } from '@/redux/store/store.storage';
+import { langs } from '@/lang';
 import '/node_modules/flag-icons/css/flag-icons.min.css';
 
 const FLAG_MAP = {
@@ -23,6 +24,8 @@ export default function Header() {
 	const dispatch = useDispatch();
 
 	const settingsState = useSelector(selectSettings);
+	const lang = useSelector(selectLang);
+	const globalHeaderText = langs[lang].global.header;
 	const userState = useSelector(selectUserState);
 	const sessionState = useSelector(selectSessionState);
 
@@ -37,9 +40,9 @@ export default function Header() {
 			return `${userState.user.firstName} ${userState.user.lastName}`;
 		}
 		if (sessionState?.userRut && sessionState.userRut > 0) {
-			return `Usuario ${sessionState.userRut}`;
+			return globalHeaderText.userWithRut.replace('{rut}', String(sessionState.userRut));
 		}
-		return 'Usuario';
+		return globalHeaderText.defaultUser;
 	};
 
 	// Helper function to get user initials for avatar
@@ -61,10 +64,16 @@ export default function Header() {
 	const getCurrentAffiliationName = () => {
 		if (sessionState?.selectedAffiliationId && sessionState.selectedAffiliationId > 0) {
 			const affiliation = userState?.affiliations?.[sessionState.selectedAffiliationId];
-			return affiliation?.affiliationName || 'Seleccionar afiliación';
+			return affiliation?.affiliationName || globalHeaderText.selectAffiliation;
 		}
-		return 'Seleccionar afiliación';
+		return globalHeaderText.selectAffiliation;
 	};
+	const nextLanguage =
+		settingsState.lang === LanguageState.ES ? LanguageState.EN : LanguageState.ES;
+	const languageAria =
+		nextLanguage === LanguageState.EN
+			? globalHeaderText.languageAria.toEnglish
+			: globalHeaderText.languageAria.toSpanish;
 
 	return (
 		<>
@@ -157,7 +166,7 @@ export default function Header() {
 									)
 								)
 							}
-							aria-label={`Switch language to ${settingsState.lang === LanguageState.ES ? 'English' : 'Español'}`}
+							aria-label={languageAria}
 						>
 							<span
 								className={`${FLAG_MAP[settingsState.lang].class} h-10 w-10 transition-all duration-300 text-xl`}
@@ -176,7 +185,7 @@ export default function Header() {
 								className='text-gray-600 dark:text-gray-300 sm:gap-1.5 h-8 w-8 sm:h-9 sm:w-auto'
 							>
 								<LogOut className='h-4 w-4' />
-								<span className='hidden md:inline'>Cerrar sesión</span>
+								<span className='hidden md:inline'>{globalHeaderText.logout}</span>
 							</Button>
 						)}
 					</div>

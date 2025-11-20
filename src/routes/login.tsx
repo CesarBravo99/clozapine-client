@@ -1,22 +1,47 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useSelector } from 'react-redux';
 import { selectLang } from '@/redux/settings/settings.slice';
-import { langs } from '@/modules/login/lang/index';
+import { langs } from '@/modules/login/lang';
 import { PatientForm } from '@/modules/login/components/PatientForm';
-import { User, UserCog } from 'lucide-react';
+import { User, UserCog, AlertTriangle } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { AlertTriangle } from 'lucide-react';
 import { UserForm } from '@/modules/login/components/UserForm';
 import { useState } from 'react';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
+import { LoginDialogProvider } from '@/modules/login/providers/LoginDialogProvider';
+import { useLoginDialogContext } from '@/modules/login/contexts/LoginDialogContext';
+import {
+	AddPatientDialog,
+	AddUserDialog,
+	AffiliationChangeDialog,
+	ForgotPasswordDialog,
+} from '@/modules/login/dialogs';
 
 export const Route = createFileRoute('/login')({
 	component: RouteComponent,
 });
 
 function RouteComponent() {
+	return (
+		<LoginDialogProvider>
+			<LoginPage />
+			<LoginDialogs />
+		</LoginDialogProvider>
+	);
+}
+
+function LoginPage() {
 	const lang = useSelector(selectLang);
 	const [userType, setUserType] = useState('patient');
+	const {
+		setAddPatientOpen,
+		setAffiliationOpen,
+		setForgotPasswordOpen,
+		setAddUserOpen,
+	} = useLoginDialogContext();
+	const patientLinks = langs[lang].userForm.links.patient;
+	const personalLinks = langs[lang].userForm.links.personal;
 
 	return (
 		<main
@@ -101,7 +126,51 @@ function RouteComponent() {
 							</TabsList>
 						</Tabs>
 
-						{userType === 'patient' ? <PatientForm /> : <UserForm />}
+						{userType === 'patient' ? (
+							<>
+								<PatientForm />
+								<div className='flex flex-col sm:flex-row items-center justify-between gap-2 pt-2 text-sm'>
+									<Button
+										type='button'
+										variant='link'
+										className='p-0 h-auto font-normal text-sm text-blue-600 dark:text-blue-400'
+										onClick={() => setAddPatientOpen(true)}
+									>
+										{patientLinks.register}
+									</Button>
+									<Button
+										type='button'
+										variant='link'
+										className='p-0 h-auto font-normal text-sm text-blue-600 dark:text-blue-400'
+										onClick={() => setAffiliationOpen(true)}
+									>
+										{patientLinks.changeHospital}
+									</Button>
+								</div>
+							</>
+						) : (
+							<>
+								<UserForm />
+								<div className='flex flex-col sm:flex-row items-center justify-between gap-2 pt-2 text-sm'>
+									<Button
+										type='button'
+										variant='link'
+										className='p-0 h-auto font-normal text-sm text-cyan-600 dark:text-cyan-400'
+										onClick={() => setForgotPasswordOpen(true)}
+									>
+										{personalLinks.forgotPassword}
+									</Button>
+									<Button
+										type='button'
+										variant='link'
+										className='p-0 h-auto font-normal text-sm text-cyan-600 dark:text-cyan-400'
+										onClick={() => setAddUserOpen(true)}
+									>
+										{personalLinks.register}
+									</Button>
+								</div>
+							</>
+						)}
 					</div>
 				</div>
 			</div>
@@ -115,5 +184,16 @@ function RouteComponent() {
 				</Alert>
 			)}
 		</main>
+	);
+}
+
+function LoginDialogs() {
+	return (
+		<>
+			<AddPatientDialog />
+			<AffiliationChangeDialog />
+			<ForgotPasswordDialog />
+			<AddUserDialog />
+		</>
 	);
 }

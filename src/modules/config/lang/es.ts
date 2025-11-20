@@ -1,0 +1,119 @@
+import type { ConfigModuleTranslations } from './en';
+
+export const es: ConfigModuleTranslations = {
+	page: {
+		title: 'Configuración',
+		searchPlaceholder: 'Buscar personal por nombre, rol o correo…',
+		addPersonnel: 'Agregar personal',
+	},
+	tabs: {
+		security: 'Seguridad',
+		users: 'Personal',
+		hospital: 'Hospital',
+	},
+	components: {
+		leftSidebar: {
+			title: 'CONFIGURACIÓN',
+			security: 'Seguridad',
+			users: 'Personal',
+			hospital: 'Centro médico',
+		},
+		securitySettings: {
+			title: 'Configuración de Seguridad',
+			twoFactorLabel: 'Autenticación de dos factores',
+			twoFactorDescription: 'Exigir 2FA para todos los inicios de sesión',
+			autoLockLabel: 'Bloqueo automático',
+			autoLockDescription: 'Bloquear sesión después de inactividad',
+			timeoutLabel: 'Tiempo de inactividad (minutos)',
+			loginAlertsLabel: 'Alertas de inicio de sesión',
+			loginAlertsDescription: 'Notificar accesos desde dispositivos desconocidos',
+			save: 'Guardar configuración',
+		},
+		passwordPolicies: {
+			title: 'Políticas de Contraseñas',
+			expiryLabel: 'Expiración de contraseñas',
+			minLengthLabel: 'Longitud mínima',
+			save: 'Guardar políticas',
+		},
+		personnelList: {
+			empty: 'No se encontraron miembros del personal',
+			emailLabel: 'Email',
+			rutLabel: 'RUT',
+			reset: 'Contraseña',
+			edit: 'Editar',
+			delete: 'Eliminar',
+			status: {
+				active: 'Activo',
+				inactive: 'Inactivo',
+				pending: 'Pendiente',
+			},
+		},
+		affiliationSettings: {
+			infoTitle: 'Información del Centro Médico',
+			nameLabel: 'Nombre del centro',
+			emailLabel: 'Email de contacto',
+			phoneLabel: 'Teléfono de contacto',
+			addressLabel: 'Dirección',
+			saveInfo: 'Guardar información',
+			calendarTitle: 'Configuración de Calendario',
+			allowWeekendLabel: 'Permitir citas en fin de semana',
+			allowWeekendDescription: 'Habilitar programación en sábados y domingos',
+			saveCalendar: 'Guardar configuración',
+		},
+	},
+	dialogs: {
+		addPersonnel: {
+			title: 'Agregar nuevo personal',
+			description: 'Complete la información para registrar un nuevo miembro.',
+			cancel: 'Cancelar',
+			confirm: 'Agregar personal',
+		},
+		editPersonnel: {
+			title: 'Editar personal',
+			description: 'Actualice la información del miembro seleccionado.',
+			cancel: 'Cancelar',
+			confirm: 'Guardar cambios',
+		},
+		deletePersonnel: {
+			title: 'Eliminar personal',
+			description: 'Esta acción revocará el acceso del miembro seleccionado.',
+			cancel: 'Cancelar',
+			confirm: 'Eliminar',
+		},
+		resetPassword: {
+			title: 'Restablecer contraseña',
+			description: 'Enviar una contraseña temporal al miembro seleccionado.',
+			cancel: 'Cancelar',
+			confirm: 'Enviar enlace',
+		},
+		form: {
+			name: 'Nombre completo',
+			role: 'Rol',
+			status: 'Estado',
+			rut: 'RUT',
+			email: 'Email',
+			phone: 'Teléfono',
+			roleOptions: {
+				doctor: 'Médico',
+				nurse: 'Enfermero/a',
+				receptionist: 'Recepcionista',
+				admin: 'Administrador',
+			},
+			statusOptions: {
+				active: 'Activo',
+				inactive: 'Inactivo',
+				pending: 'Pendiente',
+			},
+		},
+	},
+	messages: {
+		securitySaved: 'Configuración de seguridad actualizada',
+		passwordPolicySaved: 'Políticas de contraseña actualizadas',
+		affiliationSaved: 'Información del hospital guardada',
+		personnelAdded: 'Personal agregado correctamente',
+		personnelUpdated: 'Información del personal actualizada',
+		personnelDeleted: 'Personal eliminado correctamente',
+		passwordReset: 'Se envió el restablecimiento de contraseña',
+	},
+};
+
