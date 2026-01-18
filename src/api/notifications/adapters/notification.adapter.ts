@@ -1,6 +1,6 @@
 import type { Notification } from '@/domain/notification.types';
 import type { LanguageState } from '@/redux/settings/settings.types';
-import type { GroupedNotification, GroupedNotifications } from '../types/notification.types';
+import type { GroupedNotifications } from '../types/notification.types';
 import { langs } from '@/modules/notifications/lang';
 
 /**

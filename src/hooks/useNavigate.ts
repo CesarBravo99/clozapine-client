@@ -23,7 +23,6 @@ export function useAuthenticatedNavigate() {
 		const currentUser = currentReduxState.user?.user;
 		const currentSession = currentReduxState.session;
 		const userRut = currentUser?.userRut;
-		const selectedAffiliationId = currentSession?.selectedAffiliationId;
 
 		console.log('useAuthenticatedNavigate: Initiating navigation check...');
 

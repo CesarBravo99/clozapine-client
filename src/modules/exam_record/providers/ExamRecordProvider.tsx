@@ -17,10 +17,9 @@ import { useRouteContext } from '@tanstack/react-router';
 interface ExamRecordProviderProps {
 	children: ReactNode;
 	overview: ExamRecordOverview | null;
-	rut: number | null;
 }
 
-export function ExamRecordProvider({ children, overview, rut }: ExamRecordProviderProps) {
+export function ExamRecordProvider({ children, overview }: ExamRecordProviderProps) {
 	const routeContext = useRouteContext({ from: '__root__' });
 	const axiosClient = routeContext.axiosClient;
 

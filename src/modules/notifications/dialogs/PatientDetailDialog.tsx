@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Calendar, Check, FileText, X } from 'lucide-react';
+import { Calendar, Check, X } from 'lucide-react';
 import type { Notification } from '@/domain/notification.types';
 import type { NotificationPatientSummary } from '../context/NotificationContext';
 import { getNotificationColor, getNotificationTypeText } from '@/api/notifications';

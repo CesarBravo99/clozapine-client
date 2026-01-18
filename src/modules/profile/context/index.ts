@@ -3,5 +3,6 @@ export {
 	useProfileContext,
 	type ProfileTab,
 	type FontSizeOption,
+	type NotificationPreferencesState,
 } from './ProfileContext';
 

@@ -29,7 +29,7 @@ export function PatientForm() {
       setSubmitting(true)
       await new Promise((resolve) => setTimeout(resolve, 600))
       setSubmitting(false)
-      router.navigate({ to: '/exam_record' })
+      router.navigate({ to: '/exam-record' })
     },
   })
 

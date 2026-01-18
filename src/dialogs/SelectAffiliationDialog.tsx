@@ -5,7 +5,7 @@ import {
 	DialogTitle,
 	DialogDescription,
 } from '@/components/ui/dialog';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Check } from 'lucide-react';

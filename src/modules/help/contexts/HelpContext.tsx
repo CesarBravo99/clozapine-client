@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import type { HelpOverview, HelpHospital } from '@/api/help';
+import type { HelpHospital } from '@/api/help';
 
 export type HelpTab = 'patient' | 'staff' | 'developer';
 
