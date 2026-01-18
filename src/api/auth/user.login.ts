@@ -90,7 +90,7 @@ export const authUser = async (
 };
 
 // Updated saveToken function - only for API token if needed
-export const saveToken = (token: string, expiresAt: string) => {
+const saveToken = (token: string, expiresAt: string) => {
 	// Note: This might not be needed if the server also sets the token as HTTP-only cookie
 	// Check if your API requests use cookies vs Authorization headers
 
