@@ -103,9 +103,7 @@ function RouteComponent() {
 	return (
 		<CalendarProvider
 			calendarData={calendar}
-			userRut={userRut}
 			selectedAffiliationId={selectedAffiliationId}
-			affiliations={affiliations}
 		>
 			<CalendarContent
 				error={error}

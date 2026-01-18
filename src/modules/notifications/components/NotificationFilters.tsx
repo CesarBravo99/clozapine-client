@@ -1,4 +1,4 @@
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -26,10 +26,7 @@ export interface NotificationFiltersProps {
 	setShowPendingOnly: React.Dispatch<React.SetStateAction<boolean>>;
 	filterByRut: boolean;
 	setFilterByRut: React.Dispatch<React.SetStateAction<boolean>>;
-	rutFilter: string;
-	setRutFilter: React.Dispatch<React.SetStateAction<string>>;
 	resetFilters: () => void;
-	handleRutChange: (value: string) => void;
 }
 
 export function NotificationFilters({
@@ -41,10 +38,7 @@ export function NotificationFilters({
 	setShowPendingOnly,
 	filterByRut,
 	setFilterByRut,
-	rutFilter,
-	setRutFilter,
 	resetFilters,
-	handleRutChange,
 }: NotificationFiltersProps) {
 	const [showFilters, setShowFilters] = useState(false);
 	const lang = useSelector(selectLang);

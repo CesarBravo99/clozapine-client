@@ -10,7 +10,6 @@ import { useRouteContext } from '@tanstack/react-router';
 import {
 	checkPermission,
 	getUserPermissions,
-	type PermissionCheckRequest,
 	type PermissionAction,
 } from '@/api/auth/permissions';
 

@@ -12,7 +12,6 @@ import {
 	type FilterFn,
 } from '@tanstack/react-table';
 import { rankItem } from '@tanstack/match-sorter-utils';
-import { Button } from '@/components/ui/button';
 import { DebouncedInput } from './DebouncedInput';
 import { Filter } from './Filter';
 import { useSelector } from 'react-redux';

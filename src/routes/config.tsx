@@ -100,7 +100,7 @@ export const Route = createFileRoute('/config')({
 
 function RouteComponent() {
 	const loaderData = Route.useLoaderData() as LoaderResult;
-	const { config, error, userRut, affiliations, selectedAffiliationId } = loaderData;
+	const { config, error, userRut, selectedAffiliationId } = loaderData;
 
 	if (!userRut) {
 		return <ConfigLoadingContent />;
@@ -110,7 +110,6 @@ function RouteComponent() {
 		<ConfigProvider
 			configData={config}
 			userRut={userRut}
-			affiliations={affiliations}
 			selectedAffiliationId={selectedAffiliationId}
 		>
 			<ConfigContent error={error} />

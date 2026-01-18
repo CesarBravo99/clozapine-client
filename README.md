@@ -1,3 +1,4 @@
+PR: fix: Format and fix issues with build command
 Welcome to your new TanStack app! 
 
 # Getting Started

@@ -1,4 +1,4 @@
-import { FormEvent } from 'react';
+import type { FormEvent } from 'react';
 import { useSelector } from 'react-redux';
 import { selectLang } from '@/redux/settings/settings.slice';
 import { langs } from '@/modules/help/lang';

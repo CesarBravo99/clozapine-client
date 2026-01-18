@@ -25,7 +25,7 @@ export function AddPatientListDialog() {
 	const [form, setForm] = useState({
 		firstName: '',
 		lastName: '',
-		rust: '',
+		rut: '',
 		email: '',
 		phone: '',
 		status: 'active',
@@ -36,7 +36,7 @@ export function AddPatientListDialog() {
 		setForm({
 			firstName: '',
 			lastName: '',
-			rust: '',
+			rut: '',
 			email: '',
 			phone: '',
 			status: 'active',
