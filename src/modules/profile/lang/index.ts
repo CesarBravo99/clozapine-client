@@ -1,10 +1,9 @@
-import { en, type ProfileModuleTranslations } from './en';
-import { es } from './es';
+import { en, type ProfileModuleTranslations } from './en'
+import { es } from './es'
 
-export type { ProfileModuleTranslations } from './en';
+export type { ProfileModuleTranslations } from './en'
 
 export const langs: Record<'en' | 'es', ProfileModuleTranslations> = {
-	en,
-	es,
-};
-
+  en,
+  es,
+}

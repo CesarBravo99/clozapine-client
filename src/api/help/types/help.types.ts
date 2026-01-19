@@ -1,12 +1,12 @@
 export interface HelpHospital {
-	affiliationId: number;
-	name: string;
+  affiliationId: number
+  name: string
 }
 
 export interface HelpOverview {
-	hospitals: HelpHospital[];
-	patientSubjects: string[];
-	staffIssueTypes: string[];
-	developerIssueTypes: string[];
-	developerPriorities: string[];
+  hospitals: HelpHospital[]
+  patientSubjects: string[]
+  staffIssueTypes: string[]
+  developerIssueTypes: string[]
+  developerPriorities: string[]
 }

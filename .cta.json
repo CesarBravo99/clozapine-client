@@ -7,11 +7,5 @@
   "git": true,
   "version": 1,
   "framework": "react-cra",
-  "chosenAddOns": [
-    "form",
-    "shadcn",
-    "table",
-    "tanstack-query",
-    "t3env"
-  ]
+  "chosenAddOns": ["form", "shadcn", "table", "tanstack-query", "t3env"]
 }

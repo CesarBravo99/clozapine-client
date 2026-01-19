@@ -1,2 +1,1 @@
-export { ExamRecordProvider } from './ExamRecordProvider';
-
+export { ExamRecordProvider } from './ExamRecordProvider'

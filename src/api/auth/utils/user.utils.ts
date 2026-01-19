@@ -9,18 +9,18 @@
  * @returns {number | null} The user RUT or null if not found
  */
 export function getCurrentUserRut(): number | null {
-	try {
-		const sessionData = localStorage.getItem('session');
-		if (!sessionData) {
-			return null;
-		}
+  try {
+    const sessionData = localStorage.getItem('session')
+    if (!sessionData) {
+      return null
+    }
 
-		const sessionState = JSON.parse(sessionData);
-		return sessionState?.userRut > 0 ? sessionState.userRut : null;
-	} catch (error) {
-		console.error('Error getting user RUT from session:', error);
-		return null;
-	}
+    const sessionState = JSON.parse(sessionData)
+    return sessionState?.userRut > 0 ? sessionState.userRut : null
+  } catch (error) {
+    console.error('Error getting user RUT from session:', error)
+    return null
+  }
 }
 
 /**
@@ -28,18 +28,18 @@ export function getCurrentUserRut(): number | null {
  * @returns {boolean} True if user is logged in
  */
 export function isUserLoggedIn(): boolean {
-	try {
-		const sessionData = localStorage.getItem('session');
-		if (!sessionData) {
-			return false;
-		}
+  try {
+    const sessionData = localStorage.getItem('session')
+    if (!sessionData) {
+      return false
+    }
 
-		const sessionState = JSON.parse(sessionData);
-		return sessionState?.isLoggedIn === true;
-	} catch (error) {
-		console.error('Error checking login status:', error);
-		return false;
-	}
+    const sessionState = JSON.parse(sessionData)
+    return sessionState?.isLoggedIn === true
+  } catch (error) {
+    console.error('Error checking login status:', error)
+    return false
+  }
 }
 
 /**
@@ -47,18 +47,18 @@ export function isUserLoggedIn(): boolean {
  * @returns {number | null} The selected affiliation ID or null if not found
  */
 export function getCurrentUserAffiliationId(): number | null {
-	try {
-		const sessionData = localStorage.getItem('session');
-		if (!sessionData) {
-			return null;
-		}
+  try {
+    const sessionData = localStorage.getItem('session')
+    if (!sessionData) {
+      return null
+    }
 
-		const sessionState = JSON.parse(sessionData);
-		return sessionState?.selectedAffiliationId > 0 ? sessionState.selectedAffiliationId : null;
-	} catch (error) {
-		console.error('Error getting affiliation ID from session:', error);
-		return null;
-	}
+    const sessionState = JSON.parse(sessionData)
+    return sessionState?.selectedAffiliationId > 0 ? sessionState.selectedAffiliationId : null
+  } catch (error) {
+    console.error('Error getting affiliation ID from session:', error)
+    return null
+  }
 }
 
 /**
@@ -66,15 +66,15 @@ export function getCurrentUserAffiliationId(): number | null {
  * @returns {any | null} The session state object or null if not found
  */
 export function getSessionState(): any | null {
-	try {
-		const sessionData = localStorage.getItem('session');
-		if (!sessionData) {
-			return null;
-		}
+  try {
+    const sessionData = localStorage.getItem('session')
+    if (!sessionData) {
+      return null
+    }
 
-		return JSON.parse(sessionData);
-	} catch (error) {
-		console.error('Error getting session state:', error);
-		return null;
-	}
+    return JSON.parse(sessionData)
+  } catch (error) {
+    console.error('Error getting session state:', error)
+    return null
+  }
 }

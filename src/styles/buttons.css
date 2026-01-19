@@ -1,6 +1,5 @@
-
-@layer buttons {    
-    .btn-primary {
-        @apply bg-primary text-primary-foreground hover:bg-primary/90;
-    }
+@layer buttons {
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+  }
 }

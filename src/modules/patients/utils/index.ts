@@ -1,1 +1,1 @@
-export { filterPatientsByState, getPatientStateFromData } from './filterPatients';
+export { filterPatientsByState, getPatientStateFromData } from './filterPatients'

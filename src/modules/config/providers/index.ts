@@ -1,2 +1,1 @@
-export { ConfigProvider } from './ConfigProvider';
-
+export { ConfigProvider } from './ConfigProvider'

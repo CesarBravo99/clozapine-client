@@ -1,2 +1,1 @@
-export { ErrorReportDialog } from './ErrorReportDialog';
-
+export { ErrorReportDialog } from './ErrorReportDialog'

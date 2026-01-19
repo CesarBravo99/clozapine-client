@@ -1,2 +1,1 @@
-export { ExamRecordContext, useExamRecordContext } from './ExamRecordContext';
-
+export { ExamRecordContext, useExamRecordContext } from './ExamRecordContext'

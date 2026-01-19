@@ -1,1 +1,1 @@
-export { PatientsProvider, usePatients } from './PatientsContext';
+export { PatientsProvider, usePatients } from './PatientsContext'

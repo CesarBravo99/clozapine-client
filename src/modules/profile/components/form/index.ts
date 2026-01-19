@@ -1,5 +1,5 @@
-export { TextField } from './TextField';
-export { Switch } from './Switch';
-export { Select } from './Select';
-export { SubmitButton } from './SubmitButton';
-export { ErrorMessages } from './ErrorMessages';
+export { TextField } from './TextField'
+export { Switch } from './Switch'
+export { Select } from './Select'
+export { SubmitButton } from './SubmitButton'
+export { ErrorMessages } from './ErrorMessages'

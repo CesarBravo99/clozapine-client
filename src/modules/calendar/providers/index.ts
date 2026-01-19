@@ -1,2 +1,1 @@
-export { CalendarProvider } from './CalendarProvider';
-
+export { CalendarProvider } from './CalendarProvider'

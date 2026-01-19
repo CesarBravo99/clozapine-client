@@ -1,2 +1,1 @@
-export { AffiliationSelectorDialog } from './AffiliationSelectorDialog';
-
+export { AffiliationSelectorDialog } from './AffiliationSelectorDialog'

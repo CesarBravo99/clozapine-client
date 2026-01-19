@@ -1,2 +1,1 @@
-export { HelpProvider } from './HelpProvider';
-
+export { HelpProvider } from './HelpProvider'

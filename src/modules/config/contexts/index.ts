@@ -1,3 +1,2 @@
-export { useConfigContext, ConfigContext } from './ConfigContext';
-export type { ConfigTab, PersonnelFormData } from './ConfigContext';
-
+export { useConfigContext, ConfigContext } from './ConfigContext'
+export type { ConfigTab, PersonnelFormData } from './ConfigContext'

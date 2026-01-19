@@ -17,18 +17,18 @@
  * - Sensitive authentication tokens: Handled by HTTP-only cookies
  */
 
-export const SESSION_STATE_STORAGE_KEY = 'session';
+export const SESSION_STATE_STORAGE_KEY = 'session'
 
 export interface SessionState {
-	isLoggedIn: boolean;
-	selectedAffiliationId: number;
-	userRut: number; // For display purposes only - not for authorization
+  isLoggedIn: boolean
+  selectedAffiliationId: number
+  userRut: number // For display purposes only - not for authorization
 }
 
 export function getDefaultSessionState(): SessionState {
-	return {
-		isLoggedIn: false,
-		selectedAffiliationId: -1,
-		userRut: -1,
-	};
+  return {
+    isLoggedIn: false,
+    selectedAffiliationId: -1,
+    userRut: -1,
+  }
 }

@@ -1,2 +1,1 @@
-export { PrescriptionDetailDialog } from './PrescriptionDetailDialog';
-
+export { PrescriptionDetailDialog } from './PrescriptionDetailDialog'

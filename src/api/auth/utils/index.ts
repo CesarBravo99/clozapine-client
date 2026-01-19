@@ -6,24 +6,24 @@
  */
 
 // Cookie utilities
-export { getCookieValue, debugCookies, debugCORSHeaders, testCORSFix } from './cookie.utils';
+export { getCookieValue, debugCookies, debugCORSHeaders, testCORSFix } from './cookie.utils'
 
 // Session utilities
 export {
-	hasAuthenticationCookies,
-	validateAuthenticationServer,
-	hasValidSession,
-} from './session.utils';
+  hasAuthenticationCookies,
+  validateAuthenticationServer,
+  hasValidSession,
+} from './session.utils'
 
 // User utilities
 export {
-	getCurrentUserRut,
-	isUserLoggedIn,
-	getCurrentUserAffiliationId,
-	getSessionState,
-} from './user.utils';
+  getCurrentUserRut,
+  isUserLoggedIn,
+  getCurrentUserAffiliationId,
+  getSessionState,
+} from './user.utils'
 
 // Re-export everything for convenience
-export * from './cookie.utils';
-export * from './session.utils';
-export * from './user.utils';
+export * from './cookie.utils'
+export * from './session.utils'
+export * from './user.utils'

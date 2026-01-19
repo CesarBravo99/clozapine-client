@@ -33,77 +33,77 @@
  * - No sensitive credentials exposed to JavaScript
  */
 
-import { adaptUser } from '@/api/auth/adapters/user';
-import type { User } from '@/domain/user/user.types';
-import type { AxiosInstance } from 'axios';
-import type { Affiliation } from '@/domain/affiliation/affiliation.types';
-import { adaptAffiliations } from '@/api/auth/adapters/affiliation';
+import { adaptUser } from '@/api/auth/adapters/user'
+import type { User } from '@/domain/user/user.types'
+import type { AxiosInstance } from 'axios'
+import type { Affiliation } from '@/domain/affiliation/affiliation.types'
+import { adaptAffiliations } from '@/api/auth/adapters/affiliation'
 
 export interface LoginFormRequest {
-	requestRut: string;
-	requestPassword: string;
+  requestRut: string
+  requestPassword: string
 }
 
 export interface LoginFormResponse {
-	user: User;
-	affiliations: Record<number, Affiliation>;
-	token: string;
-	message: string;
+  user: User
+  affiliations: Record<number, Affiliation>
+  token: string
+  message: string
 }
 
 export const authUser = async (
-	request: LoginFormRequest,
-	axiosClient: AxiosInstance
+  request: LoginFormRequest,
+  axiosClient: AxiosInstance
 ): Promise<LoginFormResponse> => {
-	const loginPayload = {
-		...request,
-		requestRut: Number(request.requestRut),
-	};
+  const loginPayload = {
+    ...request,
+    requestRut: Number(request.requestRut),
+  }
 
-	return await axiosClient
-		.post('/login', loginPayload)
-		.then((response) => {
-			console.log('authUser Login successful:', response.data);
+  return await axiosClient
+    .post('/login', loginPayload)
+    .then((response) => {
+      console.log('authUser Login successful:', response.data)
 
-			// Server automatically sets HTTP-only cookies for user_rut and user_role
-			// No need to set authentication cookies client-side!
-			console.log('🍪 Server has set HTTP-only authentication cookies (user_rut, user_role)');
+      // Server automatically sets HTTP-only cookies for user_rut and user_role
+      // No need to set authentication cookies client-side!
+      console.log('🍪 Server has set HTTP-only authentication cookies (user_rut, user_role)')
 
-			// Set API token cookie for client-side authentication checks
-			saveToken(response.data.token.tokenString, response.data.token.expiresAt);
+      // Set API token cookie for client-side authentication checks
+      saveToken(response.data.token.tokenString, response.data.token.expiresAt)
 
-			// Process safe profile data for UI
-			const affiliations = adaptAffiliations(response.data.affiliations);
-			const user = adaptUser(response.data.user, affiliations);
+      // Process safe profile data for UI
+      const affiliations = adaptAffiliations(response.data.affiliations)
+      const user = adaptUser(response.data.user, affiliations)
 
-			return {
-				user,
-				affiliations,
-				token: response.data.token.tokenString,
-				message: response.data.message,
-			};
-		})
-		.catch((error) => {
-			console.error('Login failed:', error.message);
-			throw error;
-		});
-};
+      return {
+        user,
+        affiliations,
+        token: response.data.token.tokenString,
+        message: response.data.message,
+      }
+    })
+    .catch((error) => {
+      console.error('Login failed:', error.message)
+      throw error
+    })
+}
 
 // Updated saveToken function - only for API token if needed
 const saveToken = (token: string, expiresAt: string) => {
-	// Note: This might not be needed if the server also sets the token as HTTP-only cookie
-	// Check if your API requests use cookies vs Authorization headers
+  // Note: This might not be needed if the server also sets the token as HTTP-only cookie
+  // Check if your API requests use cookies vs Authorization headers
 
-	const expires = new Date(expiresAt);
-	let cookieString = `token=${token}`;
-	cookieString += `; expires=${expires.toUTCString()}`;
-	cookieString += '; path=/';
-	cookieString += '; SameSite=Lax';
+  const expires = new Date(expiresAt)
+  let cookieString = `token=${token}`
+  cookieString += `; expires=${expires.toUTCString()}`
+  cookieString += '; path=/'
+  cookieString += '; SameSite=Lax'
 
-	if (window.location.protocol === 'https:') {
-		cookieString += '; Secure';
-	}
+  if (window.location.protocol === 'https:') {
+    cookieString += '; Secure'
+  }
 
-	console.log('🍪 Setting API token cookie:', cookieString);
-	document.cookie = cookieString;
-};
+  console.log('🍪 Setting API token cookie:', cookieString)
+  document.cookie = cookieString
+}
