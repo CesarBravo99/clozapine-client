@@ -169,7 +169,7 @@ export default function Header() {
                 }}
                 variant="ghost"
                 size="icon"
-                className="text-gray-600 dark:text-gray-300 sm:gap-1.5 h-8 w-8 sm:h-9 sm:w-auto"
+                className="text-gray-600 dark:text-gray-300 sm:gap-1.5 h-8 w-8 px-3 sm:h-9 sm:w-auto"
               >
                 <LogOut className="h-4 w-4" />
                 <span className="hidden md:inline">{globalHeaderText.logout}</span>

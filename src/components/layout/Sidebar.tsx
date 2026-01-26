@@ -1,24 +1,19 @@
-import { type FC, useState, useEffect, type ReactNode, useRef } from 'react'
 import { useLocation, useNavigate } from '@tanstack/react-router'
-import { Bell, Calendar, Settings, Users2, User, FileText, Menu, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { useMediaQuery } from '@/hooks/use-media-query'
+import { Bell, Calendar, FileText, Menu, Settings, User, Users2, X } from 'lucide-react'
+import { type FC, type ReactNode, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { useMediaQuery } from '@/hooks/use-media-query'
 import { langs } from '@/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 interface SidebarProps {
   pendingCount: number
   children?: ReactNode
-  // rightSidebarContent?: ReactNode;
 }
 
-export const Sidebar: FC<SidebarProps> = ({
-  pendingCount,
-  children,
-  // rightSidebarContent,
-}) => {
+export const Sidebar: FC<SidebarProps> = ({ pendingCount, children }) => {
   const location = useLocation()
   const currentPath = location.pathname
   const overlayRef = useRef<HTMLDivElement>(null)
@@ -40,7 +35,7 @@ export const Sidebar: FC<SidebarProps> = ({
 
   const isActive = (path: string) => {
     if (path === '/patients') {
-      return currentPath === path || currentPath.startsWith(path + '/')
+      return currentPath === path || currentPath.startsWith(`${path}/`)
     }
     return currentPath === path
   }
@@ -80,7 +75,7 @@ export const Sidebar: FC<SidebarProps> = ({
               : 'text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800/50'
           }`}
         >
-          <Icon className="h-5 w-5 flex-shrink-0" />
+          <Icon className="h-5 w-5 shrink-0" />
           <span>{label}</span>
           {badge && (
             <Badge variant="destructive" className="ml-auto">
@@ -109,13 +104,15 @@ export const Sidebar: FC<SidebarProps> = ({
 
       {/* Mobile overlay - clickable to close sidebar */}
       {mobileOpen && (
+        // biome-ignore lint/a11y/noStaticElementInteractions: Not needed
+        // biome-ignore lint/a11y/useKeyWithClickEvents: Not needed
         <div
           ref={overlayRef}
           className="fixed inset-0 z-30 bg-black/30 lg:hidden"
           onClick={handleOverlayClick}
         >
           <div
-            className="w-[250px] max-w-[80%] h-full bg-white dark:bg-gray-900
+            className="w-62.5 max-w-[80%] h-full bg-white dark:bg-gray-900
 						border border-gray-200 dark:border-gray-800
 						rounded-r-xl shadow-sm overflow-auto mr-auto"
           >
@@ -139,31 +136,25 @@ export const Sidebar: FC<SidebarProps> = ({
 
             {/* Quick Actions*/}
             {children}
-
-            {/* Include RightSidebar content if provided */}
-            {/* {rightSidebarContent && (
-							<div className='mt-4'>{rightSidebarContent}</div>
-						)} */}
           </div>
         </div>
       )}
 
       {/* Desktop sidebar - always visible on lg+ screens */}
-      <aside className="hidden lg:block flex-shrink-0 space-y-4 lg:w-[220px]">
+      <aside className="hidden lg:block shrink-0 space-y-4 lg:w-55">
         <div
           className="bg-white dark:bg-gray-900
 					border border-gray-200 dark:border-gray-800
 					rounded-xl shadow-sm overflow-hidden w-full h-auto"
         >
-          <div className="p-4 relative">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold">{langs[lang].navigation.mainMenu}</h2>
+          <div className="quick-actions-container">
+            <div className="flex items-center justify-between">
+              <h2 className="title-description">{langs[lang].navigation.mainMenu}</h2>
             </div>
 
             {renderNavigation()}
           </div>
 
-          {/* Quick Actions*/}
           {children}
         </div>
       </aside>

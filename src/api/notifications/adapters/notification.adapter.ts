@@ -1,7 +1,7 @@
 import type { Notification } from '@/domain/notification.types'
-import type { LanguageState } from '@/redux/settings/settings.types'
-import type { GroupedNotification, GroupedNotifications } from '../types/notification.types'
 import { langs } from '@/modules/notifications/lang'
+import type { LanguageState } from '@/redux/settings/settings.types'
+import type { GroupedNotifications } from '../types/notification.types'
 
 /**
  * Formats a date string to a localized readable format
@@ -13,16 +13,20 @@ export const formatNotificationDate = (dateString: string, language: LanguageSta
     const date = new Date(dateString)
 
     // Check if date is valid
-    if (isNaN(date.getTime())) {
+    if (Number.isNaN(date.getTime())) {
       return dateString
     }
 
-    return date.toLocaleDateString(language === 'es' ? 'es-ES' : 'en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    })
+    return date
+      .toLocaleDateString(language === 'es' ? 'es-ES' : 'en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+      .replace(/ de /g, ' de ')
+      .replace(/,/, '') // Remove comma for en-US
+      .replace(/^\w/, (c) => c.toUpperCase()) // Capitalize first letter
   } catch (error) {
     console.warn('Error formatting notification date:', error)
     return dateString
@@ -117,7 +121,7 @@ export const groupNotificationsByDateAndPatient = (
  */
 export const filterNotificationsByCompletion = (
   notifications: Notification[],
-  showCompleted: boolean = true
+  showCompleted = true
 ): Notification[] => {
   if (!Array.isArray(notifications)) {
     return []
