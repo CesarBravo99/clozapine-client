@@ -32,7 +32,6 @@ npm run test
 This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
 
 
-
 ## Shadcn
 
 Add components using the latest version of [Shadcn](https://ui.shadcn.com/).
@@ -40,7 +39,6 @@ Add components using the latest version of [Shadcn](https://ui.shadcn.com/).
 ```bash
 pnpx shadcn@latest add button
 ```
-
 
 ## T3Env
 
@@ -66,24 +64,6 @@ To add a new route to your application just add another a new file in the `./src
 TanStack will automatically generate the content of the route file for you.
 
 Now that you have two routes you can use a `Link` component to navigate between them.
-
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from "@tanstack/react-router";
-```
-
-Then anywhere in your JSX you can use it like so:
-
-```tsx
-<Link to="/about">About</Link>
-```
-
-This will create a link that will navigate to the `/about` route.
-
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
 
 ### Using A Layout
 
