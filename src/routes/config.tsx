@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Building, Check, Search, Settings, Shield, Users, X } from 'lucide-react'
+import { Building, Check, Search, Settings, Shield, UserPlus, Users, X } from 'lucide-react'
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { type ConfigOverview, getConfigOverview } from '@/api/config'
@@ -216,9 +216,10 @@ function ConfigContent({ error }: ConfigContentProps) {
                         </div>
 
                         <Button
-                          className="bg-blue-500 hover:bg-blue-600 text-white"
+                          className="btn-color-common px-3 items-center flex gap-2"
                           onClick={() => setAddPersonnelDialogOpen(true)}
                         >
+                          <UserPlus className="size-4" />
                           {text.page.addPersonnel}
                         </Button>
                       </div>

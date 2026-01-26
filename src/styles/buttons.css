@@ -2,4 +2,8 @@
   .btn-primary {
     @apply bg-primary text-primary-foreground hover:bg-primary/90;
   }
+
+  .btn-color-common {
+    @apply text-white bg-blue-500 hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-800;
+  }
 }
