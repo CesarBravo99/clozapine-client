@@ -1,25 +1,25 @@
-import { useMemo } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
+import { format } from 'date-fns'
+import { Calendar, Check, ChevronLeft, ChevronRight, X } from 'lucide-react'
+import { useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
+import { type CalendarOverview, getCalendarOverview } from '@/api/calendar'
 import { Sidebar } from '@/components/layout/Sidebar'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Badge } from '@/components/ui/badge'
-import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Check } from 'lucide-react'
 import type { Affiliation } from '@/domain/affiliation/affiliation.types'
-import { format } from 'date-fns'
-import { getCalendarOverview, type CalendarOverview } from '@/api/calendar'
-import { CalendarProvider } from '@/modules/calendar/providers'
+import { DayView, LeftSidebar, MonthView, WeekView } from '@/modules/calendar/components'
 import { useCalendarContext } from '@/modules/calendar/contexts'
-import { LeftSidebar, DayView, WeekView, MonthView } from '@/modules/calendar/components'
 import {
   AddEventDialog,
-  EventDetailsDialog,
   AffiliationSelectorDialog,
+  EventDetailsDialog,
 } from '@/modules/calendar/dialog'
 import { langs } from '@/modules/calendar/lang'
+import { CalendarProvider } from '@/modules/calendar/providers'
 import { setSelectedAffiliationId } from '@/redux/session/session.slice'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 interface LoaderResult {
   calendar: CalendarOverview | null
@@ -163,15 +163,18 @@ function CalendarContent({ error, affiliations, selectedAffiliationId }: Calenda
           <Sidebar pendingCount={0}>
             <LeftSidebar collapsed={sidebarCollapsed} />
           </Sidebar>
-          <main className="flex flex-col flex-grow">
+          <main className="flex flex-col grow">
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden h-full flex flex-col">
               <div className="p-6 border-b border-gray-100 dark:border-gray-800">
                 <div className="flex flex-wrap justify-between items-center gap-3 mb-6">
-                  <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">
-                    {text.page.title}
-                  </h1>
+                  <div className="flex-1 flex gap-3 items-center">
+                    <Calendar className="h-7 w-7 text-gray-800 dark:text-white" />
+                    <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">
+                      {text.page.title}
+                    </h1>
+                  </div>
                   <Badge variant="outline" className="flex items-center gap-1 cursor-pointer">
-                    <CalendarIcon className="h-4 w-4" />
+                    <Calendar className="h-5 w-5" />
                     <button type="button" onClick={() => setAffiliationDialogOpen(true)}>
                       Sucursal
                     </button>
@@ -183,7 +186,7 @@ function CalendarContent({ error, affiliations, selectedAffiliationId }: Calenda
                     <Button variant="outline" size="icon" onClick={handlePrevious}>
                       <ChevronLeft className="h-4 w-4" />
                     </Button>
-                    <div className="text-lg font-semibold min-w-[180px] text-center">
+                    <div className="text-lg font-semibold min-w-45 text-center">
                       {format(date, 'PPPP')}
                     </div>
                     <Button variant="outline" size="icon" onClick={handleNext}>
@@ -244,8 +247,8 @@ function CalendarContent({ error, affiliations, selectedAffiliationId }: Calenda
         <div className="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg flex items-center gap-2 animate-in fade-in slide-in-from-bottom-5 duration-300">
           <Check className="h-4 w-4" />
           <span>{successMessage}</span>
-          <button type="button" onClick={hideSuccessMessage} className="text-white/80 text-sm">
-            ×
+          <button type="button" onClick={hideSuccessMessage} className="text-white/80">
+            <X className="h-4 w-4" />
           </button>
         </div>
       )}
@@ -259,11 +262,11 @@ function CalendarLoading() {
       <div className="flex flex-col space-y-8 h-full">
         <div className="flex gap-6 h-full">
           <Sidebar pendingCount={0} />
-          <main className="flex flex-col flex-grow">
+          <main className="flex flex-col grow">
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden h-full flex flex-col">
               <div className="flex-1 p-6 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-gray-100 mx-auto mb-4"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-gray-100 mx-auto mb-4" />
                   <p className="text-gray-600 dark:text-gray-400">Cargando calendario…</p>
                 </div>
               </div>

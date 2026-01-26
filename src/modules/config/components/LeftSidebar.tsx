@@ -1,9 +1,9 @@
-import { Button } from '@/components/ui/button'
 import { Building, LockKeyhole, Users2 } from 'lucide-react'
 import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
+import { Button } from '@/components/ui/button'
+import { type ConfigTab, useConfigContext } from '@/modules/config/contexts'
 import { langs } from '@/modules/config/lang'
-import { useConfigContext, type ConfigTab } from '@/modules/config/contexts'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 interface LeftSidebarProps {
   collapsed?: boolean
@@ -49,11 +49,9 @@ export function LeftSidebar({ collapsed = false }: LeftSidebarProps) {
   }
 
   return (
-    <div className="px-4 py-3 mt-2 border-t border-gray-100 dark:border-gray-800 space-y-4">
+    <div className="quick-actions-container">
       <div>
-        <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">
-          {text.title}
-        </h3>
+        <h3 className="title-description">{text.title}</h3>
         <div className="space-y-2">
           {tabs.map((tab) => {
             const Icon = TAB_ICON[tab.id]

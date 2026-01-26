@@ -12,6 +12,7 @@ import {
 } from '@/modules/exam_record/components'
 import { ErrorReportDialog } from '@/modules/exam_record/dialog'
 import { getExamRecordOverview } from '@/api/exam-record'
+import { ClipboardList } from 'lucide-react'
 
 export const Route = createFileRoute('/exam-record')({
   component: RouteComponent,
@@ -54,9 +55,12 @@ function ExamRecordContent() {
     <div className="container mx-auto py-8 px-4">
       <div className="max-w-3xl mx-auto space-y-6">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
-            {text.page.title}
-          </h1>
+          <div className="flex items-center gap-3">
+            <ClipboardList className="h-7 w-7 text-gray-900 dark:text-gray-100" />
+            <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+              {text.page.title}
+            </h1>
+          </div>
           <p className="text-gray-600 dark:text-gray-400 mt-2">{text.page.subtitle}</p>
         </div>
         <PersonalInfoCard />

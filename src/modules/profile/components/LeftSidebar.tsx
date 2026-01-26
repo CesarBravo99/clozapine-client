@@ -1,9 +1,9 @@
-import { Button } from '@/components/ui/button'
-import { UserRound, Settings, Shield, Bell } from 'lucide-react'
+import { Bell, Settings, Shield, UserRound } from 'lucide-react'
 import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
+import { Button } from '@/components/ui/button'
+import { type ProfileTab, useProfileContext } from '@/modules/profile/context'
 import { langs } from '@/modules/profile/lang'
-import { useProfileContext, type ProfileTab } from '@/modules/profile/context'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 interface LeftSidebarProps {
   collapsed?: boolean
@@ -60,11 +60,9 @@ export function LeftSidebar({ collapsed = false }: LeftSidebarProps) {
   }
 
   return (
-    <div className="px-4 py-3 mt-4 border-t border-gray-100 dark:border-gray-800 space-y-4">
+    <div className="quick-actions-container">
       <div>
-        <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">
-          {text.sectionTitle}
-        </h3>
+        <h3 className="title-description">{text.sectionTitle}</h3>
         <div className="space-y-2">
           {tabs.map((tab) => {
             const Icon = iconMap[tab.id as keyof typeof iconMap] ?? UserRound

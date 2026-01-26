@@ -1,15 +1,16 @@
-import { Sidebar } from '@/components/layout/Sidebar'
-import { getPatientsByAffiliation } from '@/api/patients'
 import { createFileRoute } from '@tanstack/react-router'
+import { Users2 } from 'lucide-react'
+import { useSelector } from 'react-redux'
+import { getPatientsByAffiliation } from '@/api/patients'
+import { Sidebar } from '@/components/layout/Sidebar'
 import { PatientsTable } from '@/modules/patients/components'
 import { LeftSidebar } from '@/modules/patients/components/LeftSidebar'
 import { PatientsProvider, usePatients } from '@/modules/patients/context/PatientsContext'
-import { usePatients as usePatientData } from '@/modules/patients/hooks/usePatients'
-import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
-import { langs } from '@/modules/patients/lang'
-import { PatientDetailsDialog } from '@/modules/patients/dialogs/PatientDetailsDialog'
 import { AddPatientListDialog } from '@/modules/patients/dialogs/AddPatientListDialog'
+import { PatientDetailsDialog } from '@/modules/patients/dialogs/PatientDetailsDialog'
+import { usePatients as usePatientData } from '@/modules/patients/hooks/usePatients'
+import { langs } from '@/modules/patients/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 export const Route = createFileRoute('/patients')({
   component: RouteComponent,
@@ -114,10 +115,11 @@ function PatientsContent({ affiliationId }: { affiliationId: number | null }) {
             <LeftSidebar />
           </Sidebar>
 
-          <main className="flex flex-col flex-grow">
+          <main className="flex flex-col grow">
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden h-full flex flex-col">
               <div className="p-4 border-b border-gray-100 dark:border-gray-800 flex flex-wrap justify-between items-center gap-3">
                 <div className="flex items-center gap-4">
+                  <Users2 className="h-7 w-7 text-gray-800 dark:text-white" />
                   <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">
                     {langs[lang].patients.title}
                   </h1>

@@ -1,22 +1,19 @@
-import { Sidebar } from '@/components/layout/Sidebar'
+import { createFileRoute } from '@tanstack/react-router'
+import { useSelector } from 'react-redux'
 import {
-  getNotificationsByUser,
   formatNotificationDate,
   getNotificationColor,
+  getNotificationsByUser,
   getNotificationTypeText,
   groupNotificationsByDateAndPatient,
 } from '@/api/notifications'
 import { getPatientsByAffiliation } from '@/api/patients'
 import type { PatientTableData } from '@/api/patients/types/patient.types'
+import { Sidebar } from '@/components/layout/Sidebar'
 import type { Affiliation } from '@/domain/affiliation/affiliation.types'
-import { createFileRoute } from '@tanstack/react-router'
-import { selectLang } from '@/redux/settings/settings.slice'
-import { useSelector } from 'react-redux'
-import { langs } from '@/modules/notifications/lang'
-import { RightSidebar, LeftSidebar, NotificationList } from '@/modules/notifications/components'
+import { formatRut } from '@/lib/rut'
+import { LeftSidebar, NotificationList, RightSidebar } from '@/modules/notifications/components'
 import { NotificationProvider, useNotificationContext } from '@/modules/notifications/context'
-import { NotificationDetailDialog } from '@/modules/notifications/dialogs/NotificationDetailDialog'
-import { PatientDetailDialog } from '@/modules/notifications/dialogs/PatientDetailDialog'
 import {
   AddAppointmentDialog,
   type AppointmentFormData,
@@ -25,6 +22,10 @@ import {
   AddPatientDialog,
   type AddPatientFormData,
 } from '@/modules/notifications/dialogs/AddPatientDialog'
+import { NotificationDetailDialog } from '@/modules/notifications/dialogs/NotificationDetailDialog'
+import { PatientDetailDialog } from '@/modules/notifications/dialogs/PatientDetailDialog'
+import { langs } from '@/modules/notifications/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 export const Route = createFileRoute('/notifications')({
   component: RouteComponent,
@@ -55,7 +56,7 @@ export const Route = createFileRoute('/notifications')({
       }
     }
 
-    let userRut = state.session?.userRut || state.user?.user?.userRut
+    const userRut = state.session?.userRut || state.user?.user?.userRut
     if (!userRut) {
       console.log('⚠️ NOTIFICATIONS LOADER: No user data available yet')
       return {
@@ -153,7 +154,7 @@ function LoadingContent() {
           <Sidebar pendingCount={0}>
             <LeftSidebar />
           </Sidebar>
-          <main className="flex flex-col flex-grow">
+          <main className="flex flex-col grow">
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
               <div className="p-4 border-b border-gray-100 dark:border-gray-800 flex flex-wrap justify-between items-center gap-3">
                 <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">
@@ -162,7 +163,7 @@ function LoadingContent() {
               </div>
               <div className="flex-1 p-4 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-gray-100 mx-auto mb-4"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-gray-100 mx-auto mb-4" />
                   <p className="text-gray-600 dark:text-gray-400">
                     {langs[lang].notifications.loadingText}
                   </p>
@@ -232,14 +233,14 @@ function NotificationContent() {
             <LeftSidebar />
           </Sidebar>
 
-          <main className="flex flex-col flex-grow min-w-0">
+          <main className="flex flex-col grow min-w-0">
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden h-full flex flex-col">
               <div className="p-4 border-b border-gray-100 dark:border-gray-800 flex flex-wrap justify-between items-center gap-3">
                 <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">
                   {langs[lang].notifications.title}
                 </h1>
                 <span className="text-sm text-gray-500 dark:text-gray-400">
-                  {langs[lang].notifications.userLabel} {userRut}
+                  {langs[lang].notifications.userLabel} {formatRut(userRut?.toString() || '')}
                 </span>
               </div>
 
@@ -267,7 +268,7 @@ function NotificationContent() {
             </div>
           </main>
 
-          <div className="hidden lg:block lg:w-[280px] flex-shrink-0">
+          <div className="hidden lg:block lg:w-70 shrink-0">
             <RightSidebar />
           </div>
         </div>

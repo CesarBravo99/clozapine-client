@@ -1,10 +1,10 @@
-import { Button } from '@/components/ui/button'
 import { Bell, Calendar, FileText } from 'lucide-react'
-import type { Notification } from '@/domain/notification.types'
-import { NotificationListItem } from './NotificationListItem'
 import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
+import { Button } from '@/components/ui/button'
+import type { Notification } from '@/domain/notification.types'
 import { langs } from '@/modules/notifications/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
+import { NotificationListItem } from './NotificationListItem'
 
 interface GroupedNotification {
   patient: string | null
@@ -62,15 +62,19 @@ export function NotificationList({
         <div className="space-y-6">
           {Object.entries(groupedNotifications).map(([date, patientGroups]) => (
             <div key={date}>
-              <h2 className="text-base font-medium text-gray-500 dark:text-gray-400 flex items-center">
-                <Calendar className="h-3.5 w-3.5 mr-1.5" />
-                {formatDate(date)}
-              </h2>
+              <article className="flex flex-row items-center mb-3">
+                <div className="border-t flex-1 gray-200" />
+                <h2 className="flex items-center text-sm font-medium px-3 text-gray-500 dark:text-gray-400">
+                  <Calendar className="h-3.5 w-3.5 mr-1.5" />
+                  {formatDate(date)}
+                </h2>
+                <div className="border-t flex-1 gray-200" />
+              </article>
 
               {Object.entries(patientGroups).map(([patientKey, group]) => (
                 <div
                   key={`${date}-${patientKey}`}
-                  className="mb-4 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-lg shadow-sm overflow-hidden"
+                  className="mb-3 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-lg shadow-sm overflow-hidden"
                 >
                   {/* Patient header */}
                   {group.patient && group.rut && (
@@ -89,7 +93,7 @@ export function NotificationList({
                           onClick={() => {
                             if (group.rut) {
                               handleViewPatientDetails(
-                                parseInt(group.rut, 10),
+                                Number.parseInt(group.rut, 10),
                                 group.patient || undefined
                               )
                             }
@@ -104,7 +108,7 @@ export function NotificationList({
                           size="sm"
                           onClick={() => {
                             if (group.rut) {
-                              openAddEventDialog(parseInt(group.rut, 10))
+                              openAddEventDialog(Number.parseInt(group.rut, 10))
                             }
                           }}
                           className="text-blue-600 border-blue-200 hover:bg-blue-50 hover:text-blue-700"

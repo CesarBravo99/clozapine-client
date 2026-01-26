@@ -1,9 +1,9 @@
-import { Button } from '@/components/ui/button'
 import { CalendarPlus, CalendarSearch } from 'lucide-react'
 import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
-import { langs } from '@/modules/calendar/lang'
+import { Button } from '@/components/ui/button'
 import { useCalendarContext } from '@/modules/calendar/contexts'
+import { langs } from '@/modules/calendar/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
 import { StatusLegend } from './StatusLegend'
 
 interface LeftSidebarProps {
@@ -41,16 +41,14 @@ export function LeftSidebar({ collapsed = false }: LeftSidebarProps) {
   }
 
   return (
-    <div className="px-4 py-3 mt-2 border-t border-gray-100 dark:border-gray-800 space-y-4">
+    <div className="quick-actions-container">
       <div>
-        <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">
-          {text.quickActions}
-        </h3>
+        <h3 className="title-description">{text.quickActions}</h3>
         <div className="space-y-2">
           <Button
             variant="default"
             size="sm"
-            className="w-full justify-start text-sm bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
+            className="w-full justify-start text-sm bg-blue-600 hover:bg-blue-700 dark:text-white dark:bg-blue-600 dark:hover:bg-blue-700"
             onClick={() => setAddEventOpen(true)}
           >
             <CalendarPlus className="h-4 w-4 mr-2" />

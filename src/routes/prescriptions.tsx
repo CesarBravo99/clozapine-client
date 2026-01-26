@@ -1,17 +1,18 @@
-import { Sidebar } from '@/components/layout/Sidebar'
-import { getPrescriptionsByUser, adaptPrescriptionsToTableData } from '@/api/prescriptions'
 import { createFileRoute } from '@tanstack/react-router'
+import { FileText } from 'lucide-react'
+import { useSelector } from 'react-redux'
+import { adaptPrescriptionsToTableData, getPrescriptionsByUser } from '@/api/prescriptions'
+import { Sidebar } from '@/components/layout/Sidebar'
 import { PrescriptionsTable } from '@/modules/prescriptions/components'
 import { LeftSidebar } from '@/modules/prescriptions/components/LeftSidebar'
 import {
   PrescriptionsProvider,
   usePrescriptionsContext,
 } from '@/modules/prescriptions/contexts/PrescriptionsContext'
-import { usePrescriptions } from '@/modules/prescriptions/hooks/usePrescriptions'
-import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
-import { langs } from '@/modules/prescriptions/lang'
 import { PrescriptionDetailDialog } from '@/modules/prescriptions/dialog'
+import { usePrescriptions } from '@/modules/prescriptions/hooks/usePrescriptions'
+import { langs } from '@/modules/prescriptions/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 export const Route = createFileRoute('/prescriptions')({
   component: RouteComponent,
@@ -123,10 +124,11 @@ function PrescriptionsContent({ userRut }: { userRut: number | null }) {
             <LeftSidebar />
           </Sidebar>
 
-          <main className="flex flex-col flex-grow">
+          <main className="flex flex-col grow">
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden h-full flex flex-col">
               <div className="p-4 border-b border-gray-100 dark:border-gray-800 flex flex-wrap justify-between items-center gap-3">
                 <div className="flex items-center gap-4">
+                  <FileText className="h-7 w-7 text-gray-800 dark:text-white" />
                   <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">
                     {langs[lang].prescriptions.title}
                   </h1>
