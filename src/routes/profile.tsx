@@ -1,24 +1,24 @@
+import { createFileRoute } from '@tanstack/react-router'
+import { Check, Settings, Shield, User, X } from 'lucide-react'
+import { useMemo } from 'react'
+import { useSelector } from 'react-redux'
+import { adaptUserProfileToDisplayData, getUserProfile } from '@/api/profile'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Check, Settings, Shield, User } from 'lucide-react'
-import { createFileRoute } from '@tanstack/react-router'
-import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
 import type { Affiliation } from '@/domain/affiliation/affiliation.types'
-import { getUserProfile, adaptUserProfileToDisplayData } from '@/api/profile'
-import { ProfileProvider, useProfileContext, type ProfileTab } from '@/modules/profile/context'
 import {
-  LeftSidebar,
-  PersonalInfoSection,
   ContactInfoSection,
+  LeftSidebar,
+  PasswordChangeForm,
+  PersonalInfoSection,
   PreferencesSection,
   SecurityForm,
-  PasswordChangeForm,
 } from '@/modules/profile/components'
+import { ProfileProvider, type ProfileTab, useProfileContext } from '@/modules/profile/context'
 import { AffiliationSelectorDialog } from '@/modules/profile/dialog'
 import { langs } from '@/modules/profile/lang'
-import { useMemo } from 'react'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 export const Route = createFileRoute('/profile')({
   component: RouteComponent,
@@ -164,32 +164,35 @@ function ProfileContent({ error }: ProfileContentProps) {
     null
 
   return (
-    <div className="container mx-auto py-6 px-4 md:px-10 h-full">
+    <div className="base-container">
       <div className="flex flex-col space-y-8 h-full">
         <div className="flex gap-6 h-full">
           <Sidebar pendingCount={0}>
             <LeftSidebar collapsed={sidebarCollapsed} />
           </Sidebar>
 
-          <main className="flex flex-col flex-grow">
+          <main className="flex flex-col grow">
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden h-full flex flex-col">
               <div className="p-6 border-b border-gray-100 dark:border-gray-800">
                 <div className="flex flex-wrap justify-between items-center gap-3 mb-6">
-                  <div>
-                    <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">
-                      {text.page.title}
-                    </h1>
+                  <div className="flex items-center gap-3">
+                    <User className="h-7 w-7 text-gray-800 dark:text-white" />
+                    <div>
+                      <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">
+                        {text.page.title}
+                      </h1>
+                    </div>
+                  </div>
+                  <div className="flex flex-row gap-2 items-center">
                     {currentAffiliation && (
-                      <Badge className="mt-2" variant="outline">
-                        {currentAffiliation.position}
-                      </Badge>
+                      <Badge variant="outline">{currentAffiliation.position}</Badge>
+                    )}
+                    {userRut && (
+                      <span className="text-sm text-gray-500 dark:text-gray-400">
+                        {text.page.userLabel} {userRut}
+                      </span>
                     )}
                   </div>
-                  {userRut && (
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
-                      {text.page.userLabel} {userRut}
-                    </span>
-                  )}
                 </div>
 
                 <Tabs
@@ -248,25 +251,25 @@ function ProfileContent({ error }: ProfileContentProps) {
                         </h3>
                         <div className="space-y-4">
                           <div>
-                            <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
                               {text.components.securitySummary.role}
-                            </label>
+                            </span>
                             <p className="text-gray-900 dark:text-white font-medium">
                               {profile.credentials.role}
                             </p>
                           </div>
                           <div>
-                            <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
                               {text.components.securitySummary.lastLogin}
-                            </label>
+                            </span>
                             <p className="text-gray-900 dark:text-white font-medium">
                               {profile.credentials.lastLogin}
                             </p>
                           </div>
                           <div>
-                            <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
                               {text.components.securitySummary.passwordChanged}
-                            </label>
+                            </span>
                             <p className="text-gray-900 dark:text-white font-medium">
                               {profile.credentials.passwordChanged
                                 ? text.components.securitySummary.yes
@@ -274,9 +277,9 @@ function ProfileContent({ error }: ProfileContentProps) {
                             </p>
                           </div>
                           <div>
-                            <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
                               {text.components.securitySummary.accountCreated}
-                            </label>
+                            </span>
                             <p className="text-gray-900 dark:text-white font-medium">
                               {profile.credentials.createdAt}
                             </p>
@@ -330,7 +333,7 @@ function ProfileContent({ error }: ProfileContentProps) {
           <Check className="h-4 w-4" />
           <span>{successMessage}</span>
           <button type="button" onClick={hideSuccessMessage} className="text-white/80 text-sm">
-            ×
+            <X className="h-4 w-4" />
           </button>
         </div>
       )}
@@ -343,15 +346,15 @@ function ProfileLoadingContent() {
   const text = langs[lang]
 
   return (
-    <div className="container mx-auto py-6 px-4 md:px-10 h-full">
+    <div className="base-container">
       <div className="flex flex-col space-y-8 h-full">
         <div className="flex gap-6 h-full">
           <Sidebar pendingCount={0} />
-          <main className="flex flex-col flex-grow">
+          <main className="flex flex-col grow">
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden h-full flex flex-col">
               <div className="flex-1 p-6 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-gray-100 mx-auto mb-4"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-gray-100 mx-auto mb-4" />
                   <p className="text-gray-600 dark:text-gray-400">{text.page.loading}</p>
                 </div>
               </div>

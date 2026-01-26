@@ -1,14 +1,14 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
-import { Check, User, UserCog, Laptop } from 'lucide-react'
+import { Check, Laptop, User, UserCog, X } from 'lucide-react'
 import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
 import { getHelpOverview } from '@/api/help'
-import { HelpProvider } from '@/modules/help/providers'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { DeveloperForm, HeroSection, PatientForm, StaffForm } from '@/modules/help/components'
 import { useHelpContext } from '@/modules/help/contexts'
-import { HeroSection, PatientForm, StaffForm, DeveloperForm } from '@/modules/help/components'
 import { langs } from '@/modules/help/lang'
+import { HelpProvider } from '@/modules/help/providers'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 interface HelpLoaderData {
   help: Awaited<ReturnType<typeof getHelpOverview>>
@@ -144,8 +144,8 @@ function HelpContent() {
         <div className="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg flex items-center gap-2 animate-in fade-in slide-in-from-bottom-5 duration-300">
           <Check className="h-4 w-4" />
           <span>{successMessage}</span>
-          <button type="button" onClick={hideSuccessMessage} className="text-white/80 text-sm">
-            ×
+          <button type="button" onClick={hideSuccessMessage} className="text-white/80">
+            <X className="h-4 w-4" />
           </button>
         </div>
       )}

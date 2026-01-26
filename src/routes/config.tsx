@@ -1,31 +1,31 @@
-import { useMemo } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
+import { Building, Check, Search, Settings, Shield, Users, X } from 'lucide-react'
+import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
+import { type ConfigOverview, getConfigOverview } from '@/api/config'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Search, Shield, Users, Building, Check } from 'lucide-react'
 import type { Affiliation } from '@/domain/affiliation/affiliation.types'
-import { getConfigOverview, type ConfigOverview } from '@/api/config'
-import { ConfigProvider } from '@/modules/config/providers'
-import { useConfigContext } from '@/modules/config/contexts'
 import {
+  AffiliationSettings,
   LeftSidebar,
-  SecuritySettings,
   PasswordPolicies,
   PersonnelList,
-  AffiliationSettings,
+  SecuritySettings,
 } from '@/modules/config/components'
+import { useConfigContext } from '@/modules/config/contexts'
 import {
   AddPersonnelDialog,
-  EditPersonnelDialog,
   DeletePersonnelDialog,
+  EditPersonnelDialog,
   ResetPasswordDialog,
 } from '@/modules/config/dialog'
 import { langs } from '@/modules/config/lang'
+import { ConfigProvider } from '@/modules/config/providers'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 interface LoaderResult {
   config: ConfigOverview | null
@@ -146,20 +146,23 @@ function ConfigContent({ error }: ConfigContentProps) {
   )
 
   return (
-    <div className="container mx-auto py-6 px-4 md:px-10 h-full">
+    <div className="base-container">
       <div className="flex flex-col space-y-8 h-full">
         <div className="flex gap-6 h-full">
           <Sidebar pendingCount={0}>
             <LeftSidebar collapsed={sidebarCollapsed} />
           </Sidebar>
 
-          <main className="flex flex-col flex-grow">
+          <main className="flex flex-col grow">
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden h-full flex flex-col">
               <div className="p-6 border-b border-gray-100 dark:border-gray-800">
                 <div className="flex flex-wrap justify-between items-center gap-3 mb-6">
-                  <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">
-                    {text.page.title}
-                  </h1>
+                  <div className="flex items-center gap-3">
+                    <Settings className="h-7 w-7 text-gray-800 dark:text-white" />
+                    <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">
+                      {text.page.title}
+                    </h1>
+                  </div>
                   <Badge variant="outline">v1.0</Badge>
                 </div>
 
@@ -243,8 +246,8 @@ function ConfigContent({ error }: ConfigContentProps) {
         <div className="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg flex items-center gap-2 animate-in fade-in slide-in-from-bottom-5 duration-300">
           <Check className="h-4 w-4" />
           <span>{successMessage}</span>
-          <button type="button" onClick={hideSuccessMessage} className="text-white/80 text-sm">
-            ×
+          <button type="button" onClick={hideSuccessMessage} className="text-white/80">
+            <X className="h-4 w-4" />
           </button>
         </div>
       )}
@@ -257,15 +260,15 @@ function ConfigLoadingContent() {
   const text = langs[lang]
 
   return (
-    <div className="container mx-auto py-6 px-4 md:px-10 h-full">
+    <div className="base-container">
       <div className="flex flex-col space-y-8 h-full">
         <div className="flex gap-6 h-full">
           <Sidebar pendingCount={0} />
-          <main className="flex flex-col flex-grow">
+          <main className="flex flex-col grow">
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden h-full flex flex-col">
               <div className="flex-1 p-6 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-gray-100 mx-auto mb-4"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-gray-100 mx-auto mb-4" />
                   <p className="text-gray-600 dark:text-gray-400">{text.page.title}...</p>
                 </div>
               </div>

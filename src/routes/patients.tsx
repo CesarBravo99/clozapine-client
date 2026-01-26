@@ -108,7 +108,7 @@ function PatientsContent({ affiliationId }: { affiliationId: number | null }) {
   })
 
   return (
-    <div className="container mx-auto py-6 px-4 md:px-10 h-full">
+    <div className="base-container">
       <div className="flex flex-col space-y-8 h-full">
         <div className="flex gap-6 h-full">
           <Sidebar pendingCount={0}>
@@ -117,8 +117,8 @@ function PatientsContent({ affiliationId }: { affiliationId: number | null }) {
 
           <main className="flex flex-col grow">
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden h-full flex flex-col">
-              <div className="p-4 border-b border-gray-100 dark:border-gray-800 flex flex-wrap justify-between items-center gap-3">
-                <div className="flex items-center gap-4">
+              <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex flex-wrap justify-between items-center gap-3">
+                <div className="flex items-center gap-3">
                   <Users2 className="h-7 w-7 text-gray-800 dark:text-white" />
                   <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">
                     {langs[lang].patients.title}
@@ -138,8 +138,9 @@ function PatientsContent({ affiliationId }: { affiliationId: number | null }) {
                     </span>
                     <button
                       onClick={handleRefresh}
-                      disabled={loading}
                       className="px-3 py-1 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      disabled={loading}
+                      type="button"
                     >
                       {loading
                         ? langs[lang].patients.refreshingButton

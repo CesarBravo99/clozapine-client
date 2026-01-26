@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { Bell } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import {
   formatNotificationDate,
@@ -148,7 +149,7 @@ function LoadingContent() {
   const lang = useSelector(selectLang)
 
   return (
-    <div className="container mx-auto py-6 px-4 md:px-10 h-full">
+    <div className="base-container">
       <div className="flex flex-col space-y-8 h-full">
         <div className="flex gap-6 h-full">
           <Sidebar pendingCount={0}>
@@ -156,10 +157,13 @@ function LoadingContent() {
           </Sidebar>
           <main className="flex flex-col grow">
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
-              <div className="p-4 border-b border-gray-100 dark:border-gray-800 flex flex-wrap justify-between items-center gap-3">
-                <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">
-                  {langs[lang].notifications.title}
-                </h1>
+              <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex flex-wrap justify-between items-center gap-3">
+                <div className="flex items-center gap-3">
+                  <Bell className="h-7 w-7 text-gray-800 dark:text-white" />
+                  <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">
+                    {langs[lang].notifications.title}
+                  </h1>
+                </div>
               </div>
               <div className="flex-1 p-4 flex items-center justify-center">
                 <div className="text-center">
@@ -226,7 +230,7 @@ function NotificationContent() {
   }
 
   return (
-    <div className="container mx-auto py-6 px-4 md:px-10 h-full">
+    <div className="base-container">
       <div className="flex flex-col space-y-8 h-full">
         <div className="flex gap-6 h-full">
           <Sidebar pendingCount={pendingCount}>
@@ -235,10 +239,13 @@ function NotificationContent() {
 
           <main className="flex flex-col grow min-w-0">
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden h-full flex flex-col">
-              <div className="p-4 border-b border-gray-100 dark:border-gray-800 flex flex-wrap justify-between items-center gap-3">
-                <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">
-                  {langs[lang].notifications.title}
-                </h1>
+              <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex flex-wrap justify-between items-center gap-3">
+                <div className="flex items-center gap-3">
+                  <Bell className="h-7 w-7 text-gray-800 dark:text-white" />
+                  <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">
+                    {langs[lang].notifications.title}
+                  </h1>
+                </div>
                 <span className="text-sm text-gray-500 dark:text-gray-400">
                   {langs[lang].notifications.userLabel} {formatRut(userRut?.toString() || '')}
                 </span>
