@@ -3,7 +3,7 @@ import type { CalendarModuleTranslations } from './en'
 export const es: CalendarModuleTranslations = {
   page: {
     title: 'Calendario',
-    addEvent: 'Nueva cita',
+    addEvent: 'Agendar cita',
     today: 'Hoy',
     searchPlaceholder: 'Buscar paciente por nombre o RUT…',
     viewLabels: {

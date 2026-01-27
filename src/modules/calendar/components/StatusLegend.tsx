@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
 import { langs } from '@/modules/calendar/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
 import { StatusBadge } from './StatusBadge'
 
 export function StatusLegend() {
@@ -15,10 +15,8 @@ export function StatusLegend() {
   ]
 
   return (
-    <div className="space-y-3">
-      <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 tracking-wide uppercase">
-        {text.title}
-      </h4>
+    <div className="space-y-3 mt-5">
+      <h4 className="title-description">{text.title}</h4>
       <div className="flex flex-wrap gap-2">
         {statuses.map((status) => (
           <StatusBadge key={status.key} status={status.key} label={status.label} />
