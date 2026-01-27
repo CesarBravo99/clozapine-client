@@ -1,5 +1,5 @@
-import type { Notification } from '@/domain/notification.types'
 import type { AxiosInstance } from 'axios'
+import type { Notification } from '@/domain/notification.types'
 
 export const getNotificationsByUser = async (
   userRut: number | undefined,
@@ -60,7 +60,7 @@ export const completeNotification = async (
   axiosClient: AxiosInstance
 ): Promise<Notification> => {
   try {
-    const response = await axiosClient.post<Notification>(`api/v1/notifications/complete`, payload)
+    const response = await axiosClient.post<Notification>('api/v1/notifications/complete', payload)
 
     return response.data
   } catch (error) {

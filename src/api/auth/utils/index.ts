@@ -5,25 +5,22 @@
  * This provides clean imports throughout the application.
  */
 
+// Re-export everything for convenience
+export * from './cookie.utils'
 // Cookie utilities
-export { getCookieValue, debugCookies, debugCORSHeaders, testCORSFix } from './cookie.utils'
-
+export { debugCORSHeaders, debugCookies, getCookieValue, testCORSFix } from './cookie.utils'
+export * from './session.utils'
 // Session utilities
 export {
   hasAuthenticationCookies,
-  validateAuthenticationServer,
   hasValidSession,
+  validateAuthenticationServer,
 } from './session.utils'
-
+export * from './user.utils'
 // User utilities
 export {
-  getCurrentUserRut,
-  isUserLoggedIn,
   getCurrentUserAffiliationId,
+  getCurrentUserRut,
   getSessionState,
+  isUserLoggedIn,
 } from './user.utils'
-
-// Re-export everything for convenience
-export * from './cookie.utils'
-export * from './session.utils'
-export * from './user.utils'

@@ -25,12 +25,8 @@ export function getCookieValue(name: string): string | null {
   return null
 }
 
-/**
- * Debug CORS headers by making a test request
- * @param {string} url - The URL to test
- */
 export async function debugCORSHeaders(
-  url: string = 'http://localhost:1090/api/v1/notifications/user?requestRut=123456789'
+  url = 'http://localhost:1090/api/v1/notifications/user?requestRut=123456789'
 ): Promise<void> {
   try {
     const response = await fetch(url, {
