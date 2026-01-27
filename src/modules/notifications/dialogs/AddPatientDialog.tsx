@@ -1,4 +1,7 @@
+import { Phone, UserPlus } from 'lucide-react'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -7,10 +10,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
+import { Label } from '@/components/ui/label'
 import {
   Select,
   SelectContent,
@@ -18,11 +19,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
 import type { Affiliation } from '@/domain/affiliation/affiliation.types'
-import { Phone, UserPlus } from 'lucide-react'
-import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
 import { langs } from '@/modules/notifications/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 export interface AddPatientFormData {
   patientRut: string
@@ -89,7 +89,7 @@ export function AddPatientDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="min-w-3xl">
         <DialogHeader>
           <DialogTitle>{dictionary.title}</DialogTitle>
           <DialogDescription>{dictionary.description}</DialogDescription>
@@ -217,7 +217,7 @@ export function AddPatientDialog({
                   placeholder={dictionary.notesPlaceholder}
                   value={form.notes}
                   onChange={(event) => setForm((prev) => ({ ...prev, notes: event.target.value }))}
-                  className="min-h-[100px]"
+                  className="min-h-25"
                 />
               </div>
             </div>
