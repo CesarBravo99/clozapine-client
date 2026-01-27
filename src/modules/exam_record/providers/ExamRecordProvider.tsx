@@ -10,9 +10,10 @@ import {
 interface ExamRecordProviderProps {
   children: ReactNode
   overview: ExamRecordOverview | null
+  rut: number | null
 }
 
-export function ExamRecordProvider({ children, overview }: ExamRecordProviderProps) {
+export function ExamRecordProvider({ children, overview, rut }: ExamRecordProviderProps) {
   const routeContext = useRouteContext({ from: '__root__' })
   const axiosClient = routeContext.axiosClient
 
