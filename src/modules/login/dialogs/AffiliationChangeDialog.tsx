@@ -1,4 +1,7 @@
+import { CheckCircle2 } from 'lucide-react'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -8,11 +11,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
 import {
   Select,
   SelectContent,
@@ -20,12 +21,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { CheckCircle2 } from 'lucide-react'
-import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
-import { langs } from '@/modules/login/lang'
+import { Textarea } from '@/components/ui/textarea'
 import { useLoginDialogContext } from '@/modules/login/contexts/LoginDialogContext'
+import { langs } from '@/modules/login/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 export function AffiliationChangeDialog() {
   const lang = useSelector(selectLang)
@@ -51,7 +50,7 @@ export function AffiliationChangeDialog() {
 
   return (
     <Dialog open={affiliationOpen} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-150 max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{text.title}</DialogTitle>
           <DialogDescription>{text.description}</DialogDescription>

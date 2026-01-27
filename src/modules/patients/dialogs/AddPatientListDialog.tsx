@@ -1,18 +1,18 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
+  DialogHeader,
+  DialogTitle,
 } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { usePatients } from '../context/PatientsContext'
-import { useSelector } from 'react-redux'
 import { selectLang } from '@/redux/settings/settings.slice'
+import { usePatients } from '../context/PatientsContext'
 import { langs } from '../lang'
 
 export function AddPatientListDialog() {
@@ -22,7 +22,7 @@ export function AddPatientListDialog() {
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
-    rust: '',
+    rut: '',
     email: '',
     phone: '',
     status: 'active',
@@ -33,7 +33,7 @@ export function AddPatientListDialog() {
     setForm({
       firstName: '',
       lastName: '',
-      rust: '',
+      rut: '',
       email: '',
       phone: '',
       status: 'active',
@@ -56,7 +56,7 @@ export function AddPatientListDialog() {
 
   return (
     <Dialog open={isAddPatientListOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-[520px]">
+      <DialogContent className="sm:max-w-130">
         <DialogHeader>
           <DialogTitle>{dictionary.title}</DialogTitle>
           <DialogDescription>{dictionary.subtitle}</DialogDescription>

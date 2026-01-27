@@ -7,12 +7,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 import { useRouteContext } from '@tanstack/react-router'
-import {
-  checkPermission,
-  getUserPermissions,
-  type PermissionCheckRequest,
-  type PermissionAction,
-} from '@/api/auth/permissions'
+import { checkPermission, getUserPermissions, type PermissionAction } from '@/api/auth/permissions'
 
 /**
  * Hook to check a specific permission

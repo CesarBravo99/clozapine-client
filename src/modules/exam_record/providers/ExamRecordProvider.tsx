@@ -1,19 +1,18 @@
-import { type ReactNode, useCallback, useMemo, useRef, useState, useEffect } from 'react'
+import { useRouteContext } from '@tanstack/react-router'
+import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { type ExamRecordOverview, reportExamError, submitExamRecord } from '@/api/exam-record'
 import {
   ExamRecordContext,
   type ExamRecordSection,
   type UploadedDocument,
 } from '@/modules/exam_record/contexts/ExamRecordContext'
-import { type ExamRecordOverview, reportExamError, submitExamRecord } from '@/api/exam-record'
-import { useRouteContext } from '@tanstack/react-router'
 
 interface ExamRecordProviderProps {
   children: ReactNode
   overview: ExamRecordOverview | null
-  rut: number | null
 }
 
-export function ExamRecordProvider({ children, overview, rut }: ExamRecordProviderProps) {
+export function ExamRecordProvider({ children, overview }: ExamRecordProviderProps) {
   const routeContext = useRouteContext({ from: '__root__' })
   const axiosClient = routeContext.axiosClient
 

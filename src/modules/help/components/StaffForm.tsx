@@ -1,11 +1,9 @@
-import { FormEvent } from 'react'
+import { Lock } from 'lucide-react'
+import type { FormEvent } from 'react'
 import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
-import { langs } from '@/modules/help/lang'
-import { useHelpContext } from '@/modules/help/contexts'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import {
   Select,
@@ -14,8 +12,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Lock } from 'lucide-react'
+import { Textarea } from '@/components/ui/textarea'
+import { useHelpContext } from '@/modules/help/contexts'
+import { langs } from '@/modules/help/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 export function StaffForm() {
   const lang = useSelector(selectLang)

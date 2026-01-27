@@ -1,3 +1,9 @@
+import { Calendar, Check, X } from 'lucide-react'
+import { useMemo } from 'react'
+import { useSelector } from 'react-redux'
+import { getNotificationColor, getNotificationTypeText } from '@/api/notifications'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -6,16 +12,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Calendar, Check, FileText, X } from 'lucide-react'
 import type { Notification } from '@/domain/notification.types'
-import type { NotificationPatientSummary } from '../context/NotificationContext'
-import { getNotificationColor, getNotificationTypeText } from '@/api/notifications'
-import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
-import { useMemo } from 'react'
 import { langs } from '@/modules/notifications/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
+import type { NotificationPatientSummary } from '../context/NotificationContext'
 
 interface PatientDetailDialogProps {
   open: boolean
@@ -141,7 +141,7 @@ export function PatientDetailDialog({
                         className={`h-2.5 w-2.5 rounded-full ${getNotificationColor(
                           notification.type
                         )}`}
-                      ></span>
+                      />
                       <p className="font-medium text-gray-700 dark:text-gray-200">
                         {getNotificationTypeText(notification.type, lang, true)}
                       </p>

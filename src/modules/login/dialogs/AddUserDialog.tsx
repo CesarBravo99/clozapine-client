@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -8,7 +9,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -19,10 +19,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
-import { langs } from '@/modules/login/lang'
 import { useLoginDialogContext } from '@/modules/login/contexts/LoginDialogContext'
+import { langs } from '@/modules/login/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 export function AddUserDialog() {
   const lang = useSelector(selectLang)
@@ -40,7 +39,7 @@ export function AddUserDialog() {
 
   return (
     <Dialog open={addUserOpen} onOpenChange={setAddUserOpen}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-106.25">
         <DialogHeader>
           <DialogTitle>{text.title}</DialogTitle>
           <DialogDescription>{text.description}</DialogDescription>

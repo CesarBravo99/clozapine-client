@@ -1,11 +1,10 @@
 import type { AxiosInstance } from 'axios'
 import type {
+  ConfigAffiliationSettings,
   ConfigOverview,
+  ConfigPasswordPolicy,
   ConfigPersonnel,
   ConfigSecuritySettings,
-  ConfigPasswordPolicy,
-  ConfigAffiliationSettings,
-  PersonnelStatus,
 } from './types/config.types'
 
 const MOCK_PERSONNEL: ConfigPersonnel[] = [

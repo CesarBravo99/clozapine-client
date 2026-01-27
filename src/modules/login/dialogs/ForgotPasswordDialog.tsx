@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -7,14 +8,12 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
-import { langs } from '@/modules/login/lang'
 import { useLoginDialogContext } from '@/modules/login/contexts/LoginDialogContext'
+import { langs } from '@/modules/login/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 export function ForgotPasswordDialog() {
   const lang = useSelector(selectLang)
@@ -27,7 +26,7 @@ export function ForgotPasswordDialog() {
 
   return (
     <Dialog open={forgotPasswordOpen} onOpenChange={setForgotPasswordOpen}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-106">
         <DialogHeader>
           <DialogTitle>{text.title}</DialogTitle>
           <DialogDescription>{text.description}</DialogDescription>

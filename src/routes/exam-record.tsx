@@ -1,18 +1,18 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { ClipboardList } from 'lucide-react'
 import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
+import { getExamRecordOverview } from '@/api/exam-record'
+import {
+  DocumentUploadSection,
+  PersonalInfoCard,
+  SubmitSection,
+  SymptomsSection,
+} from '@/modules/exam_record/components'
+import { useExamRecordContext } from '@/modules/exam_record/contexts'
+import { ErrorReportDialog } from '@/modules/exam_record/dialog'
 import { langs } from '@/modules/exam_record/lang'
 import { ExamRecordProvider } from '@/modules/exam_record/providers'
-import { useExamRecordContext } from '@/modules/exam_record/contexts'
-import {
-  PersonalInfoCard,
-  DocumentUploadSection,
-  SymptomsSection,
-  SubmitSection,
-} from '@/modules/exam_record/components'
-import { ErrorReportDialog } from '@/modules/exam_record/dialog'
-import { getExamRecordOverview } from '@/api/exam-record'
-import { ClipboardList } from 'lucide-react'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 export const Route = createFileRoute('/exam-record')({
   component: RouteComponent,

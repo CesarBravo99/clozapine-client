@@ -1,33 +1,32 @@
-import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { useRouteContext } from '@tanstack/react-router'
 import {
   addDays,
-  subDays,
-  addWeeks,
-  subWeeks,
   addMonths,
-  subMonths,
-  startOfWeek,
-  startOfMonth,
-  endOfMonth,
+  addWeeks,
   eachDayOfInterval,
-  isSameDay,
+  endOfMonth,
   format,
+  isSameDay,
+  startOfMonth,
+  startOfWeek,
+  subDays,
+  subMonths,
+  subWeeks,
 } from 'date-fns'
-import { selectLang } from '@/redux/settings/settings.slice'
-import type { Affiliation } from '@/domain/affiliation/affiliation.types'
-import { useMediaQuery } from '@/hooks/use-media-query'
+import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
 import {
+  type CalendarEvent,
+  type CalendarEventPayload,
+  type CalendarEventStatus,
+  type CalendarOverview,
   createCalendarEvent,
   deleteCalendarEvent,
   updateCalendarEventStatus,
-  type CalendarEvent,
-  type CalendarEventPayload,
-  type CalendarOverview,
-  type CalendarEventStatus,
 } from '@/api/calendar'
+import { useMediaQuery } from '@/hooks/use-media-query'
 import { langs } from '@/modules/calendar/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
 import {
   CalendarContext,
   type CalendarContextValue,
@@ -38,9 +37,7 @@ import {
 interface CalendarProviderProps {
   children: ReactNode
   calendarData: CalendarOverview | null
-  userRut: number
   selectedAffiliationId: number
-  affiliations: Affiliation[]
 }
 
 const DEFAULT_EVENT_FORM: CalendarEventForm = {
@@ -59,9 +56,7 @@ const DEFAULT_EVENT_FORM: CalendarEventForm = {
 export function CalendarProvider({
   children,
   calendarData,
-  userRut,
   selectedAffiliationId,
-  affiliations,
 }: CalendarProviderProps) {
   const routeContext = useRouteContext({ from: '__root__' })
   const { axiosClient } = routeContext

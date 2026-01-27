@@ -1,25 +1,24 @@
-import { useMemo, useState } from 'react'
+import { rankItem } from '@tanstack/match-sorter-utils'
 import {
+  type ColumnFiltersState,
   createColumnHelper,
+  type FilterFn,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
-  getSortedRowModel,
   getPaginationRowModel,
-  useReactTable,
-  type ColumnFiltersState,
+  getSortedRowModel,
   type SortingState,
-  type FilterFn,
+  useReactTable,
 } from '@tanstack/react-table'
-import { rankItem } from '@tanstack/match-sorter-utils'
-import { Button } from '@/components/ui/button'
+import { useMemo, useState } from 'react'
+import { useSelector } from 'react-redux'
+import type { PatientTableData } from '@/api/patients/types/patient.types'
+import { selectLang } from '@/redux/settings/settings.slice'
+import { usePatients } from '../context/PatientsContext'
+import { langs } from '../lang'
 import { DebouncedInput } from './DebouncedInput'
 import { Filter } from './Filter'
-import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
-import { langs } from '../lang'
-import type { PatientTableData } from '@/api/patients/types/patient.types'
-import { usePatients } from '../context/PatientsContext'
 
 interface PatientsTableProps {
   data: PatientTableData[]
@@ -222,7 +221,7 @@ export function PatientsTable({ data, isLoading, error }: PatientsTableProps) {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-gray-100 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-gray-100 mx-auto mb-4" />
           <p className="text-gray-600 dark:text-gray-400">
             {langs[lang].components.patientsTable.loading}
           </p>

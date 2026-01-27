@@ -1,6 +1,11 @@
-import { type FC, useState } from 'react'
+import { ChevronDown, Filter, X } from 'lucide-react'
+import { useState } from 'react'
+// import { RutInput } from '@/components/RutInput';
+import { useSelector } from 'react-redux'
 import { Button } from '@/components/ui/button'
+import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
 import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import {
   Select,
   SelectContent,
@@ -9,13 +14,8 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
-import { Label } from '@/components/ui/label'
-import { Filter, X, ChevronDown } from 'lucide-react'
-import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
-// import { RutInput } from '@/components/RutInput';
-import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
 import { langs } from '@/modules/notifications/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 export interface NotificationFiltersProps {
   selectedDate: string
@@ -26,10 +26,7 @@ export interface NotificationFiltersProps {
   setShowPendingOnly: React.Dispatch<React.SetStateAction<boolean>>
   filterByRut: boolean
   setFilterByRut: React.Dispatch<React.SetStateAction<boolean>>
-  rutFilter: string
-  setRutFilter: React.Dispatch<React.SetStateAction<string>>
   resetFilters: () => void
-  handleRutChange: (value: string) => void
 }
 
 export function NotificationFilters({
@@ -41,10 +38,7 @@ export function NotificationFilters({
   setShowPendingOnly,
   filterByRut,
   setFilterByRut,
-  rutFilter,
-  setRutFilter,
   resetFilters,
-  handleRutChange,
 }: NotificationFiltersProps) {
   const [showFilters, setShowFilters] = useState(false)
   const lang = useSelector(selectLang)

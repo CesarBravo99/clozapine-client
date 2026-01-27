@@ -1,25 +1,24 @@
-import { useMemo, useState } from 'react'
+import { rankItem } from '@tanstack/match-sorter-utils'
 import {
+  type ColumnFiltersState,
   createColumnHelper,
+  type FilterFn,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
-  getSortedRowModel,
   getPaginationRowModel,
-  useReactTable,
-  type ColumnFiltersState,
+  getSortedRowModel,
   type SortingState,
-  type FilterFn,
+  useReactTable,
 } from '@tanstack/react-table'
-import { rankItem } from '@tanstack/match-sorter-utils'
-import { Button } from '@/components/ui/button'
+import { useMemo, useState } from 'react'
+import { useSelector } from 'react-redux'
+import type { PrescriptionTableData } from '@/api/prescriptions/types/prescription.types'
+import { selectLang } from '@/redux/settings/settings.slice'
+import { usePrescriptionsContext } from '../contexts/PrescriptionsContext'
+import { langs } from '../lang'
 import { DebouncedInput } from './DebouncedInput'
 import { Filter } from './Filter'
-import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
-import { langs } from '../lang'
-import type { PrescriptionTableData } from '@/api/prescriptions/types/prescription.types'
-import { usePrescriptionsContext } from '../contexts/PrescriptionsContext'
 
 interface PrescriptionsTableProps {
   data: PrescriptionTableData[]
@@ -204,7 +203,7 @@ export function PrescriptionsTable({ data, isLoading, error }: PrescriptionsTabl
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-gray-100 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-gray-100 mx-auto mb-4" />
           <p className="text-gray-600 dark:text-gray-400">
             {langs[lang].components.prescriptionsTable.loading}
           </p>

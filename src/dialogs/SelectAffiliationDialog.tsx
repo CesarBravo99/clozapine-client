@@ -1,21 +1,20 @@
+import { Check } from 'lucide-react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from '@/components/ui/dialog'
-import { useState, useEffect } from 'react'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
-import { Check } from 'lucide-react'
-import { selectUser } from '@/redux/user/user.slice'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import {
   selectSelectedAffiliationId,
   setSelectedAffiliationId,
 } from '@/redux/session/session.slice'
+import { selectUser } from '@/redux/user/user.slice'
 
 type Props = {
   open: boolean

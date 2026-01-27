@@ -1,6 +1,7 @@
 export {
-  ProfileProvider,
-  useProfileContext,
-  type ProfileTab,
   type FontSizeOption,
+  type NotificationPreferencesState,
+  ProfileProvider,
+  type ProfileTab,
+  useProfileContext,
 } from './ProfileContext'

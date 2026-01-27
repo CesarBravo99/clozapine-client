@@ -1,24 +1,23 @@
+import { useRouteContext } from '@tanstack/react-router'
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useRouteContext } from '@tanstack/react-router'
-import { selectLang } from '@/redux/settings/settings.slice'
-import { useMediaQuery } from '@/hooks/use-media-query'
-import type { Affiliation } from '@/domain/affiliation/affiliation.types'
 import {
   addPersonnel,
+  type ConfigAffiliationSettings,
+  type ConfigOverview,
+  type ConfigPasswordPolicy,
+  type ConfigPersonnel,
+  type ConfigSecuritySettings,
   deletePersonnel as deletePersonnelApi,
   resetPersonnelPassword,
   saveAffiliationSettings as saveAffiliationSettingsApi,
   savePasswordPolicy as savePasswordPolicyApi,
   saveSecuritySettings as saveSecuritySettingsApi,
   updatePersonnel,
-  type ConfigAffiliationSettings,
-  type ConfigOverview,
-  type ConfigPasswordPolicy,
-  type ConfigPersonnel,
-  type ConfigSecuritySettings,
 } from '@/api/config'
+import { useMediaQuery } from '@/hooks/use-media-query'
 import { langs } from '@/modules/config/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
 import {
   ConfigContext,
   type ConfigContextValue,
@@ -30,7 +29,6 @@ interface ConfigProviderProps {
   children: ReactNode
   configData: ConfigOverview | null
   userRut: number | null
-  affiliations: Affiliation[]
   selectedAffiliationId: number
 }
 
@@ -61,7 +59,6 @@ export function ConfigProvider({
   children,
   configData,
   userRut,
-  affiliations,
   selectedAffiliationId,
 }: ConfigProviderProps) {
   const routeContext = useRouteContext({ from: '__root__' })
