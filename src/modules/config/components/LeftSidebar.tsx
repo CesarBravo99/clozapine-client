@@ -68,7 +68,7 @@ export function LeftSidebar({ collapsed = false }: LeftSidebarProps) {
                 }`}
                 onClick={() => setActiveTab(tab.id)}
               >
-                <Icon className="h-4 w-4 mr-2" />
+                <Icon className="h-4 w-4 mr-1" />
                 {tab.label}
               </Button>
             )

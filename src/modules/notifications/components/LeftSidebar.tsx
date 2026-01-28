@@ -20,7 +20,7 @@ export function LeftSidebar({ collapsed = false }: LeftSidebarProps) {
           onClick={() => openAddEventDialog()}
           variant="ghost"
           size="icon"
-          className="h-8 w-8 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-800"
+          className="text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-800"
           title={langs[lang].components.leftSidebar.scheduleAppointment}
         >
           <Calendar className="h-4 w-4" />
@@ -30,7 +30,7 @@ export function LeftSidebar({ collapsed = false }: LeftSidebarProps) {
           onClick={handleAddPatient}
           variant="ghost"
           size="icon"
-          className="h-8 w-8 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-800"
+          className="text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-800"
           title={langs[lang].components.leftSidebar.addPatient}
         >
           <UserRoundPlus className="h-4 w-4" />
@@ -40,7 +40,7 @@ export function LeftSidebar({ collapsed = false }: LeftSidebarProps) {
           onClick={handleSearchPatient}
           variant="ghost"
           size="icon"
-          className="h-8 w-8 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-800"
+          className="text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-800"
           title={langs[lang].components.leftSidebar.searchPatient}
         >
           <User2 className="h-4 w-4" />
@@ -58,9 +58,9 @@ export function LeftSidebar({ collapsed = false }: LeftSidebarProps) {
             onClick={() => openAddEventDialog()}
             variant="default"
             size="sm"
-            className="w-full justify-start text-sm bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors"
+            className="sidebar-action-button"
           >
-            <Calendar className="h-4 w-4 mr-2" />
+            <Calendar className="h-4 w-4 mr-1" />
             {langs[lang].components.leftSidebar.scheduleAppointment}
           </Button>
 
@@ -70,7 +70,7 @@ export function LeftSidebar({ collapsed = false }: LeftSidebarProps) {
             size="sm"
             className="w-full justify-start text-sm transition-colors"
           >
-            <UserRoundPlus className="h-4 w-4 mr-2" />
+            <UserRoundPlus className="h-4 w-4 mr-1" />
             {langs[lang].components.leftSidebar.addPatient}
           </Button>
 
@@ -80,7 +80,7 @@ export function LeftSidebar({ collapsed = false }: LeftSidebarProps) {
             size="sm"
             className="w-full justify-start text-sm transition-colors"
           >
-            <User2 className="h-4 w-4 mr-2" />
+            <User2 className="h-4 w-4 mr-1" />
             {langs[lang].components.leftSidebar.searchPatient}
           </Button>
         </div>

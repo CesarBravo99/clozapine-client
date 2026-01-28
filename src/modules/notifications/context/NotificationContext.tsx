@@ -1,22 +1,22 @@
 import {
   createContext,
+  type ReactNode,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
   useState,
-  useCallback,
-  type ReactNode,
 } from 'react'
-import type { Notification, NotificationMetadata } from '@/domain/notification.types'
-import { useMediaQuery } from '@/hooks/use-media-query'
+import axiosClient from '@/api/axiosClient'
+import {
+  completeNotification as completeNotificationApi,
+  sortNotificationsByDateAndPriority,
+} from '@/api/notifications'
 import type { PatientTableData } from '@/api/patients/types/patient.types'
 import type { Affiliation } from '@/domain/affiliation/affiliation.types'
-import {
-  sortNotificationsByDateAndPriority,
-  completeNotification as completeNotificationApi,
-} from '@/api/notifications'
-import axiosClient from '@/api/axiosClient'
+import type { Notification, NotificationMetadata } from '@/domain/notification.types'
 import { NotificationType } from '@/domain/notification.types'
+import { useMediaQuery } from '@/hooks/use-media-query'
 
 const TYPE_KEY_TO_VALUE: Record<string, NotificationType> = {
   urgente: NotificationType.Urgency,
@@ -241,7 +241,7 @@ export function NotificationProvider({
           if (notificationDate !== selectedDate) {
             return false
           }
-        } catch (error) {
+        } catch {
           // If parsing fails, fallback to string contains
           if (!String(notification.date).startsWith(selectedDate)) {
             return false
@@ -256,8 +256,7 @@ export function NotificationProvider({
         const userRut = notification.userRut ? String(notification.userRut) : ''
 
         const rutMatches =
-          (patientRut && patientRut.toLowerCase().includes(cleanRut)) ||
-          (userRut && userRut.toLowerCase().includes(cleanRut))
+          patientRut?.toLowerCase().includes(cleanRut) || userRut?.toLowerCase().includes(cleanRut)
 
         if (!rutMatches) {
           return false

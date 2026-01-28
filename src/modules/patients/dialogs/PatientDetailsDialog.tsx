@@ -1,25 +1,25 @@
+import type { Locale } from 'date-fns'
+import { format } from 'date-fns'
+import { enUS, es } from 'date-fns/locale'
+import { Calendar, FileText, FolderOpen, Loader2, Mail, MapPin, Phone } from 'lucide-react'
+import type { ReactNode } from 'react'
+import { useSelector } from 'react-redux'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
+  DialogHeader,
+  DialogTitle,
 } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
-import { Calendar, FileText, FolderOpen, Loader2, Mail, MapPin, Phone } from 'lucide-react'
-import { usePatients } from '../context/PatientsContext'
-import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
-import { langs } from '../lang'
 import { cn } from '@/lib/utils'
+import { selectLang } from '@/redux/settings/settings.slice'
 import { LanguageState } from '@/redux/settings/settings.types'
-import { format } from 'date-fns'
-import type { Locale } from 'date-fns'
-import { es, enUS } from 'date-fns/locale'
-import type { ReactNode } from 'react'
+import { usePatients } from '../context/PatientsContext'
+import { langs } from '../lang'
 
 export function PatientDetailsDialog() {
   const {
@@ -48,7 +48,7 @@ export function PatientDetailsDialog() {
     .join('')
     .slice(0, 2)
 
-  const formattedRut = formatRut(detail?.patientRut ?? selectedPatient.patientRut)
+  const formattedRut = formatRutFull(detail?.patientRut ?? selectedPatient.patientRut)
   const age = detail?.birthday ? calculateAge(detail.birthday) : selectedPatient.age
   const birthdate = detail?.birthday
     ? (formatDate(detail.birthday, locale) ?? dictionary.notAvailable)
@@ -72,7 +72,7 @@ export function PatientDetailsDialog() {
 
   return (
     <Dialog open={isPatientDetailsOpen} onOpenChange={(open) => !open && closePatientDetails()}>
-      <DialogContent className="sm:max-w-[620px]">
+      <DialogContent className="sm:max-w-155">
         <DialogHeader>
           <DialogTitle>{dictionary.title}</DialogTitle>
           <DialogDescription>{dictionary.subtitle}</DialogDescription>
@@ -258,7 +258,7 @@ function mapGender(
   }
 }
 
-function formatRut(rut?: number | null): string | null {
+function formatRutFull(rut?: number | null): string | null {
   if (!rut) return null
   const body = rut.toString()
   const reversed = body.split('').reverse()

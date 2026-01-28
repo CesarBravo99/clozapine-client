@@ -51,7 +51,7 @@ export function LeftSidebar({ collapsed = false }: LeftSidebarProps) {
             className="w-full justify-start text-sm bg-blue-600 hover:bg-blue-700 dark:text-white dark:bg-blue-600 dark:hover:bg-blue-700"
             onClick={() => setAddEventOpen(true)}
           >
-            <CalendarPlus className="h-4 w-4 mr-2" />
+            <CalendarPlus className="h-4 w-4 mr-1" />
             {text.addEvent}
           </Button>
           <Button
@@ -60,7 +60,7 @@ export function LeftSidebar({ collapsed = false }: LeftSidebarProps) {
             className="w-full justify-start text-sm"
             onClick={handleToday}
           >
-            <CalendarSearch className="h-4 w-4 mr-2" />
+            <CalendarSearch className="h-4 w-4 mr-1" />
             {text.goToday}
           </Button>
         </div>

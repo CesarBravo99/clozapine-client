@@ -106,7 +106,7 @@ export function LeftSidebar({ collapsed = false }: LeftSidebarProps) {
           onClick={handleAddPrescription}
           variant="default"
           size="sm"
-          className="w-full justify-start text-sm bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors"
+          className="sidebar-action-button"
         >
           <PlusCircle className="h-4 w-4 mr-2" />
           {langs[lang].components.leftSidebar.addPrescription}

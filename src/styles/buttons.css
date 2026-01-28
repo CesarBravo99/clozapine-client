@@ -4,6 +4,10 @@
   }
 
   .btn-color-common {
-    @apply text-white bg-blue-500 hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-800;
+    @apply text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 dark:text-white;
+  }
+
+  .sidebar-action-button {
+    @apply w-full flex gap-1.5 justify-start text-sm text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 dark:text-white transition-colors;
   }
 }

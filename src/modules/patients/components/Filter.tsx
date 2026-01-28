@@ -1,4 +1,3 @@
-import React from 'react'
 import type { Column } from '@tanstack/react-table'
 import { DebouncedInput } from './DebouncedInput'
 
@@ -6,7 +5,7 @@ interface FilterProps {
   column: Column<any, unknown>
 }
 
-export const Filter: React.FC<FilterProps> = ({ column }) => {
+export const Filter = ({ column }: FilterProps) => {
   const columnFilterValue = column.getFilterValue()
 
   return (

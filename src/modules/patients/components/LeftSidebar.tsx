@@ -55,7 +55,7 @@ export function LeftSidebar({ collapsed = false }: LeftSidebarProps) {
           onClick={handleAddPatient}
           variant="ghost"
           size="icon"
-          className="h-8 w-8 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-800"
+          className="text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-800"
           title={langs[lang].components.leftSidebar.addPatient}
         >
           <PlusCircle className="h-5 w-5" />
@@ -106,9 +106,9 @@ export function LeftSidebar({ collapsed = false }: LeftSidebarProps) {
           onClick={handleAddPatient}
           variant="default"
           size="sm"
-          className="w-full justify-start text-sm bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors"
+          className="sidebar-action-button"
         >
-          <PlusCircle className="h-4 w-4 mr-2" />
+          <PlusCircle className="h-4 w-4 mr-1" />
           {langs[lang].components.leftSidebar.addPatient}
         </Button>
       </div>
