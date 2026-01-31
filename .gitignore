@@ -9,3 +9,6 @@ dist-ssr
 .vscode/
 .env
 .cursorrules
+
+# Specific files
+ENDPOINT.md
