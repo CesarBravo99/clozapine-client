@@ -1,7 +1,8 @@
-import type { User, UserSettings } from '@/domain/user/user.types'
-import type { UserAffiliation } from '@/domain/user/user-affiliation.types'
 import type { ServerUser, ServerUserAffiliation } from '@/api/auth/types/user.types'
 import type { Affiliation } from '@/domain/affiliation/affiliation.types'
+import type { User, UserSettings } from '@/domain/user/user.types'
+import type { UserAffiliation } from '@/domain/user/user-affiliation.types'
+import { formatRut } from '@/lib/rut'
 
 export function adaptUser(serverUser: ServerUser, affiliations: Record<number, Affiliation>): User {
   const userSettings: UserSettings = {
@@ -57,10 +58,6 @@ function adaptUserAffiliation(
     affiliationShortName: affiliation?.shortName ?? '',
     paidStatus: affiliation?.paidStatus ?? false,
   }
-}
-
-function formatRut(rut: number): string {
-  return rut.toString().replace(/(\d{1,3})(\d{3})(\d{3})(\d{3})/, '$1.$2.$3-$4')
 }
 
 function formatName(name: string): string {

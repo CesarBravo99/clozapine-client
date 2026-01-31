@@ -1,8 +1,11 @@
-export function formatRut(rawRut: string | null): string {
+export const formatRut = (rawRut: string | number | null): string => {
   if (!rawRut) return ''
 
   // Remove any non-alphanumeric characters
-  const rut = rawRut.replace(/[^0-9kK]/g, '').toLowerCase()
+  const rut = rawRut
+    .toString()
+    .replace(/[^0-9kK]/g, '')
+    .toLowerCase()
 
   if (rut.length < 2) return rut
 

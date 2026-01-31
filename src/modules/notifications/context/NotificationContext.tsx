@@ -17,6 +17,7 @@ import type { Affiliation } from '@/domain/affiliation/affiliation.types'
 import type { Notification, NotificationMetadata } from '@/domain/notification.types'
 import { NotificationType } from '@/domain/notification.types'
 import { useMediaQuery } from '@/hooks/use-media-query'
+import { formatRut } from '@/lib/rut'
 
 const TYPE_KEY_TO_VALUE: Record<string, NotificationType> = {
   urgente: NotificationType.Urgency,
@@ -48,15 +49,6 @@ const ensureMetadata = (metadata?: NotificationMetadata): NotificationMetadata =
     completedAt: metadata.completedAt ?? null,
     details: metadata.details ?? DEFAULT_METADATA.details,
   }
-}
-
-const formatRut = (rut: number | null | undefined): string | null => {
-  if (!rut) return null
-
-  const rutString = String(rut)
-  if (rutString.length <= 1) return rutString
-
-  return `${rutString.slice(0, -1)}-${rutString.slice(-1)}`
 }
 
 export interface NotificationPatientSummary {
