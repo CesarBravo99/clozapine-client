@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
-import { Switch } from '@/components/ui/switch'
 // import { RutInput } from '@/components/RutInput';
 import { Clock, Timer } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Switch } from '@/components/ui/switch'
 import { langs } from '@/modules/notifications/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
 import { useNotificationContext } from '../context/NotificationContext'
 
 export function RightSidebar() {
@@ -45,14 +45,13 @@ export function RightSidebar() {
 
   return (
     <div
-      className={`flex-shrink-0 space-y-4 ${isExtraSmallScreen ? 'hidden' : 'block'}
-                ${isMobileSidebar ? 'w-full' : sidebarCollapsed ? 'w-16' : 'w-full'}`}
+      className={`shrink-0 space-y-4 ${isExtraSmallScreen ? 'hidden' : 'block'} ${isMobileSidebar ? 'w-full' : sidebarCollapsed ? 'w-16' : 'w-full'}`}
     >
       {/* Advanced Filters Card */}
       <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm overflow-hidden">
-        <div className="p-4 border-b border-gray-100 dark:border-gray-800">
+        <div className="px-4 pt-4">
           <h2
-            className={`text-sm font-medium text-gray-500 dark:text-gray-400 ${
+            className={`title-description ${
               sidebarCollapsed && !isMobileSidebar ? 'hidden' : 'block'
             }`}
           >
@@ -61,7 +60,7 @@ export function RightSidebar() {
         </div>
 
         {(!sidebarCollapsed || isMobileSidebar) && (
-          <div className="p-4 space-y-4">
+          <div className="px-4 pb-4 pt-2 space-y-4">
             {/* Date filter */}
             <div className="space-y-2">
               <Label className="text-xs font-medium">
@@ -105,17 +104,15 @@ export function RightSidebar() {
 
       {/* Quick filters card */}
       <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
-        <div className="p-4 border-b border-gray-100 dark:border-gray-800">
+        <div className="px-4 pt-4">
           <h2
-            className={`text-sm font-medium text-gray-500 dark:text-gray-400 ${
-              sidebarCollapsed && !isMobileSidebar ? 'hidden' : 'block'
-            }`}
+            className={`title-description ${sidebarCollapsed && !isMobileSidebar ? 'hidden' : 'block'}`}
           >
             {langs[lang].components.rightSidebar.quickFilters}
           </h2>
         </div>
 
-        <div className="p-4 space-y-3">
+        <div className="px-4 pt-2 pb-4 space-y-1.5">
           {/* Pending filter */}
           <Button
             variant={showPendingOnly ? 'default' : 'outline'}
@@ -164,11 +161,11 @@ export function RightSidebar() {
           {(!sidebarCollapsed || isMobileSidebar) && (
             <div className="py-2">
               <div className="flex items-center gap-2">
-                <div className="h-px bg-gray-200 dark:bg-gray-700 flex-grow"></div>
+                <div className="h-px bg-gray-200 dark:bg-gray-700 grow" />
                 <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
                   {langs[lang].components.rightSidebar.byType}
                 </span>
-                <div className="h-px bg-gray-200 dark:bg-gray-700 flex-grow"></div>
+                <div className="h-px bg-gray-200 dark:bg-gray-700 grow" />
               </div>
             </div>
           )}
@@ -215,7 +212,7 @@ export function RightSidebar() {
               }`}
               onClick={() => setSelectedType(selectedType === key ? 'all' : key)}
             >
-              <span className={`w-3 h-3 rounded-full ${color} mr-2`}></span>
+              <span className={`w-3 h-3 rounded-full ${color} mr-2`} />
               {(!sidebarCollapsed || isMobileSidebar) && <span>{label}</span>}
             </Button>
           ))}

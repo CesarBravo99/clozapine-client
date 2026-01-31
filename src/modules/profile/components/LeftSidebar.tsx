@@ -41,7 +41,7 @@ export function LeftSidebar({ collapsed = false }: LeftSidebarProps) {
               onClick={() => setActiveTab(tab.id)}
               title={tab.label}
             >
-              <Icon className="h-4 w-4" />
+              <Icon className="size-4" />
             </Button>
           )
         })}
@@ -53,7 +53,7 @@ export function LeftSidebar({ collapsed = false }: LeftSidebarProps) {
           title={text.changeAffiliation}
           onClick={() => setAffiliationDialogOpen(true)}
         >
-          <Bell className="h-4 w-4" />
+          <Bell className="size-4" />
         </Button>
       </div>
     )
@@ -78,7 +78,7 @@ export function LeftSidebar({ collapsed = false }: LeftSidebarProps) {
                 }`}
                 onClick={() => setActiveTab(tab.id)}
               >
-                <Icon className="h-4 w-4 mr-2" />
+                <Icon className="size-4 mr-2" />
                 {tab.label}
               </Button>
             )

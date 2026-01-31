@@ -98,15 +98,6 @@ function PatientsContent({ affiliationId }: { affiliationId: number | null }) {
   const { filteredPatients, patients, filterType, loading, error, handleRefresh } = usePatients()
   const lang = useSelector(selectLang)
 
-  console.log('👥 PATIENTS COMPONENT: Rendering with data:', {
-    affiliationId,
-    patientCount: patients.length,
-    filteredPatients: filteredPatients.length,
-    filterType,
-    loading,
-    error,
-  })
-
   return (
     <div className="base-container">
       <title>Pacientes | Clozapina</title>
@@ -120,7 +111,7 @@ function PatientsContent({ affiliationId }: { affiliationId: number | null }) {
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden h-full flex flex-col">
               <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex flex-wrap justify-between items-center gap-3">
                 <div className="flex items-center gap-3">
-                  <Users2 className="h-7 w-7 text-gray-800 dark:text-white" />
+                  <Users2 className="size-7 text-gray-800 dark:text-white" />
                   <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">
                     {langs[lang].patients.title}
                   </h1>

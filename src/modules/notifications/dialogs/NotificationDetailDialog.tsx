@@ -1,4 +1,9 @@
+import { Calendar, Check, Clock, FileText, User, X } from 'lucide-react'
 import { useMemo, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { getNotificationColor, getNotificationTypeText } from '@/api/notifications'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -7,17 +12,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Calendar, Check, Clock, FileText, User, X } from 'lucide-react'
 import type { Notification } from '@/domain/notification.types'
-import { getNotificationColor, getNotificationTypeText } from '@/api/notifications'
-import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
-import { CompleteTaskDialog } from './CompleteTaskDialog'
-import type { NotificationPatientSummary } from '../context/NotificationContext'
-import { LanguageState } from '@/redux/settings/settings.types'
 import { langs } from '@/modules/notifications/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
+import { LanguageState } from '@/redux/settings/settings.types'
+import type { NotificationPatientSummary } from '../context/NotificationContext'
+import { CompleteTaskDialog } from './CompleteTaskDialog'
 
 interface NotificationDetailDialogProps {
   open: boolean
@@ -68,7 +68,8 @@ const formatDateTime = (
       minute: '2-digit',
     })
     return `${datePart} • ${timePart}`
-  } catch (error) {
+  } catch (error: unknown) {
+    console.error('Error formatting date:', error)
     return fallback
   }
 }
@@ -102,21 +103,21 @@ export function NotificationDetailDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[620px]">
+      <DialogContent className="sm:max-w-155">
         <DialogHeader>
           <div className="flex flex-col gap-2">
             <DialogTitle className="text-xl font-semibold">
               {notification.title || notificationType?.label || dictionary.defaultTitle}
             </DialogTitle>
             <DialogDescription className="flex items-center gap-2 text-sm">
-              <Clock className="h-4 w-4 text-gray-400" />
+              <Clock className="size-4 text-gray-400" />
               {formatDateTime(notification.date, lang, dictionary.dateFallback)}
             </DialogDescription>
           </div>
           <div className="flex flex-wrap items-center gap-2 pt-2">
             {notificationType && (
               <Badge variant="outline" className="gap-2">
-                <span className={`h-2.5 w-2.5 rounded-full ${notificationType.color}`}></span>
+                <span className={`h-2.5 w-2.5 rounded-full ${notificationType.color}`} />
                 {notificationType.label}
               </Badge>
             )}
@@ -144,7 +145,7 @@ export function NotificationDetailDialog({
               <div className="h-px bg-gray-200 dark:bg-gray-800" />
               <section className="space-y-4">
                 <div className="flex items-center gap-2">
-                  <User className="h-4 w-4 text-gray-500" />
+                  <User className="size-4 text-gray-500" />
                   <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-500">
                     {dictionary.patientSectionTitle}
                   </h3>
@@ -195,7 +196,7 @@ export function NotificationDetailDialog({
                         size="sm"
                         onClick={() => onViewPatient(patient.patientRut, patient.fullName)}
                       >
-                        <FileText className="mr-2 h-4 w-4" />
+                        <FileText className="mr-2 size-4" />
                         {dictionary.viewRecord}
                       </Button>
                     )}
@@ -213,7 +214,7 @@ export function NotificationDetailDialog({
                         size="sm"
                         onClick={() => onScheduleAppointment(patient.patientRut || undefined)}
                       >
-                        <Calendar className="mr-2 h-4 w-4" />
+                        <Calendar className="mr-2 size-4" />
                         {dictionary.schedule}
                       </Button>
                     )}
@@ -232,7 +233,7 @@ export function NotificationDetailDialog({
                 </h3>
                 <div className="flex flex-col gap-2 rounded-lg border border-green-100 bg-green-50 p-4 text-sm text-green-800 dark:border-green-900/40 dark:bg-green-900/20 dark:text-green-200">
                   <div className="flex items-center gap-2 font-medium">
-                    <Check className="h-4 w-4" />
+                    <Check className="size-4" />
                     <span>{dictionary.completionStatus}</span>
                   </div>
                   {metadata.completedBy && (
@@ -257,7 +258,7 @@ export function NotificationDetailDialog({
 
         <DialogFooter className="flex flex-col gap-2 sm:flex-row sm:justify-end">
           <Button variant="outline" onClick={() => onOpenChange(false)}>
-            <X className="mr-2 h-4 w-4" />
+            <X className="mr-2 size-4" />
             {dictionary.close}
           </Button>
           {!metadata.taskCompleted && (
@@ -265,7 +266,7 @@ export function NotificationDetailDialog({
               onClick={() => setShowCompleteDialog(true)}
               className="bg-green-600 hover:bg-green-700"
             >
-              <Check className="mr-2 h-4 w-4" />
+              <Check className="mr-2 size-4" />
               {dictionary.markAsCompleted}
             </Button>
           )}

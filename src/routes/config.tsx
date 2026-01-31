@@ -176,7 +176,7 @@ function ConfigContent({ error }: ConfigContentProps) {
                       const Icon = tab.icon
                       return (
                         <TabsTrigger key={tab.id} value={tab.id}>
-                          <Icon className="mr-2 h-4 w-4" />
+                          <Icon className="mr-2 size-4" />
                           {tab.label}
                         </TabsTrigger>
                       )
@@ -207,7 +207,7 @@ function ConfigContent({ error }: ConfigContentProps) {
                     <div className="space-y-6">
                       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                         <div className="relative w-full md:max-w-md">
-                          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500 dark:text-gray-400" />
+                          <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-500 dark:text-gray-400" />
                           <Input
                             value={searchTerm}
                             onChange={(event) => setSearchTerm(event.target.value)}
@@ -246,10 +246,10 @@ function ConfigContent({ error }: ConfigContentProps) {
 
       {successMessage && (
         <div className="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg flex items-center gap-2 animate-in fade-in slide-in-from-bottom-5 duration-300">
-          <Check className="h-4 w-4" />
+          <Check className="size-4" />
           <span>{successMessage}</span>
           <button type="button" onClick={hideSuccessMessage} className="text-white/80">
-            <X className="h-4 w-4" />
+            <X className="size-4" />
           </button>
         </div>
       )}

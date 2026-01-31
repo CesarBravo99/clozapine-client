@@ -177,7 +177,7 @@ function ProfileContent({ error }: ProfileContentProps) {
               <div className="p-6 border-b border-gray-100 dark:border-gray-800">
                 <div className="flex flex-wrap justify-between items-center gap-3 mb-6">
                   <div className="flex items-center gap-3">
-                    <User className="h-7 w-7 text-gray-800 dark:text-white" />
+                    <User className="size-7 text-gray-800 dark:text-white" />
                     <div>
                       <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">
                         {text.page.title}
@@ -205,7 +205,7 @@ function ProfileContent({ error }: ProfileContentProps) {
                       const Icon = tab.icon
                       return (
                         <TabsTrigger key={tab.id} value={tab.id}>
-                          <Icon className="mr-2 h-4 w-4" />
+                          <Icon className="mr-2 size-4" />
                           {tab.label}
                         </TabsTrigger>
                       )
@@ -331,10 +331,10 @@ function ProfileContent({ error }: ProfileContentProps) {
 
       {successMessage && (
         <div className="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg flex items-center gap-2 animate-in fade-in slide-in-from-bottom-5 duration-300">
-          <Check className="h-4 w-4" />
+          <Check className="size-4" />
           <span>{successMessage}</span>
           <button type="button" onClick={hideSuccessMessage} className="text-white/80 text-sm">
-            <X className="h-4 w-4" />
+            <X className="size-4" />
           </button>
         </div>
       )}

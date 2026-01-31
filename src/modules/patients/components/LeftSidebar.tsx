@@ -82,7 +82,7 @@ export function LeftSidebar({ collapsed = false }: LeftSidebarProps) {
                 variant="ghost"
                 size="sm"
                 onClick={() => setFilterType(value)}
-                className={`w-full justify-start text-sm h-auto py-2 px-3 rounded-md transition-colors ${
+                className={`w-full justify-start text-sm h-auto py-1.5 px-3 rounded-md transition-colors ${
                   isActive ? activeStyle : inactiveStyle
                 }`}
               >
@@ -100,7 +100,7 @@ export function LeftSidebar({ collapsed = false }: LeftSidebarProps) {
         </div>
       </div>
 
-      <div>
+      <div className="mt-3">
         <h3 className="title-description">{langs[lang].components.leftSidebar.quickActions}</h3>
         <Button
           onClick={handleAddPatient}

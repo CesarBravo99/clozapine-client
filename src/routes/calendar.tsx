@@ -183,13 +183,13 @@ function CalendarContent({ error, affiliations, selectedAffiliationId }: Calenda
                 <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                   <div className="flex items-center gap-2">
                     <Button variant="outline" size="icon" onClick={handlePrevious}>
-                      <ChevronLeft className="h-4 w-4" />
+                      <ChevronLeft className="size-4" />
                     </Button>
                     <div className="text-lg font-semibold min-w-45 text-center">
                       {format(date, 'PPPP', { locale: dateLocale })}
                     </div>
                     <Button variant="outline" size="icon" onClick={handleNext}>
-                      <ChevronRight className="h-4 w-4" />
+                      <ChevronRight className="size-4" />
                     </Button>
                     <Button variant="ghost" size="sm" onClick={handleToday}>
                       {text.page.today}
@@ -244,10 +244,10 @@ function CalendarContent({ error, affiliations, selectedAffiliationId }: Calenda
 
       {successMessage && (
         <div className="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg flex items-center gap-2 animate-in fade-in slide-in-from-bottom-5 duration-300">
-          <Check className="h-4 w-4" />
+          <Check className="size-4" />
           <span>{successMessage}</span>
           <button type="button" onClick={hideSuccessMessage} className="text-white/80">
-            <X className="h-4 w-4" />
+            <X className="size-4" />
           </button>
         </div>
       )}

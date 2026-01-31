@@ -138,7 +138,7 @@ function LoginPage() {
           bg-amber-50 dark:bg-amber-950/50 
           text-amber-800 dark:text-amber-300"
         >
-          <AlertTriangle className="h-4 w-4" />
+          <AlertTriangle className="size-4" />
           <AlertDescription>
             Se recomienda llenar el formulario con asistencia de una persona de confianza que esté
             comprometida con su salud.

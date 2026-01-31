@@ -1,10 +1,10 @@
-import { useUpdateSecurityMutation } from '@/modules/profile/hooks/useUpdateSecurityMutation'
 import { useRouteContext } from '@tanstack/react-router'
+import { Check, Loader2 } from 'lucide-react'
 import { useState } from 'react'
 import type { ProfileDisplayData } from '@/api/profile'
-import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
-import { Check, Loader2 } from 'lucide-react'
+import { Switch } from '@/components/ui/switch'
+import { useUpdateSecurityMutation } from '@/modules/profile/hooks/useUpdateSecurityMutation'
 
 interface SecurityFormProps {
   userRut: number
@@ -62,10 +62,10 @@ export function SecurityForm({ userRut, profile }: SecurityFormProps) {
 
   const FieldStatus = ({ fieldName }: { fieldName: string }) => {
     if (savingField === fieldName) {
-      return <Loader2 className="h-4 w-4 animate-spin text-blue-500" />
+      return <Loader2 className="size-4 animate-spin text-blue-500" />
     }
     if (savedField === fieldName) {
-      return <Check className="h-4 w-4 text-green-500" />
+      return <Check className="size-4 text-green-500" />
     }
     return null
   }

@@ -1,20 +1,20 @@
 import {
   createContext,
-  useContext,
-  useState,
-  useMemo,
-  useEffect,
-  useCallback,
-  useRef,
   type ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
 } from 'react'
-import { useMediaQuery } from '@/hooks/use-media-query'
+import { useDispatch, useSelector } from 'react-redux'
 import type { ProfileDisplayData } from '@/api/profile'
 import type { Affiliation } from '@/domain/affiliation/affiliation.types'
-import { useDispatch, useSelector } from 'react-redux'
+import { useMediaQuery } from '@/hooks/use-media-query'
+import { langs } from '@/modules/profile/lang'
 import { setSelectedAffiliationId } from '@/redux/session/session.slice'
 import { selectLang } from '@/redux/settings/settings.slice'
-import { langs } from '@/modules/profile/lang'
 
 export type ProfileTab = 'personal' | 'security' | 'preferences'
 export type FontSizeOption = 'small' | 'medium' | 'large'
@@ -181,12 +181,12 @@ export function ProfileProvider({
     return normalizeFontSize(profile?.settings.fontSize)
   })
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Needed only on mount
   useEffect(() => {
     const stored = getStoredFontSize()
     if (stored && stored !== fontSize) {
       setFontSizeState(stored as FontSizeOption)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {

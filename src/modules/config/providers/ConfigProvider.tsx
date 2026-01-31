@@ -15,6 +15,7 @@ import {
   saveSecuritySettings as saveSecuritySettingsApi,
   updatePersonnel,
 } from '@/api/config'
+import type { Affiliation } from '@/domain/affiliation/affiliation.types'
 import { useMediaQuery } from '@/hooks/use-media-query'
 import { langs } from '@/modules/config/lang'
 import { selectLang } from '@/redux/settings/settings.slice'
@@ -29,6 +30,7 @@ interface ConfigProviderProps {
   children: ReactNode
   configData: ConfigOverview | null
   userRut: number | null
+  affiliations: Affiliation[]
   selectedAffiliationId: number
 }
 
