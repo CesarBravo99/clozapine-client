@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { format } from 'date-fns'
+import { enUS, es as esLocale } from 'date-fns/locale'
 import { Calendar, Check, ChevronLeft, ChevronRight, X } from 'lucide-react'
 import { useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -136,6 +137,8 @@ function CalendarContent({ error, affiliations, selectedAffiliationId }: Calenda
     setAffiliationDialogOpen,
   } = useCalendarContext()
 
+  const dateLocale = useMemo(() => (lang === 'es' ? esLocale : enUS), [lang])
+
   const tabs = useMemo(
     () => [
       { id: 'day', label: text.page.viewLabels.day },
@@ -182,7 +185,7 @@ function CalendarContent({ error, affiliations, selectedAffiliationId }: Calenda
                       <ChevronLeft className="h-4 w-4" />
                     </Button>
                     <div className="text-lg font-semibold min-w-45 text-center">
-                      {format(date, 'PPPP')}
+                      {format(date, 'PPPP', { locale: dateLocale })}
                     </div>
                     <Button variant="outline" size="icon" onClick={handleNext}>
                       <ChevronRight className="h-4 w-4" />
