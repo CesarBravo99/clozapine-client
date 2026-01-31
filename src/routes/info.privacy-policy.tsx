@@ -5,5 +5,10 @@ export const Route = createFileRoute('/info/privacy-policy')({
 })
 
 function RouteComponent() {
-  return <div>Hello "/info/privacy-policy"!</div>
+  return (
+    <div>
+      <title>Política de Privacidad | Clozapina</title>
+      Hello "/info/privacy-policy"!
+    </div>
+  )
 }

@@ -91,6 +91,7 @@ function HelpContent() {
 
   return (
     <div className="py-6 px-4 md:px-10">
+      <title>Ayuda | Clozapina</title>
       <div className="max-w-5xl mx-auto space-y-8">
         <HeroSection />
         <Card className="bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 shadow-md">

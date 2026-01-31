@@ -231,6 +231,7 @@ function NotificationContent() {
 
   return (
     <div className="base-container">
+      <title>Notificaciones | Clozapina</title>
       <div className="flex flex-col space-y-8 h-full">
         <div className="flex gap-6 h-full">
           <Sidebar pendingCount={pendingCount}>

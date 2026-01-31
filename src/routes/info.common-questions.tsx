@@ -5,5 +5,10 @@ export const Route = createFileRoute('/info/common-questions')({
 })
 
 function RouteComponent() {
-  return <div>Hello "/info/common-questions"!</div>
+  return (
+    <div>
+      <title>Preguntas Frecuentes | Clozapina</title>
+      Hello "/info/common-questions"!
+    </div>
+  )
 }

@@ -53,6 +53,7 @@ function ExamRecordContent() {
 
   return (
     <div className="container mx-auto py-8 px-4">
+      <title>Registro de Exámenes | Clozapina</title>
       <div className="max-w-3xl mx-auto space-y-6">
         <div>
           <div className="flex items-center gap-3">
