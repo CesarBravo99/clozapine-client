@@ -2,14 +2,18 @@ import { AlertTriangle } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
-import { useExamRecordContext } from '@/modules/exam_record/contexts/ExamRecordContext'
+import {
+  useExamRecordForm,
+  useExamRecordFormContext,
+} from '@/modules/exam_record/form_contexts/ExamRecordFormContext'
 import { langs } from '@/modules/exam_record/lang'
 import { selectLang } from '@/redux/settings/settings.slice'
 
 export function SubmitSection() {
   const lang = useSelector(selectLang)
   const text = langs[lang]
-  const { submitExamRecord, isSubmitting, setErrorDialogOpen } = useExamRecordContext()
+  const { isSubmitting, setErrorDialogOpen } = useExamRecordFormContext()
+  const form = useExamRecordForm()
 
   return (
     <div className="space-y-4">
@@ -23,7 +27,7 @@ export function SubmitSection() {
         </Button>
         <Button
           className="bg-blue-600 hover:bg-blue-700 min-w-48 text-white px-5"
-          onClick={submitExamRecord}
+          onClick={() => form.handleSubmit()}
           disabled={isSubmitting}
         >
           {isSubmitting ? text.buttons.submitting : text.buttons.submit}

@@ -1,5 +1,6 @@
 import type { AxiosInstance } from 'axios'
 import { toast } from 'sonner'
+import type { SimpleResponse } from '@/types/response'
 import type {
   ExamErrorReportPayload,
   ExamRecordOverview,
@@ -63,7 +64,7 @@ export const getExamRecordOverview = async (
 export const submitExamRecord = async (
   payload: ExamRecordSubmission,
   axiosClient: AxiosInstance
-): Promise<{ success: boolean }> => {
+): Promise<SimpleResponse> => {
   try {
     await axiosClient.post('/api/v1/patients/exam-record', payload)
     toast.success('Guardado correctamente')
@@ -78,7 +79,7 @@ export const submitExamRecord = async (
 export const reportExamError = async (
   payload: ExamErrorReportPayload,
   axiosClient: AxiosInstance
-): Promise<{ success: boolean }> => {
+): Promise<SimpleResponse> => {
   try {
     await axiosClient.post('/api/v1/patients/exam-record/error', payload)
     return { success: true }

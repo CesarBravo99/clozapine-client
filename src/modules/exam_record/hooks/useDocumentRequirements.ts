@@ -1,6 +1,6 @@
-import { useExamRecordContext } from '@/modules/exam_record/contexts/ExamRecordContext'
+import { useExamRecordFormContext } from '@/modules/exam_record/form_contexts/ExamRecordFormContext'
 
 export function useDocumentRequirements() {
-  const { overview } = useExamRecordContext()
+  const { overview } = useExamRecordFormContext()
   return overview?.documents ?? []
 }

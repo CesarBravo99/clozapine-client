@@ -2,12 +2,16 @@ import { useSelector } from 'react-redux'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useExamRecordContext } from '@/modules/exam_record/contexts/ExamRecordContext'
+import {
+  useExamRecordForm,
+  useExamRecordFormContext,
+} from '@/modules/exam_record/form_contexts/ExamRecordFormContext'
 import { langs } from '@/modules/exam_record/lang'
 import { selectLang } from '@/redux/settings/settings.slice'
 
 export function PersonalInfoCard() {
-  const { overview } = useExamRecordContext()
+  const { overview } = useExamRecordFormContext()
+  const form = useExamRecordForm()
   const lang = useSelector(selectLang)
   const text = langs[lang]
 
@@ -15,7 +19,6 @@ export function PersonalInfoCard() {
     return null
   }
 
-  const patient = overview.patient
   const fieldText = text.sections.fields
 
   return (
@@ -27,25 +30,49 @@ export function PersonalInfoCard() {
       </CardHeader>
       <CardContent className="px-6 flex flex-col gap-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <ReadOnlyField label={fieldText.firstName} value={patient.fullName} />
-          <ReadOnlyField label={fieldText.lastName} value={patient.lastName} />
-          <ReadOnlyField label={fieldText.rut} value={patient.rut} />
-          <ReadOnlyField label={fieldText.age} value={String(patient.age)} />
-          <ReadOnlyField label={fieldText.birthDate} value={patient.birthDate} />
+          <form.Field name="patient.fullName">
+            {(field: { state: { value: string } }) => (
+              <ReadOnlyField label={fieldText.firstName} value={field.state.value} />
+            )}
+          </form.Field>
+          <form.Field name="patient.lastName">
+            {(field: { state: { value: string } }) => (
+              <ReadOnlyField label={fieldText.lastName} value={field.state.value} />
+            )}
+          </form.Field>
+          <form.Field name="patient.rut">
+            {(field: { state: { value: string } }) => (
+              <ReadOnlyField label={fieldText.rut} value={field.state.value} />
+            )}
+          </form.Field>
+          <form.Field name="patient.age">
+            {(field: { state: { value: string } }) => (
+              <ReadOnlyField label={fieldText.age} value={field.state.value} />
+            )}
+          </form.Field>
+          <form.Field name="patient.birthDate">
+            {(field: { state: { value: string } }) => (
+              <ReadOnlyField label={fieldText.birthDate} value={field.state.value} />
+            )}
+          </form.Field>
         </div>
         <div className="space-y-1.5">
           <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
             {text.sections.ancestryQuestion}
           </Label>
-          <Input
-            value={formatAncestryAnswer(
-              patient.ancestryAnswer,
-              text.sections.ancestryYes,
-              text.sections.ancestryNo
+          <form.Field name="patient.ancestryAnswer">
+            {(field: { state: { value: string } }) => (
+              <Input
+                value={formatAncestryAnswer(
+                  field.state.value,
+                  text.sections.ancestryYes,
+                  text.sections.ancestryNo
+                )}
+                disabled
+                className="bg-gray-50 dark:bg-gray-800/40"
+              />
             )}
-            disabled
-            className="bg-gray-50 dark:bg-gray-800/40"
-          />
+          </form.Field>
         </div>
       </CardContent>
     </Card>

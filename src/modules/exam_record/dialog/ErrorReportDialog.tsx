@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -6,7 +9,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
@@ -17,15 +19,13 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { useExamRecordContext } from '@/modules/exam_record/contexts/ExamRecordContext'
-import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
+import { useExamRecordFormContext } from '@/modules/exam_record/form_contexts/ExamRecordFormContext'
 import { langs } from '@/modules/exam_record/lang'
-import { useState } from 'react'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 export function ErrorReportDialog() {
   const { overview, isErrorDialogOpen, setErrorDialogOpen, reportError, isReportingError } =
-    useExamRecordContext()
+    useExamRecordFormContext()
   const lang = useSelector(selectLang)
   const text = langs[lang].dialogs.errorReport
   const [rut, setRut] = useState('')
@@ -39,7 +39,7 @@ export function ErrorReportDialog() {
 
   return (
     <Dialog open={isErrorDialogOpen} onOpenChange={setErrorDialogOpen}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-108">
         <form onSubmit={handleSubmit} className="space-y-4">
           <DialogHeader>
             <DialogTitle>{text.title}</DialogTitle>

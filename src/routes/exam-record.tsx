@@ -7,10 +7,12 @@ import {
   SubmitSection,
   SymptomsSection,
 } from '@/modules/exam_record/components'
-import { useExamRecordContext } from '@/modules/exam_record/contexts'
 import { ErrorReportDialog } from '@/modules/exam_record/dialog'
+import {
+  ExamRecordFormProvider,
+  useExamRecordFormContext,
+} from '@/modules/exam_record/form_contexts/ExamRecordFormContext'
 import { langs } from '@/modules/exam_record/lang'
-import { ExamRecordProvider } from '@/modules/exam_record/providers'
 import { selectLang } from '@/redux/settings/settings.slice'
 
 export const Route = createFileRoute('/exam-record')({
@@ -28,17 +30,17 @@ function RouteComponent() {
   const { overview, userRut } = Route.useLoaderData()
 
   return (
-    <ExamRecordProvider overview={overview} rut={userRut}>
+    <ExamRecordFormProvider overview={overview} rut={userRut}>
       <ExamRecordContent />
       <ErrorReportDialog />
-    </ExamRecordProvider>
+    </ExamRecordFormProvider>
   )
 }
 
 function ExamRecordContent() {
   const lang = useSelector(selectLang)
   const text = langs[lang]
-  const { overview } = useExamRecordContext()
+  const { overview } = useExamRecordFormContext()
 
   if (!overview) {
     return (

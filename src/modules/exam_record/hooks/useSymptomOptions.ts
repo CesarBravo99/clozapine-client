@@ -1,10 +1,10 @@
-import { useExamRecordContext } from '@/modules/exam_record/contexts/ExamRecordContext'
 import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
+import { useExamRecordFormContext } from '@/modules/exam_record/form_contexts/ExamRecordFormContext'
 import { langs } from '@/modules/exam_record/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 export function useSymptomOptions() {
-  const { overview } = useExamRecordContext()
+  const { overview } = useExamRecordFormContext()
   const lang = useSelector(selectLang)
   const symptomText = langs[lang].symptomLabels
 
