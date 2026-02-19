@@ -1,8 +1,9 @@
 import type { AxiosInstance } from 'axios'
+import { toast } from 'sonner'
 import type {
+  ExamErrorReportPayload,
   ExamRecordOverview,
   ExamRecordSubmission,
-  ExamErrorReportPayload,
 } from './types/examRecord.types'
 
 const mockOverview: ExamRecordOverview = {
@@ -65,10 +66,12 @@ export const submitExamRecord = async (
 ): Promise<{ success: boolean }> => {
   try {
     await axiosClient.post('/api/v1/patients/exam-record', payload)
+    toast.success('Guardado correctamente')
     return { success: true }
   } catch (error) {
     console.error('Failed to submit exam record', error)
-    return { success: true }
+    toast.error('Error al guardar el registro')
+    return { success: false }
   }
 }
 

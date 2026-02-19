@@ -31,9 +31,11 @@ function RouteComponent() {
   )
 }
 
+type UserType = 'patient' | 'personal'
+
 function LoginPage() {
   const lang = useSelector(selectLang)
-  const [userType, setUserType] = useState('patient')
+  const [userType, setUserType] = useState<UserType>('patient')
   const { setAddPatientOpen, setAffiliationOpen, setForgotPasswordOpen, setAddUserOpen } =
     useLoginDialogContext()
   const patientLinks = langs[lang].userForm.links.patient
@@ -55,7 +57,7 @@ function LoginPage() {
             <Tabs
               defaultValue="patient"
               className="w-full"
-              onValueChange={(value) => setUserType(value as 'patient' | 'personal')}
+              onValueChange={(value) => setUserType(value as UserType)}
             >
               <TabsList className="grid w-full grid-cols-2 rounded-md pb-3 bg-gray-100 dark:bg-gray-800">
                 <TabsTrigger

@@ -1,12 +1,12 @@
+import { useRef } from 'react'
+import { useSelector } from 'react-redux'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
-import { Button } from '@/components/ui/button'
-import { useDocumentRequirements } from '@/modules/exam_record/hooks/useDocumentRequirements'
 import { useExamRecordContext } from '@/modules/exam_record/contexts/ExamRecordContext'
-import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
+import { useDocumentRequirements } from '@/modules/exam_record/hooks/useDocumentRequirements'
 import { langs } from '@/modules/exam_record/lang'
-import { useRef } from 'react'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 export function DocumentUploadSection() {
   const requirements = useDocumentRequirements()
@@ -25,12 +25,12 @@ export function DocumentUploadSection() {
 
   return (
     <Card className="border border-gray-100 dark:border-gray-800">
-      <CardHeader className="border-b border-gray-100 dark:border-gray-800">
+      <CardHeader>
         <CardTitle className="text-base font-semibold text-gray-800 dark:text-gray-100">
           {text.sections.documents}
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-4 space-y-4">
+      <CardContent className="flex flex-col gap-4">
         {requirements.map((req) => {
           const uploaded = uploadedDocuments.find((doc) => doc.id === req.id)
           return (

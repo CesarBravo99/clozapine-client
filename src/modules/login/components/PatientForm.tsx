@@ -25,9 +25,10 @@ export function PatientForm() {
       onBlur: schema,
     },
     onSubmit: async () => {
-      if (isSubmitting) return
+      if (isSubmitting) {
+        return
+      }
       setSubmitting(true)
-      await new Promise((resolve) => setTimeout(resolve, 600))
       setSubmitting(false)
       router.navigate({ to: '/exam-record' })
     },

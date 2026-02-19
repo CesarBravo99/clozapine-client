@@ -1,10 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useExamRecordContext } from '@/modules/exam_record/contexts/ExamRecordContext'
 import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
-import { langs } from '@/modules/exam_record/lang'
-import { Label } from '@/components/ui/label'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { useExamRecordContext } from '@/modules/exam_record/contexts/ExamRecordContext'
+import { langs } from '@/modules/exam_record/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 export function PersonalInfoCard() {
   const { overview } = useExamRecordContext()
@@ -20,18 +20,18 @@ export function PersonalInfoCard() {
 
   return (
     <Card className="border border-gray-100 dark:border-gray-800">
-      <CardHeader className="border-b border-gray-100 dark:border-gray-800">
+      <CardHeader>
         <CardTitle className="text-base font-semibold text-gray-800 dark:text-gray-100">
           {text.sections.personalInfo}
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-4 space-y-4">
+      <CardContent className="px-6 flex flex-col gap-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ReadOnlyField label={fieldText.firstName} value={patient.fullName} />
           <ReadOnlyField label={fieldText.lastName} value={patient.lastName} />
           <ReadOnlyField label={fieldText.rut} value={patient.rut} />
           <ReadOnlyField label={fieldText.age} value={String(patient.age)} />
-          <ReadOnlyField label={fieldText.birthDate} value={patient.birthDate} full />
+          <ReadOnlyField label={fieldText.birthDate} value={patient.birthDate} />
         </div>
         <div className="space-y-1.5">
           <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -43,7 +43,7 @@ export function PersonalInfoCard() {
               text.sections.ancestryYes,
               text.sections.ancestryNo
             )}
-            readOnly
+            disabled
             className="bg-gray-50 dark:bg-gray-800/40"
           />
         </div>
@@ -55,14 +55,13 @@ export function PersonalInfoCard() {
 interface ReadOnlyFieldProps {
   label: string
   value: string
-  full?: boolean
 }
 
-function ReadOnlyField({ label, value, full }: ReadOnlyFieldProps) {
+function ReadOnlyField({ label, value }: ReadOnlyFieldProps) {
   return (
-    <div className={full ? 'md:col-span-2 space-y-1.5' : 'space-y-1.5'}>
-      <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">{label}</Label>
-      <Input value={value} readOnly className="bg-gray-50 dark:bg-gray-800/40" />
+    <div className="space-y-1.5">
+      <Label className="">{label}</Label>
+      <Input value={value} disabled className="bg-gray-50 dark:bg-gray-800/40" />
     </div>
   )
 }

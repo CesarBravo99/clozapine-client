@@ -1,5 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { ClipboardList } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import { getExamRecordOverview } from '@/api/exam-record'
 import {
@@ -26,7 +25,7 @@ export const Route = createFileRoute('/exam-record')({
 })
 
 function RouteComponent() {
-  const { overview, userRut } = Route.useLoaderData() as Awaited<ReturnType<typeof Route.loader>>
+  const { overview, userRut } = Route.useLoaderData()
 
   return (
     <ExamRecordProvider overview={overview} rut={userRut}>
@@ -52,12 +51,11 @@ function ExamRecordContent() {
   }
 
   return (
-    <div className="container mx-auto py-8 px-4">
+    <div className="container mx-auto py-8">
       <title>Registro de Exámenes | Clozapina</title>
-      <div className="max-w-3xl mx-auto space-y-6">
+      <div className="max-w-3xl mx-auto flex flex-col gap-4">
         <div>
           <div className="flex items-center gap-3">
-            <ClipboardList className="h-7 w-7 text-gray-900 dark:text-gray-100" />
             <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
               {text.page.title}
             </h1>
