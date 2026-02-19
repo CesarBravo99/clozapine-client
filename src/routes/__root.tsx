@@ -8,6 +8,7 @@ import { Provider as ReduxProvider } from 'react-redux'
 import { debugCookies, hasAuthenticationCookies } from '@/api/auth/utils'
 import Footer from '@/components/layout/Footer'
 import Header from '@/components/layout/Header'
+import { Toaster } from '@/components/ui/sonner'
 import type { useAuthenticatedNavigate } from '@/hooks/useNavigate'
 import { sessionLogin, sessionLogout } from '@/redux/session/session.slice'
 import { refreshSession } from '@/redux/session/session.thunk'
@@ -131,6 +132,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
           <Footer />
         </div>
 
+        <Toaster />
         <TanStackRouterDevtools />
         <ReactQueryDevtools buttonPosition="bottom-right" />
       </ReduxProvider>
