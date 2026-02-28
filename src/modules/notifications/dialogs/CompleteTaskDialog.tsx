@@ -1,3 +1,7 @@
+import { Check, Loader2 } from 'lucide-react'
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -6,15 +10,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
-import { Check, Loader2, X } from 'lucide-react'
-import { useState } from 'react'
+import { Textarea } from '@/components/ui/textarea'
 import type { Notification } from '@/domain/notification.types'
-import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
 import { langs } from '@/modules/notifications/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 interface CompleteTaskDialogProps {
   open: boolean
@@ -51,7 +51,7 @@ export function CompleteTaskDialog({
       setNotes('')
       onOpenChange(false)
     } catch (err) {
-      console.error('❌ Failed to complete notification:', err)
+      console.error('Failed to complete notification:', err)
       setError(dictionary.error)
     } finally {
       setIsSubmitting(false)
@@ -60,17 +60,17 @@ export function CompleteTaskDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="sm:max-w-125">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Check className="h-5 w-5 text-green-500" />
+            <Check className="size-5 text-green-500" />
             {dictionary.title}
           </DialogTitle>
           <DialogDescription>{dictionary.description}</DialogDescription>
         </DialogHeader>
 
-        <div className="py-4">
-          <div className="rounded-md bg-amber-50 p-4 text-amber-800 mb-4">
+        <div className="flex flex-col gap-6">
+          <div className="rounded-md px-4 py-3 bg-amber-800/50 text-amber-100">
             <p className="text-sm font-medium">
               {notification.title || dictionary.defaultNotificationTitle}
             </p>
@@ -79,33 +79,25 @@ export function CompleteTaskDialog({
             </p>
           </div>
 
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="notes">{dictionary.notesLabel}</Label>
             <Textarea
               id="notes"
               placeholder={dictionary.notesPlaceholder}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              className="min-h-[100px]"
+              className="min-h-25"
             />
           </div>
-          {error && <p className="mt-2 text-sm text-red-500 dark:text-red-400">{error}</p>}
+          {error && <p className="mt-2 error-message">{error}</p>}
         </div>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={() => handleClose(false)} disabled={isSubmitting}>
-            <X className="h-4 w-4 mr-1" />
-            {dictionary.cancel}
-          </Button>
-          <Button
-            disabled={isSubmitting}
-            onClick={handleComplete}
-            className="bg-green-600 hover:bg-green-700"
-          >
+        <DialogFooter className="mt-3 flex justify-end">
+          <Button disabled={isSubmitting} onClick={handleComplete} className="btn-success-action">
             {isSubmitting ? (
-              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              <Loader2 className="size-4 mr-1 animate-spin" />
             ) : (
-              <Check className="h-4 w-4 mr-1" />
+              <Check className="size-4 mr-1" />
             )}
             {isSubmitting ? dictionary.saving : dictionary.confirm}
           </Button>

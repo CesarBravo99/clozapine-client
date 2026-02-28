@@ -5,16 +5,19 @@ export const adaptPatientForTable = (
   apiResponse: PatientAffiliationAPIResponse
 ): PatientTableData => {
   // Only process if patient details are available
-  if (!apiResponse.firstName || !apiResponse.lastName || !apiResponse.birthday) {
+  if (!apiResponse.patientFirstName || !apiResponse.patientLastName || !apiResponse.birthday) {
     throw new Error('Patient details are missing in API response')
   }
 
   const age = calculateAge(apiResponse.birthday)
-  const state = getStateText(apiResponse.clozapineIsActive || false, apiResponse.affiliationStatus)
+  const state = getStateText(
+    apiResponse.clozapineIsActive || false,
+    apiResponse?.affiliationStatus || 0
+  )
 
   return {
     patientRut: apiResponse.patientRut,
-    name: `${apiResponse.firstName} ${apiResponse.lastName}`,
+    name: `${apiResponse.patientFirstName} ${apiResponse.patientLastName}`,
     age,
     state,
     lastControl: 'No registrado', // TODO: Add last control date when available

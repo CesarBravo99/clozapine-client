@@ -1,4 +1,4 @@
-import { Calendar, Check, Clock, FileText, User, X } from 'lucide-react'
+import { Calendar, Check, Clock, FileText, User } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { getNotificationColor, getNotificationTypeText } from '@/api/notifications'
@@ -13,6 +13,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import type { Notification } from '@/domain/notification.types'
+import { formatRut } from '@/lib/rut'
 import { langs } from '@/modules/notifications/lang'
 import { selectLang } from '@/redux/settings/settings.slice'
 import { LanguageState } from '@/redux/settings/settings.types'
@@ -117,14 +118,14 @@ export function NotificationDetailDialog({
           <div className="flex flex-wrap items-center gap-2 pt-2">
             {notificationType && (
               <Badge variant="outline" className="gap-2">
-                <span className={`h-2.5 w-2.5 rounded-full ${notificationType.color}`} />
+                <span className={`size-3 rounded-full ${notificationType.color}`} />
                 {notificationType.label}
               </Badge>
             )}
             {metadata.taskCompleted && (
-              <Badge variant="outline" className="border-green-200 text-green-600">
-                <Check className="mr-1 h-3.5 w-3.5" />
-                dictionary.completedBadge
+              <Badge variant="outline" className="border-emerald-500 text-emerald-500">
+                <Check className="mr-1 size-3" />
+                {dictionary.completedBadge}
               </Badge>
             )}
           </div>
@@ -180,11 +181,11 @@ export function NotificationDetailDialog({
                     </div>
                   </div>
 
-                  {patient.raw?.rawData?.userRut && (
+                  {patient.raw?.rawData?.patientRut && (
                     <p className="text-xs text-gray-500 dark:text-gray-400">
                       {dictionary.assignationLabel.replace(
                         '{rut}',
-                        String(patient.raw.rawData.userRut)
+                        formatRut(patient.raw.rawData.patientRut.toString())
                       )}
                     </p>
                   )}
@@ -199,14 +200,6 @@ export function NotificationDetailDialog({
                         <FileText className="mr-2 size-4" />
                         {dictionary.viewRecord}
                       </Button>
-                    )}
-                    {patient.raw?.rawData?.userRut && (
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        {dictionary.assignationLabel.replace(
-                          '{rut}',
-                          String(patient.raw.rawData.userRut)
-                        )}
-                      </p>
                     )}
                     {onScheduleAppointment && (
                       <Button
@@ -231,7 +224,7 @@ export function NotificationDetailDialog({
                 <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-500">
                   {dictionary.completionInfoTitle}
                 </h3>
-                <div className="flex flex-col gap-2 rounded-lg border border-green-100 bg-green-50 p-4 text-sm text-green-800 dark:border-green-900/40 dark:bg-green-900/20 dark:text-green-200">
+                <div className="flex flex-col gap-2 rounded-lg border-2 border-emerald-500 bg-emerald-50 p-4 text-sm text-emerald-800 dark:border-emerald-900/40 dark:bg-emerald-900/30 dark:text-emerald-200">
                   <div className="flex items-center gap-2 font-medium">
                     <Check className="size-4" />
                     <span>{dictionary.completionStatus}</span>
@@ -240,7 +233,7 @@ export function NotificationDetailDialog({
                     <p>
                       {dictionary.completionResponsible.replace(
                         '{name}',
-                        String(metadata.completedBy)
+                        formatRut(metadata.completedBy.toString())
                       )}
                     </p>
                   )}
@@ -257,15 +250,8 @@ export function NotificationDetailDialog({
         </div>
 
         <DialogFooter className="flex flex-col gap-2 sm:flex-row sm:justify-end">
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
-            <X className="mr-2 size-4" />
-            {dictionary.close}
-          </Button>
           {!metadata.taskCompleted && (
-            <Button
-              onClick={() => setShowCompleteDialog(true)}
-              className="bg-green-600 hover:bg-green-700"
-            >
+            <Button onClick={() => setShowCompleteDialog(true)} className="btn-success-action">
               <Check className="mr-2 size-4" />
               {dictionary.markAsCompleted}
             </Button>

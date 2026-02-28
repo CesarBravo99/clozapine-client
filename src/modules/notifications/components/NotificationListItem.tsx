@@ -1,13 +1,13 @@
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Check, FileText, Calendar } from 'lucide-react'
+import { Calendar, Check, FileText } from 'lucide-react'
 import { useMemo, useState } from 'react'
-import type { Notification } from '@/domain/notification.types'
-import { CompleteTaskDialog } from '../dialogs/CompleteTaskDialog'
 import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import type { Notification } from '@/domain/notification.types'
 import { langs } from '@/modules/notifications/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
 import { useNotificationContext } from '../context'
+import { CompleteTaskDialog } from '../dialogs/CompleteTaskDialog'
 
 interface NotificationListItemProps {
   notification: Notification
@@ -68,11 +68,19 @@ export function NotificationListItem({
 
   return (
     <>
+      {/** biome-ignore lint/a11y/noStaticElementInteractions: Needed */}
       <div
         key={notification.notificationId}
-        className={`p-6 transition-colors ${taskCompleted ? 'bg-gray-50/60 dark:bg-gray-900/30' : 'hover:bg-gray-50/80 dark:hover:bg-gray-900/40'}`}
+        onClick={() => handleViewNotificationDetails(notification)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            handleViewNotificationDetails(notification)
+          }
+        }}
+        className={`w-full text-left p-6 transition-colors ${taskCompleted ? 'bg-gray-50/60 dark:bg-gray-900/30' : 'hover:bg-gray-50/80 dark:hover:bg-gray-900/40'}`}
       >
-        <div className="space-y-4" onClick={() => handleViewNotificationDetails(notification)}>
+        <div className="space-y-4">
           <header className="flex flex-wrap items-center gap-3">
             <div className="flex items-center gap-3">
               <div className="flex flex-col">
@@ -147,7 +155,7 @@ export function NotificationListItem({
               <span
                 className={`inline-flex h-2 w-2 rounded-full ${accentColor}`}
                 aria-hidden="true"
-              ></span>
+              />
               <span className="text-sm font-semibold text-gray-600 dark:text-gray-300">
                 {getNotificationTypeText(notification.type, true)}
               </span>
@@ -165,10 +173,10 @@ export function NotificationListItem({
           </section>
 
           {taskCompleted && completedLabel && (
-            <footer className="flex items-center justify-end gap-2 text-xs font-medium text-gray-500 dark:text-gray-400">
+            <div className="flex items-center justify-end gap-2 text-xs font-medium text-gray-500 dark:text-gray-400">
               <Check className="h-3.5 w-3.5 text-green-500" />
               <span className="italic">{completedLabel}</span>
-            </footer>
+            </div>
           )}
         </div>
       </div>

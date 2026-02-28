@@ -189,7 +189,7 @@ export function AddPatientDialog({
                     setForm((prev) => ({ ...prev, affiliationId: Number(value) }))
                   }
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="w-full">
                     <SelectValue placeholder={dictionary.affiliationPlaceholder} />
                   </SelectTrigger>
                   <SelectContent>
@@ -224,12 +224,9 @@ export function AddPatientDialog({
           </div>
         </div>
 
-        {error && <p className="text-sm text-red-500 dark:text-red-400">{error}</p>}
+        {error && <p className="error-message">{error}</p>}
 
-        <DialogFooter className="flex flex-col gap-2 sm:flex-row sm:justify-end">
-          <Button variant="outline" onClick={() => handleClose(false)}>
-            {dictionary.cancel}
-          </Button>
+        <DialogFooter className="flex justify-end">
           <Button onClick={handleSubmit}>{dictionary.confirm}</Button>
         </DialogFooter>
       </DialogContent>

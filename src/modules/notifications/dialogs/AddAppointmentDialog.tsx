@@ -1,4 +1,7 @@
+import { Calendar, Clock, User } from 'lucide-react'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -7,15 +10,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import type { NotificationPatientSummary } from '../context/NotificationContext'
-import { Calendar, Clock, User, X } from 'lucide-react'
-import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
 import { langs } from '@/modules/notifications/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
+import type { NotificationPatientSummary } from '../context/NotificationContext'
 
 export interface AppointmentFormData {
   date: string
@@ -73,7 +73,7 @@ export function AddAppointmentDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-[520px]">
+      <DialogContent className="sm:max-w-125">
         <DialogHeader>
           <DialogTitle>{dictionary.title}</DialogTitle>
           <DialogDescription>{dictionary.description}</DialogDescription>
@@ -147,18 +147,14 @@ export function AddAppointmentDialog({
               placeholder={dictionary.notesPlaceholder}
               value={form.notes}
               onChange={(event) => setForm((prev) => ({ ...prev, notes: event.target.value }))}
-              className="min-h-[120px]"
+              className="min-h-30"
             />
           </div>
 
-          {formError && <p className="text-sm text-red-500 dark:text-red-400">{formError}</p>}
+          {formError && <p className="error-message">{formError}</p>}
         </div>
 
-        <DialogFooter className="flex flex-col gap-2 sm:flex-row sm:justify-end">
-          <Button variant="outline" onClick={() => handleClose(false)}>
-            <X className="mr-2 h-4 w-4" />
-            {dictionary.cancel}
-          </Button>
+        <DialogFooter className="flex justify-end">
           <Button onClick={handleSubmit}>{dictionary.confirm}</Button>
         </DialogFooter>
       </DialogContent>

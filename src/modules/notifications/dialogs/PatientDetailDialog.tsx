@@ -1,4 +1,4 @@
-import { Calendar, Check, X } from 'lucide-react'
+import { Calendar, Check } from 'lucide-react'
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { getNotificationColor, getNotificationTypeText } from '@/api/notifications'
@@ -13,6 +13,8 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import type { Notification } from '@/domain/notification.types'
+import { getInitials } from '@/lib/name'
+import { formatRut } from '@/lib/rut'
 import { langs } from '@/modules/notifications/lang'
 import { selectLang } from '@/redux/settings/settings.slice'
 import type { NotificationPatientSummary } from '../context/NotificationContext'
@@ -23,14 +25,6 @@ interface PatientDetailDialogProps {
   patient: NotificationPatientSummary | null
   patientNotifications: Notification[]
   onScheduleAppointment: () => void
-}
-
-const getInitials = (name: string | null) => {
-  if (!name) return 'NA'
-  const parts = name.split(' ').filter(Boolean)
-  if (parts.length === 0) return 'NA'
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase()
-  return `${parts[0].charAt(0)}${parts[parts.length - 1].charAt(0)}`.toUpperCase()
 }
 
 export function PatientDetailDialog({
@@ -58,7 +52,7 @@ export function PatientDetailDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className="sm:max-w-150">
         <DialogHeader>
           <DialogTitle>{dictionary.title}</DialogTitle>
           <DialogDescription>{dictionary.description}</DialogDescription>
@@ -97,11 +91,11 @@ export function PatientDetailDialog({
                 </div>
               </div>
 
-              {patient.raw?.rawData?.userRut && (
+              {patient.raw?.rawData?.patientRut && (
                 <p className="text-xs text-gray-500 dark:text-gray-400">
                   {dictionary.assignationLabel.replace(
                     '{rut}',
-                    String(patient.raw.rawData.userRut)
+                    formatRut(patient.raw.rawData.patientRut.toString())
                   )}
                 </p>
               )}
@@ -178,12 +172,8 @@ export function PatientDetailDialog({
         </div>
 
         <DialogFooter className="flex flex-col gap-2 sm:flex-row sm:justify-end">
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
-            <X className="mr-2 h-4 w-4" />
-            {dictionary.close}
-          </Button>
           <Button onClick={onScheduleAppointment}>
-            <Calendar className="mr-2 h-4 w-4" />
+            <Calendar className="mr-2 size-4" />
             {dictionary.schedule}
           </Button>
         </DialogFooter>

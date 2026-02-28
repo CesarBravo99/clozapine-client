@@ -1,17 +1,19 @@
 // API Response types matching the backend PatientAffiliation struct
 export interface PatientAffiliationAPIResponse {
-  patientAffiliationId: number
+  affiliationStatus: number
+  address: string
+  ascendants: string
+  birthday: string
+  clozapineIsActive: boolean
+  clozapineStartDate: string
+  clozapineWasSuspended: boolean
+  email: string
+  notes: string
+  patientFirstName: string
+  patientLastName: string
   patientRut: number
-  userRut: number
-  affiliationId: number
-  affiliationDate: string
-  affiliationStatus: AffiliationStatus
-  isMainAffiliation: boolean
-  // Patient details for table display
-  firstName?: string
-  lastName?: string
-  birthday?: string
-  clozapineIsActive?: boolean
+  patientSex: string
+  phone: string
 }
 
 export enum AffiliationStatus {
