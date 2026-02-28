@@ -183,14 +183,14 @@ export function NotificationProvider({
     patients.map(mapPatient)
   )
 
-  useEffect(() => {
-    setPatientSummaries(patients.map(mapPatient))
-  }, [patients, mapPatient])
-
   const [selectedPatient, setSelectedPatient] = useState<NotificationPatientSummary | null>(null)
   const [isPatientDetailOpen, setPatientDetailOpen] = useState(false)
   const [isAddAppointmentOpen, setAddAppointmentOpen] = useState(false)
   const [isAddPatientOpen, setAddPatientOpen] = useState(false)
+
+  useEffect(() => {
+    setPatientSummaries(patients.map(mapPatient))
+  }, [patients, mapPatient])
 
   const findPatient = useCallback(
     (patientRut: number, fallbackName?: string | null): NotificationPatientSummary | null => {

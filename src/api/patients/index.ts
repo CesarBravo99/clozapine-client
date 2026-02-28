@@ -1,1 +1,1 @@
-export { getPatientsByAffiliation, getPatientDetail } from './patient'
+export { getPatientDetail, getPatientsByAffiliation } from './patient'

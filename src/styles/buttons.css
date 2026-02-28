@@ -10,4 +10,8 @@
   .sidebar-action-button {
     @apply w-full flex gap-1.5 justify-start text-sm text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 dark:text-white transition-colors;
   }
+
+  .btn-success-action {
+    @apply text-white bg-emerald-700 hover:bg-emerald-600;
+  }
 }

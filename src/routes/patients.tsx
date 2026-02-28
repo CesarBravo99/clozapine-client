@@ -14,6 +14,7 @@ import { selectLang } from '@/redux/settings/settings.slice'
 
 export const Route = createFileRoute('/patients')({
   component: RouteComponent,
+  staleTime: 1000 * 60 * 5,
   loader: async ({ context }) => {
     console.log('👥 PATIENTS LOADER: Started')
 

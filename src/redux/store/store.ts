@@ -1,8 +1,8 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit'
-import settingsReducer from '@/redux/settings/settings.slice'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import sessionReducer from '@/redux/session/session.slice'
-import userReducer from '@/redux/user/user.slice'
+import settingsReducer from '@/redux/settings/settings.slice'
 import { saveToLocalStorage } from '@/redux/store/store.storage'
+import userReducer from '@/redux/user/user.slice'
 
 // Simple debounce function
 function debounce<T extends (...args: any[]) => any>(func: T, wait: number): T {

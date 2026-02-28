@@ -30,6 +30,7 @@ import { selectLang } from '@/redux/settings/settings.slice'
 
 export const Route = createFileRoute('/notifications')({
   component: RouteComponent,
+  staleTime: 1000 * 60 * 5,
   loader: async ({ context }) => {
     const { store, queryClient, axiosClient } = context
     const state = store.getState()
@@ -74,7 +75,7 @@ export const Route = createFileRoute('/notifications')({
         patients = await queryClient.ensureQueryData({
           queryKey: ['patients', selectedAffiliationId],
           queryFn: () => getPatientsByAffiliation(selectedAffiliationId, axiosClient),
-          staleTime: 1000 * 60 * 5,
+          staleTime: 5 * 60 * 1000, // 5 minutes cache for patients
         })
       } catch (patientError) {
         console.error('NOTIFICATIONS LOADER: Failed to fetch patients:', patientError)
@@ -87,7 +88,7 @@ export const Route = createFileRoute('/notifications')({
       const notificationResponse = await queryClient.ensureQueryData({
         queryKey: ['notifications', userRut],
         queryFn: () => getNotificationsByUser(userRut, axiosClient),
-        staleTime: 1000 * 60 * 2, // 2 minutes cache
+        staleTime: 5 * 60 * 1000, // 5 minutes cache for notifications
       })
       console.log('✅ NOTIFICATIONS LOADER: Data fetched successfully')
       return {
@@ -157,7 +158,7 @@ function LoadingContent() {
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
               <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex flex-wrap justify-between items-center gap-3">
                 <div className="flex items-center gap-3">
-                  <Bell className="h-7 w-7 text-gray-800 dark:text-white" />
+                  <Bell className="size-7 text-gray-800 dark:text-white" />
                   <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">
                     {langs[lang].notifications.title}
                   </h1>
@@ -165,7 +166,7 @@ function LoadingContent() {
               </div>
               <div className="flex-1 p-4 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-gray-100 mx-auto mb-4" />
+                  <div className="animate-spin rounded-full size-8 border-b-2 border-gray-900 dark:border-gray-100 mx-auto mb-4" />
                   <p className="text-gray-600 dark:text-gray-400">
                     {langs[lang].notifications.loadingText}
                   </p>

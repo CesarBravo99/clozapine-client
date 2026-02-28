@@ -85,7 +85,7 @@ export const es: AppLanguages = {
       completedBadge: 'Completada',
       contentTitle: 'Detalles',
       contentFallback: 'No hay detalles adicionales para esta notificación.',
-      patientSectionTitle: 'Paciente relacionado',
+      patientSectionTitle: 'Paciente asociado',
       patientFallbackName: 'Paciente sin nombre',
       rutLabel: 'RUT: {rut}',
       lastControl: 'Último control',
