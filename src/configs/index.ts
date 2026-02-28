@@ -1,5 +1,5 @@
 const getEnvVar = (key: string, defaultValue?: string): string => {
-  const value = import.meta.env[key]
+  const value = import.meta.env.VITE_CLOZAPINE_API_URL
   if (value === undefined) {
     if (defaultValue !== undefined) {
       return defaultValue

@@ -17,11 +17,8 @@ const axiosClient: AxiosInstance = axios.create({
 
 // Optional: Request Interceptor (e.g., to add an auth token)
 axiosClient.interceptors.request.use(
-  (requestConfig: InternalAxiosRequestConfig) => {
-    const token = document.cookie
-      .split('; ')
-      .find((row) => row.startsWith('token='))
-      ?.split('=')[1]
+  async (requestConfig: InternalAxiosRequestConfig) => {
+    const token = (await cookieStore.get('token'))?.value
     if (token && requestConfig.headers) {
       requestConfig.headers.Authorization = `Bearer ${token}`
     }

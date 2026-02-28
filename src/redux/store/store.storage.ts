@@ -1,9 +1,9 @@
-import { type SettingsState, SETTINGS_STATE_STORAGE_KEY } from '@/redux/settings/settings.types'
-import { type SessionState, SESSION_STATE_STORAGE_KEY } from '@/redux/session/session.types'
-import { saveSettingsState } from '@/redux/settings/settings.storage'
 import { saveSessionState } from '@/redux/session/session.storage'
+import { SESSION_STATE_STORAGE_KEY, type SessionState } from '@/redux/session/session.types'
+import { saveSettingsState } from '@/redux/settings/settings.storage'
+import { SETTINGS_STATE_STORAGE_KEY, type SettingsState } from '@/redux/settings/settings.types'
+import type { AppDispatch } from '@/redux/store/store'
 import { userLogout } from '@/redux/user/user.slice'
-import { type AppDispatch } from '@/redux/store/store'
 import { sessionLogout } from '../session/session.slice'
 
 export const saveToLocalStorage = (state: { settings: SettingsState; session: SessionState }) => {
@@ -70,11 +70,11 @@ export const loadFromLocalStorage = () => {
   }
 }
 
-export const clearLocalStorage = (dispatch: AppDispatch) => {
+export const clearLocalStorage = async (dispatch: AppDispatch) => {
   if (typeof window === 'undefined') {
     return
   }
   dispatch(userLogout())
   dispatch(sessionLogout())
-  document.cookie = `token=${document.cookie}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+  await cookieStore.delete('token')
 }
