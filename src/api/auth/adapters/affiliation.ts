@@ -1,15 +1,15 @@
 import type { ServerAffiliation } from '@/api/auth/types/affiliation.types'
-import type { AffiliationSettings } from '@/domain/affiliation/affiliation-settings.types'
 import type { Affiliation } from '@/domain/affiliation/affiliation.types'
+import type { AffiliationSettings } from '@/domain/affiliation/affiliation-settings.types'
 
-export function adaptAffiliations(
-  serverAffiliations: ServerAffiliation[]
-): Record<number, Affiliation> {
-  const affiliationData: [number, Affiliation][] = []
+export function adaptAffiliations(serverAffiliations: ServerAffiliation[]): Affiliation[] {
+  const affiliationData: Affiliation[] = []
+
   serverAffiliations.forEach((affiliation: ServerAffiliation) => {
-    affiliationData.push([affiliation.affiliationId, adaptAffiliation(affiliation)])
+    affiliationData.push(adaptAffiliation(affiliation))
   })
-  return Object.fromEntries(affiliationData)
+
+  return affiliationData
 }
 
 function adaptAffiliation(affiliation: ServerAffiliation): Affiliation {

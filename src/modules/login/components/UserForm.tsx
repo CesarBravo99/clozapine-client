@@ -1,4 +1,3 @@
-import { useRouteContext } from '@tanstack/react-router'
 import { useSelector } from 'react-redux'
 import { z } from 'zod'
 import { useLoginMutation } from '@/modules/login/hooks/useLoginMutation'
@@ -12,10 +11,8 @@ const schema = z.object({
 })
 
 export function UserForm() {
-  const routeContext = useRouteContext({ from: '__root__' })
-  const { axiosClient } = routeContext
   const lang = useSelector(selectLang)
-  const loginMutation = useLoginMutation(axiosClient)
+  const loginMutation = useLoginMutation()
 
   const form = useAppForm({
     defaultValues: {

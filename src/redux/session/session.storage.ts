@@ -6,9 +6,9 @@
  */
 
 import {
-  type SessionState,
   getDefaultSessionState,
   SESSION_STATE_STORAGE_KEY,
+  type SessionState,
 } from '@/redux/session/session.types'
 
 const defaultSessionState = getDefaultSessionState()

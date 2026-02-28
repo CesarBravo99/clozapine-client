@@ -22,24 +22,17 @@ export const validateLoggedIn = createAsyncThunk(
   }
 )
 
-/*
- * SECURE SESSION REFRESH THUNK
- *
- * Validates current session and restores user data from server.
- * Used for handling page refreshes and session restoration.
- */
-export const refreshSession = createAsyncThunk<
-  SessionRefreshResponse,
-  { axiosClient: AxiosInstance },
-  { rejectValue: string }
->('session/refreshSession', async ({ axiosClient }, { rejectWithValue }) => {
-  try {
-    const response = await refreshUserSession(axiosClient)
-    console.log('Session refresh successful:', response)
-    return response
-  } catch (error: any) {
-    console.error('Session refresh failed:', error)
-    const errorMessage = error.response?.data?.error || 'Session refresh failed'
-    return rejectWithValue(errorMessage)
+export const refreshSession = createAsyncThunk<SessionRefreshResponse, void>(
+  'session/refreshSession',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await refreshUserSession()
+      console.log('Session refresh successful:', response)
+      return response
+    } catch (error: unknown) {
+      console.error('Session refresh failed:', error)
+      const errorMessage = (error as any).response?.data?.error || 'Session refresh failed'
+      return rejectWithValue(errorMessage)
+    }
   }
-})
+)

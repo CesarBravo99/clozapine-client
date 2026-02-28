@@ -11,12 +11,7 @@ export const getNotificationsByUser = async (
   }
 
   try {
-    console.log('🔔 Making notification request:', {
-      userRut,
-      url: `api/v1/notifications/user?requestRut=${userRut}`,
-      baseURL: axiosClient.defaults.baseURL,
-      withCredentials: axiosClient.defaults.withCredentials,
-    })
+    console.log(`Notification request: ${userRut}`)
 
     const response = await axiosClient.get<Notification[]>(
       `api/v1/notifications/user?requestRut=${userRut}`
@@ -24,27 +19,8 @@ export const getNotificationsByUser = async (
 
     console.log('✅ NOTIFICATIONS response success:', response)
     return response.data
-  } catch (error: any) {
-    console.error('❌ Error fetching notifications in API call:', error)
-
-    // Enhanced error logging for CORS issues
-    if (error.message === 'Network Error') {
-      console.error('🚫 CORS Error Details:', {
-        message: 'Network Error typically indicates CORS blocking',
-        possibleCauses: [
-          'CORS Access-Control-Allow-Origin header mismatch',
-          'Server not setting proper CORS headers',
-          'Browser blocking due to credentials + wildcard origin',
-        ],
-        troubleshooting: [
-          'Check server CORS configuration',
-          'Verify server is running on port 1090',
-          'Clear browser cache and cookies',
-          'Check browser developer tools Network tab',
-        ],
-      })
-    }
-
+  } catch (error: unknown) {
+    console.error('Error fetching notifications in API call:', error)
     throw error
   }
 }
@@ -64,7 +40,7 @@ export const completeNotification = async (
 
     return response.data
   } catch (error) {
-    console.error('❌ Error completing notification:', error)
+    console.error('Error completing notification:', error)
     throw error
   }
 }

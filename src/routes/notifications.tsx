@@ -31,8 +31,6 @@ import { selectLang } from '@/redux/settings/settings.slice'
 export const Route = createFileRoute('/notifications')({
   component: RouteComponent,
   loader: async ({ context }) => {
-    console.log('🔔 NOTIFICATIONS LOADER: Started')
-
     const { store, queryClient, axiosClient } = context
     const state = store.getState()
 
@@ -79,7 +77,7 @@ export const Route = createFileRoute('/notifications')({
           staleTime: 1000 * 60 * 5,
         })
       } catch (patientError) {
-        console.error('❌ NOTIFICATIONS LOADER: Failed to fetch patients:', patientError)
+        console.error('NOTIFICATIONS LOADER: Failed to fetch patients:', patientError)
         patients = []
       }
     }
@@ -101,7 +99,7 @@ export const Route = createFileRoute('/notifications')({
         selectedAffiliationId,
       }
     } catch (error) {
-      console.error('❌ NOTIFICATIONS LOADER: Failed to fetch notifications:', error)
+      console.error('NOTIFICATIONS LOADER: Failed to fetch notifications:', error)
       return {
         notifications: [],
         error: 'Failed to load notifications. Please try again.',
@@ -118,7 +116,7 @@ function RouteComponent() {
   const { notifications, userRut, patients, affiliations } = Route.useLoaderData()
 
   if (!userRut) {
-    console.log('🔔 NOTIFICATIONS COMPONENT: Showing loading state (no userRut)')
+    console.warn('NOTIFICATIONS COMPONENT: Showing loading state (no userRut)')
     return (
       <NotificationProvider
         notifications={[]}
@@ -131,7 +129,7 @@ function RouteComponent() {
     )
   }
 
-  console.log('🔔 NOTIFICATIONS COMPONENT: Showing main component for user:', userRut)
+  console.warn('NOTIFICATIONS COMPONENT: Showing main component for user:', userRut)
 
   return (
     <NotificationProvider
@@ -206,7 +204,7 @@ function NotificationContent() {
     affiliations,
   } = useNotificationContext()
 
-  console.log('🔔 NOTIFICATIONS COMPONENT: Rendering with data:', {
+  console.warn('NOTIFICATIONS COMPONENT: Rendering with data:', {
     totalNotifications: contextNotifications.length,
     filteredNotifications: filteredNotifications.length,
     error,
@@ -220,12 +218,12 @@ function NotificationContent() {
   const groupedNotifications = groupNotificationsByDateAndPatient(filteredNotifications)
 
   const handleAddPatientSubmit = (data: AddPatientFormData) => {
-    console.log('➕ ADD PATIENT form submitted:', data)
+    console.log('ADD PATIENT form submitted:', data)
     setAddPatientOpen(false)
   }
 
   const handleAddAppointmentSubmit = (data: AppointmentFormData & { patientRut?: number }) => {
-    console.log('🗓️ APPOINTMENT scheduled:', data)
+    console.log('APPOINTMENT scheduled:', data)
     setAddAppointmentOpen(false)
   }
 

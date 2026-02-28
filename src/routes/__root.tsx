@@ -20,7 +20,7 @@ import { setUserState } from '@/redux/user/user.slice'
 
 export interface RouterContext {
   navigate: typeof useAuthenticatedNavigate
-  store: Store<RootState>
+  store: Store<RootState, any, any>
   axiosClient: AxiosInstance
   queryClient: QueryClient
 }
@@ -31,6 +31,15 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 
     // Debug cookies for troubleshooting
     debugCookies()
+
+    // If user data is already in memory, we're in an active in-app session
+    // (e.g., just logged in). The user slice is NOT persisted to localStorage, so
+    // userRut > 0 only when setUserState was dispatched — never on a cold page refresh.
+    const inMemoryState = context.store.getState()
+    if (inMemoryState.session?.isLoggedIn && (inMemoryState.user?.user?.userRut ?? 0) > 0) {
+      console.log('ROOT beforeLoad: Active in-memory session, skipping restoration')
+      return
+    }
 
     try {
       // 1. Load persisted state from localStorage
@@ -55,9 +64,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 
             try {
               // 5. Validate session and restore user data from server
-              const refreshResult = await context.store.dispatch(
-                refreshSession({ axiosClient: context.axiosClient }) as any
-              )
+              const refreshResult = await context.store.dispatch(refreshSession())
 
               if (refreshSession.fulfilled.match(refreshResult)) {
                 // 6. Session is valid - restore all user state
@@ -86,27 +93,27 @@ export const Route = createRootRouteWithContext<RouterContext>()({
                 )
               } else {
                 // 7. Session is invalid - clear persisted state
-                console.log('❌ ROOT beforeLoad: Session refresh failed, clearing session')
+                console.error('ROOT beforeLoad: Session refresh failed, clearing session')
                 localStorage.removeItem(SESSION_STATE_STORAGE_KEY)
                 context.store.dispatch(sessionLogout())
               }
             } catch (refreshError) {
-              console.error('❌ ROOT beforeLoad: Session refresh error:', refreshError)
+              console.error('ROOT beforeLoad: Session refresh error:', refreshError)
               // Clear invalid session data
               localStorage.removeItem(SESSION_STATE_STORAGE_KEY)
               context.store.dispatch(sessionLogout())
             }
           } else {
-            console.log('🚫 ROOT beforeLoad: No auth cookies found, clearing stale session')
+            console.error('ROOT beforeLoad: No auth cookies found, clearing stale session')
             // Clear stale session data if no cookies present
             localStorage.removeItem(SESSION_STATE_STORAGE_KEY)
             context.store.dispatch(sessionLogout())
           }
         } else {
-          console.log('👤 ROOT beforeLoad: No valid session found, user needs to login')
+          console.error('ROOT beforeLoad: No valid session found, user needs to login')
         }
       } else {
-        console.log('🆕 ROOT beforeLoad: No persisted state found, fresh start')
+        console.error('ROOT beforeLoad: No persisted state found, fresh start')
       }
     } catch (error) {
       console.error('❌ ROOT beforeLoad: Error during state restoration:', error)

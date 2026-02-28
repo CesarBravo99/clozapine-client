@@ -1,10 +1,10 @@
 import type { AxiosInstance } from 'axios'
+import { adaptPatientForTable } from './adapters/patient.adapter'
 import type {
   PatientAffiliationAPIResponse,
   PatientDetail,
   PatientTableData,
 } from './types/patient.types'
-import { adaptPatientForTable } from './adapters/patient.adapter'
 
 export const getPatientsByAffiliation = async (
   affiliationId: number | undefined,
@@ -37,25 +37,6 @@ export const getPatientsByAffiliation = async (
     return tableData
   } catch (error: any) {
     console.error('❌ Error fetching patients in API call:', error)
-
-    // Enhanced error logging for CORS issues
-    if (error.message === 'Network Error') {
-      console.error('🚫 CORS Error Details:', {
-        message: 'Network Error typically indicates CORS blocking',
-        possibleCauses: [
-          'CORS Access-Control-Allow-Origin header mismatch',
-          'Server not setting proper CORS headers',
-          'Browser blocking due to credentials + wildcard origin',
-        ],
-        troubleshooting: [
-          'Check server CORS configuration',
-          'Verify server is running on port 1090',
-          'Clear browser cache and cookies',
-          'Check browser developer tools Network tab',
-        ],
-      })
-    }
-
     throw error
   }
 }

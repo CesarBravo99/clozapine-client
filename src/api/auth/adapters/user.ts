@@ -4,7 +4,7 @@ import type { User, UserSettings } from '@/domain/user/user.types'
 import type { UserAffiliation } from '@/domain/user/user-affiliation.types'
 import { formatRut } from '@/lib/rut'
 
-export function adaptUser(serverUser: ServerUser, affiliations: Record<number, Affiliation>): User {
+export function adaptUser(serverUser: ServerUser, affiliations: Affiliation[]): User {
   const userSettings: UserSettings = {
     theme: serverUser.userSettings.userTheme as 'light' | 'dark',
     language: serverUser.userSettings.userLanguage,
@@ -19,7 +19,7 @@ export function adaptUser(serverUser: ServerUser, affiliations: Record<number, A
   serverUser.userAffiliations.forEach((affiliation) => {
     userAffiliations[affiliation.affiliationId] = adaptUserAffiliation(
       affiliation,
-      affiliations[affiliation.affiliationId]
+      affiliations.find((a) => a.affiliationId === affiliation.affiliationId) as Affiliation
     )
   })
 

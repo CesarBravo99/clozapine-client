@@ -1,13 +1,11 @@
-import { useAppForm } from '@/modules/login/providers/login-form.provider'
-import { useRouteContext } from '@tanstack/react-router'
-import { useLoginMutation } from '@/modules/login/hooks/useLoginMutation'
 import { useSelector } from 'react-redux'
+import { useLoginMutation } from '@/modules/login/hooks/useLoginMutation'
+import { useAppForm } from '@/modules/login/providers/login-form.provider'
 import { selectLang } from '@/redux/settings/settings.slice'
 
 export const useLoginForm = () => {
-  const { axiosClient } = useRouteContext({ from: '__root__' })
   const lang = useSelector(selectLang)
-  const loginMutation = useLoginMutation(axiosClient)
+  const loginMutation = useLoginMutation()
 
   const form = useAppForm({
     defaultValues: {

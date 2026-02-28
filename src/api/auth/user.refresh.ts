@@ -1,32 +1,17 @@
-/*
- * SECURE SESSION REFRESH API
- *
- * This API validates the current session (HTTP-only cookies + token)
- * and returns user data for state restoration after page refresh.
- *
- * Security Features:
- * - Uses HTTP-only cookies for authentication
- * - Validates session server-side
- * - Returns safe user data for Redux state
- */
-
-import { adaptUser } from '@/api/auth/adapters/user'
 import { adaptAffiliations } from '@/api/auth/adapters/affiliation'
-import type { User } from '@/domain/user/user.types'
+import { adaptUser } from '@/api/auth/adapters/user'
+import axiosClient from '@/api/axiosClient'
 import type { Affiliation } from '@/domain/affiliation/affiliation.types'
-import type { AxiosInstance } from 'axios'
-
+import type { User } from '@/domain/user/user.types'
 export interface SessionRefreshResponse {
   user: User
-  affiliations: Record<number, Affiliation>
+  affiliations: Affiliation[]
   message: string
 }
 
-export const refreshUserSession = async (
-  axiosClient: AxiosInstance
-): Promise<SessionRefreshResponse> => {
+export const refreshUserSession = async (): Promise<SessionRefreshResponse> => {
   try {
-    const response = await axiosClient.post('/refresh')
+    const response = await axiosClient.post('/api/auth/session/refresh')
 
     console.log('Session refresh successful:', response.data)
 

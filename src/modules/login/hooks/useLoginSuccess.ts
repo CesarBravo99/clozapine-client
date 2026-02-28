@@ -1,10 +1,10 @@
-import { useDispatch } from 'react-redux'
 import { useRouter } from '@tanstack/react-router'
-import { setUserState } from '@/redux/user/user.slice'
-import { setSettings } from '@/redux/settings/settings.slice'
-import { ThemeState, LanguageState, FontSizeState } from '@/redux/settings/settings.types'
-import { sessionLogin } from '@/redux/session/session.slice'
+import { useDispatch } from 'react-redux'
 import type { LoginFormResponse } from '@/api/auth/user.login'
+import { sessionLogin } from '@/redux/session/session.slice'
+import { setSettings } from '@/redux/settings/settings.slice'
+import type { FontSizeState, LanguageState, ThemeState } from '@/redux/settings/settings.types'
+import { setUserState } from '@/redux/user/user.slice'
 
 export const useLoginSuccess = () => {
   const router = useRouter()
@@ -33,13 +33,9 @@ export const useLoginSuccess = () => {
 
     // Determine initial affiliation selection
     const userAffiliationKeys = Object.keys(response.user.userAffiliations)
-    let selectedAffiliationId = -1
 
-    if (userAffiliationKeys.length === 1) {
-      // Auto-select if user has only one affiliation
-      selectedAffiliationId = parseInt(userAffiliationKeys[0])
-    }
-    // If multiple affiliations, leave as -1 to show selection UI
+    // Select first affiliation by default
+    const selectedAffiliationId = Number.parseInt(userAffiliationKeys[0], 10)
 
     // Set secure session state (no sensitive credentials)
     dispatch(
