@@ -96,7 +96,7 @@ function RouteComponent() {
 }
 
 function PatientsContent({ affiliationId }: { affiliationId: number | null }) {
-  const { filteredPatients, patients, filterType, loading, error, handleRefresh } = usePatients()
+  const { filteredPatients, patients, loading, error, handleRefresh } = usePatients()
   const lang = useSelector(selectLang)
 
   return (

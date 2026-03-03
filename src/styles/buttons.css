@@ -15,3 +15,9 @@
     @apply text-white bg-emerald-700 hover:bg-emerald-600;
   }
 }
+
+@layer inputs {
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    @apply absolute right-2 invert-100 dark:invert-0;
+  }
+}
