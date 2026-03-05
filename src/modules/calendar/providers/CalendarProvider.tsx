@@ -24,7 +24,7 @@ import {
   deleteCalendarEvent,
   updateCalendarEventStatus,
 } from '@/api/calendar'
-import { useMediaQuery } from '@/hooks/use-media-query'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { langs } from '@/modules/calendar/lang'
 import { selectLang } from '@/redux/settings/settings.slice'
 import {

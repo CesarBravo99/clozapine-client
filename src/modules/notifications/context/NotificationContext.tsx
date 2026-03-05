@@ -16,7 +16,7 @@ import type { PatientTableData } from '@/api/patients/types/patient.types'
 import type { Affiliation } from '@/domain/affiliation/affiliation.types'
 import type { Notification, NotificationMetadata } from '@/domain/notification.types'
 import { NotificationType } from '@/domain/notification.types'
-import { useMediaQuery } from '@/hooks/use-media-query'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { formatRut } from '@/lib/rut'
 
 const TYPE_KEY_TO_VALUE: Record<string, NotificationType> = {

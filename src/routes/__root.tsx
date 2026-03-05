@@ -130,7 +130,6 @@ export const Route = createRootRouteWithContext<RouterContext>()({
         <HeadContent />
       </head>
       <ReduxProvider store={store}>
-        {/* <TSHeader /> */}
         <div className="min-h-screen flex flex-col" tabIndex={-1}>
           <Header />
           <main className="grow bg-linear-to-b from-gray-50 to-gray-50 dark:from-gray-950 dark:to-gray-950">

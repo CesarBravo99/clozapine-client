@@ -16,7 +16,7 @@ import {
   updatePersonnel,
 } from '@/api/config'
 import type { Affiliation } from '@/domain/affiliation/affiliation.types'
-import { useMediaQuery } from '@/hooks/use-media-query'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { langs } from '@/modules/config/lang'
 import { selectLang } from '@/redux/settings/settings.slice'
 import {

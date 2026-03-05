@@ -11,7 +11,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import type { ProfileDisplayData } from '@/api/profile'
 import type { Affiliation } from '@/domain/affiliation/affiliation.types'
-import { useMediaQuery } from '@/hooks/use-media-query'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { langs } from '@/modules/profile/lang'
 import { setSelectedAffiliationId } from '@/redux/session/session.slice'
 import { selectLang } from '@/redux/settings/settings.slice'

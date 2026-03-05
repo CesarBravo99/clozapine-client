@@ -4,7 +4,7 @@ import { type FC, type ReactNode, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { useMediaQuery } from '@/hooks/use-media-query'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { langs } from '@/lang'
 import { selectLang } from '@/redux/settings/settings.slice'
 
