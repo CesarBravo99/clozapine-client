@@ -4,7 +4,7 @@
   }
 
   .btn-color-common {
-    @apply text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 dark:text-white;
+    @apply text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 dark:text-white;
   }
 
   .sidebar-action-button {

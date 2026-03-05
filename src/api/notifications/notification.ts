@@ -17,7 +17,6 @@ export const getNotificationsByUser = async (
       `api/v1/notifications/user?requestRut=${userRut}`
     )
 
-    console.log('✅ NOTIFICATIONS response success:', response)
     return response.data
   } catch (error: unknown) {
     console.error('Error fetching notifications in API call:', error)

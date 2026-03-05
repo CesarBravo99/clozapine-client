@@ -1,19 +1,19 @@
+import { Check } from 'lucide-react'
+import { useSelector } from 'react-redux'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
+  DialogHeader,
+  DialogTitle,
 } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
-import { Check } from 'lucide-react'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import type { Affiliation } from '@/domain/affiliation/affiliation.types'
-import { useSelector } from 'react-redux'
-import { selectLang } from '@/redux/settings/settings.slice'
 import { langs } from '@/modules/profile/lang'
+import { selectLang } from '@/redux/settings/settings.slice'
 
 interface AffiliationSelectorDialogProps {
   open: boolean
@@ -35,7 +35,7 @@ export function AffiliationSelectorDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px] dark:border-gray-700">
+      <DialogContent className="sm:max-w-124 dark:border-gray-700">
         <DialogHeader>
           <DialogTitle className="text-xl text-gray-900 dark:text-white">{text.title}</DialogTitle>
           <DialogDescription className="text-gray-500 dark:text-gray-400">
@@ -43,11 +43,11 @@ export function AffiliationSelectorDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="py-4">
+        <div className="pb-2">
           <RadioGroup
             value={selectedAffiliationId.toString()}
             onValueChange={(value) => onSelectAffiliation(Number(value))}
-            className="space-y-4"
+            className="flex flex-col gap-2"
           >
             {affiliations.map((affiliation) => (
               <div
@@ -71,8 +71,8 @@ export function AffiliationSelectorDialog({
                     {affiliation.affiliationName}
                   </div>
                   {selectedAffiliationId === affiliation.affiliationId && (
-                    <div className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-500 text-white">
-                      <Check className="h-3.5 w-3.5" />
+                    <div className="flex size-5 items-center justify-center rounded-full bg-blue-500 text-white">
+                      <Check className="size-3.5" />
                     </div>
                   )}
                 </Label>
@@ -84,7 +84,7 @@ export function AffiliationSelectorDialog({
         <DialogFooter>
           <Button
             onClick={() => onSelectAffiliation(selectedAffiliationId)}
-            className="w-full sm:w-auto bg-blue-500 hover:bg-blue-600"
+            className="w-full sm:w-auto btn-color-common"
           >
             {text.confirm}
           </Button>

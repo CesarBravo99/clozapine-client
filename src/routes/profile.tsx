@@ -62,8 +62,9 @@ export const Route = createFileRoute('/profile')({
     try {
       const profileResponse = await queryClient.ensureQueryData({
         queryKey: ['profile', userRut],
-        queryFn: () => getUserProfile(userRut, axiosClient),
+        queryFn: () => getUserProfile(axiosClient),
         staleTime: 1000 * 60 * 10,
+        retry: false,
       })
 
       const adaptedData = adaptUserProfileToDisplayData(profileResponse)

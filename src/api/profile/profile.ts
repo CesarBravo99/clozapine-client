@@ -10,11 +10,10 @@ import type {
  * Get user profile data (user info, settings, credentials, affiliations)
  */
 export const getUserProfile = async (
-  userRut: number,
   axiosClient: AxiosInstance
 ): Promise<UserProfileData> => {
   try {
-    const response = await axiosClient.get(`/api/v1/profile/${userRut}`)
+    const response = await axiosClient.get('/api/v1/profile')
     return response.data
   } catch (error) {
     console.error('Error fetching user profile:', error)

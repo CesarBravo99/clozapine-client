@@ -1,13 +1,13 @@
-import { Card, CardHeader, CardContent, CardTitle, CardFooter } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
-import { Switch } from '@/components/ui/switch'
-import { Button } from '@/components/ui/button'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Moon, Sun } from 'lucide-react'
-import type { FontSizeOption, NotificationPreferencesState } from '@/modules/profile/context'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectLang, selectSettings, toggleTheme } from '@/redux/settings/settings.slice'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Label } from '@/components/ui/label'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { Switch } from '@/components/ui/switch'
+import type { FontSizeOption, NotificationPreferencesState } from '@/modules/profile/context'
 import { langs } from '@/modules/profile/lang'
+import { selectLang, selectSettings, toggleTheme } from '@/redux/settings/settings.slice'
 
 interface PreferencesSectionProps {
   fontSize: FontSizeOption
@@ -61,7 +61,7 @@ export function PreferencesSection({
           </div>
         </CardContent>
         <CardFooter className="flex justify-end">
-          <Button onClick={onSave} className="bg-blue-500 hover:bg-blue-600" disabled={isSaving}>
+          <Button onClick={onSave} className="btn-color-common" disabled={isSaving}>
             {isSaving ? text.saving : text.save}
           </Button>
         </CardFooter>

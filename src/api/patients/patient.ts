@@ -27,8 +27,6 @@ export const getPatientsByAffiliation = async (
       `api/v1/patients/affiliation/${affiliationId}`
     )
 
-    console.log('✅ PATIENTS response success:', response)
-
     // Convert API response to table data
     const tableData = response.data.map(adaptPatientForTable)
 
@@ -36,7 +34,7 @@ export const getPatientsByAffiliation = async (
 
     return tableData
   } catch (error: any) {
-    console.error('❌ Error fetching patients in API call:', error)
+    console.error('Error fetching patients in API call:', error)
     throw error
   }
 }
