@@ -1,10 +1,5 @@
 import { createContext, useContext } from 'react'
-import type {
-  CalendarEvent,
-  CalendarEventPayload,
-  CalendarEventStatus,
-  CalendarPatientSummary,
-} from '@/api/calendar'
+import type { CalendarEvent, CalendarEventPayload, CalendarEventStatus } from '@/api/calendar'
 
 export type CalendarView = 'day' | 'week' | 'month'
 
@@ -42,8 +37,6 @@ export interface CalendarContextValue {
   createEvent: () => void
   updateEventStatus: (status: CalendarEventStatus) => void
   deleteEvent: () => void
-
-  patients: CalendarPatientSummary[]
 
   sidebarCollapsed: boolean
   isExtraSmallScreen: boolean

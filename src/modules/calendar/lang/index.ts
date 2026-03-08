@@ -1,4 +1,4 @@
-import { en, type CalendarModuleTranslations } from './en'
+import { type CalendarModuleTranslations, en } from './en'
 import { es } from './es'
 
 export type { CalendarModuleTranslations } from './en'

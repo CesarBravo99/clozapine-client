@@ -1,14 +1,14 @@
 export {
-  getCalendarOverview,
   createCalendarEvent,
-  updateCalendarEventStatus,
   deleteCalendarEvent,
+  getCalendarOverview,
+  updateCalendarEventStatus,
 } from './calendar'
 
 export type {
-  CalendarOverview,
   CalendarEvent,
   CalendarEventPayload,
   CalendarEventStatus,
+  CalendarOverview,
   CalendarPatientSummary,
 } from './types/calendar.types'

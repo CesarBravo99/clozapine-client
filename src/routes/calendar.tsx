@@ -185,7 +185,7 @@ function CalendarContent({ error, affiliations, selectedAffiliationId }: Calenda
                     <Button variant="outline" size="icon" onClick={handlePrevious}>
                       <ChevronLeft className="size-4" />
                     </Button>
-                    <div className="text-lg font-semibold min-w-45 text-center">
+                    <div className="text-base font-semibold text-center">
                       {format(date, 'PPPP', { locale: dateLocale })}
                     </div>
                     <Button variant="outline" size="icon" onClick={handleNext}>

@@ -22,7 +22,6 @@ export interface CalendarPatientSummary {
 
 export interface CalendarOverview {
   events: CalendarEvent[]
-  patients: CalendarPatientSummary[]
 }
 
 export interface CalendarEventPayload {

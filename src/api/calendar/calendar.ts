@@ -1,9 +1,9 @@
 import type { AxiosInstance } from 'axios'
-import {
-  type CalendarOverview,
-  type CalendarEvent,
-  type CalendarEventPayload,
-  type CalendarEventStatus,
+import type {
+  CalendarEvent,
+  CalendarEventPayload,
+  CalendarEventStatus,
+  CalendarOverview,
 } from './types/calendar.types'
 
 const today = new Date()
@@ -28,14 +28,6 @@ const mockEvents: CalendarEvent[] = [
 
 const mockOverview: CalendarOverview = {
   events: mockEvents,
-  patients: [
-    {
-      rut: '12.345.678-9',
-      name: 'Daniela Ramos',
-      phone: '+56 9 1234 5678',
-      lastAppointment: new Date().toISOString(),
-    },
-  ],
 }
 
 export const getCalendarOverview = async (
